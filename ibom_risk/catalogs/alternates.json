@@ -1,0 +1,27 @@
+{
+  "_comment": "Suggested form-fit-function alternates. ILLUSTRATIVE and unqualified: every suggestion is written with qualified=false until engineering validates it. `leadTimeDays` is a typical stock lead time used only to judge whether the alternate could beat a late order.",
+  "entries": [
+    {
+      "match": "QSFP-100G-SR4",
+      "alternates": [
+        {"mpn": "QSFP28-100G-SR4 (switch-vendor-coded compatible)", "manufacturerName": "Third-party optics vendor (example)",
+         "impact": "Needs coding for the host switch; check the switch vendor's support policy for third-party optics.",
+         "leadTimeDays": 10}
+      ]
+    },
+    {
+      "match": "CAB-Q28-DAC|QSFP28.*DAC",
+      "alternates": [
+        {"mpn": "QSFP28 100G passive DAC 3 m (compatible)", "manufacturerName": "Third-party cable vendor (example)",
+         "impact": "Passive copper; confirm length and host coding.", "leadTimeDays": 7}
+      ]
+    },
+    {
+      "match": "PDU-SW-0U-17K",
+      "alternates": [
+        {"mpn": "0U switched PDU, 17.3 kW, 3-phase, C13/C19 mix (any listed vendor)",
+         "impact": "Match inlet plug, outlet mix and metering protocol (SNMP/Redfish) before swapping.", "leadTimeDays": 21}
+      ]
+    }
+  ]
+}

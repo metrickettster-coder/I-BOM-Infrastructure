@@ -1,0 +1,61 @@
+{
+  "_sample": "SAMPLE DATA: synthetic Redfish pull, 2026-10-12: BIOS updated to the golden version, BMC not yet.",
+  "collectedAt": "2026-10-12T06:00:00Z",
+  "endpoint": "https://idrac-7xk2q35.mgmt.example/redfish/v1",
+  "resources": [
+    {
+      "@odata.id": "/redfish/v1/Systems/System.Embedded.1",
+      "@odata.type": "#ComputerSystem.v1_20_0.ComputerSystem",
+      "Id": "System.Embedded.1",
+      "Manufacturer": "Dell Inc.",
+      "Model": "PowerEdge R760xa",
+      "SerialNumber": "7XK2Q35",
+      "BiosVersion": "1.9.1",
+      "PowerState": "On",
+      "Status": {
+        "State": "Enabled",
+        "Health": "Warning",
+        "HealthRollup": "Warning"
+      },
+      "MemorySummary": {
+        "TotalSystemMemoryGiB": 512,
+        "Status": {
+          "Health": "Warning",
+          "HealthRollup": "Warning"
+        }
+      },
+      "ProcessorSummary": {
+        "Count": 2,
+        "Model": "Intel(R) Xeon(R) Gold 6548Y+"
+      }
+    },
+    {
+      "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1",
+      "@odata.type": "#Manager.v1_19_0.Manager",
+      "FirmwareVersion": "7.10.50.00"
+    },
+    {
+      "@odata.id": "/redfish/v1/Chassis/System.Embedded.1/Thermal",
+      "@odata.type": "#Thermal.v1_7_0.Thermal",
+      "Temperatures": [
+        {
+          "Name": "System Board Inlet Temp",
+          "ReadingCelsius": 25
+        },
+        {
+          "Name": "CPU1 Temp",
+          "ReadingCelsius": 58
+        }
+      ]
+    },
+    {
+      "@odata.id": "/redfish/v1/Chassis/System.Embedded.1/Power",
+      "@odata.type": "#Power.v1_7_0.Power",
+      "PowerControl": [
+        {
+          "PowerConsumedWatts": 1530
+        }
+      ]
+    }
+  ]
+}
