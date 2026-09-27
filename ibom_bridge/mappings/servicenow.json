@@ -1,0 +1,85 @@
+{
+  "_comment": "I-BOM -> ServiceNow CMDB mapping. Edit to match your instance's class model; no code changes needed. ciClasses is checked by 'class:category' first, then 'category', then 'class'. A null class means the line is not a CI (it stays in the I-BOM, ERP and SAM). Class names follow the CSDM/base CMDB model; confirm each exists on your instance under System Definition > Tables.",
+  "system": "ServiceNow",
+  "ciClasses": {
+    "hardware:server": "cmdb_ci_server",
+    "hardware:switch": "cmdb_ci_ip_switch",
+    "hardware:router": "cmdb_ci_ip_router",
+    "hardware:firewall": "cmdb_ci_ip_firewall",
+    "hardware:load-balancer": "cmdb_ci_lb",
+    "hardware:storage": "cmdb_ci_storage_server",
+    "hardware:pdu": "cmdb_ci_pdu",
+    "hardware:ups": "cmdb_ci_ups",
+    "hardware:rack": "cmdb_ci_rack",
+    "cloud-resource:vm": "cmdb_ci_vm_instance",
+    "virtual:vm": "cmdb_ci_vm_instance",
+    "cloud-resource:container-cluster": "cmdb_ci_kubernetes_cluster",
+    "virtual:container-cluster": "cmdb_ci_kubernetes_cluster",
+    "cloud-resource:object-storage": "cmdb_ci_cloud_object_storage",
+    "cloud-resource:database": "cmdb_ci_cloud_database",
+    "cloud-resource:load-balancer": "cmdb_ci_cloud_load_balancer",
+    "hardware": null,
+    "cloud-resource": null,
+    "virtual": null,
+    "firmware": null,
+    "software": null,
+    "license": null,
+    "consumable": null,
+    "labor": null,
+    "service": null,
+    "soft-cost": null
+  },
+  "_comment_compatible": "CMDB classes accepted as the same kind of CI when reconciling (discovery often files servers under an OS-specific child class).",
+  "compatibleClasses": {
+    "cmdb_ci_server": ["cmdb_ci_linux_server", "cmdb_ci_win_server", "cmdb_ci_unix_server", "cmdb_ci_esx_server", "cmdb_ci_computer"],
+    "cmdb_ci_vm_instance": ["cmdb_ci_ec2_instance", "cmdb_ci_vm", "cmdb_ci_vmware_instance"],
+    "cmdb_ci_ip_switch": ["cmdb_ci_netgear"]
+  },
+  "_comment_status": "I-BOM lifecycle status -> ServiceNow install_status code. Base codes: 1 Installed, 2 On Order, 3 In Maintenance, 4 Pending Install, 5 Pending Repair, 6 In Stock, 7 Retired, 100 Absent.",
+  "installStatus": {
+    "planned": 2, "quoted": 2, "ordered": 2, "backordered": 2, "in-transit": 2,
+    "received": 6, "staged": 6, "spare": 6,
+    "burn-in": 4,
+    "deployed": 1, "in-service": 1, "degraded": 1, "discovered-unmanaged": 1,
+    "failed": 3, "in-repair": 3, "rma": 5,
+    "decommissioned": 7, "disposed": 7
+  },
+  "installStatusLabels": {
+    "1": "Installed", "2": "On Order", "3": "In Maintenance", "4": "Pending Install", "5": "Pending Repair",
+    "6": "In Stock", "7": "Retired", "8": "Stolen", "100": "Absent"
+  },
+  "_comment_operational": "I-BOM status -> operational_status. 1 Operational, 2 Non-Operational, 3 Repair in Progress, 5 Ready, 6 Retired.",
+  "operationalStatus": {
+    "deployed": 1, "in-service": 1, "degraded": 1, "discovered-unmanaged": 1,
+    "burn-in": 5, "received": 5, "staged": 5, "spare": 5,
+    "failed": 2, "in-repair": 3, "rma": 3,
+    "decommissioned": 6, "disposed": 6
+  },
+  "_comment_relations": "I-BOM relationship type -> ServiceNow relationship type (parent descriptor::child descriptor). The I-BOM 'from' end is the ServiceNow parent.",
+  "relations": {
+    "runs-on": "Runs on::Runs",
+    "contains": "Contains::Contained by",
+    "connects-to": "Connects to::Connected by",
+    "powered-by": "Powered by::Powers",
+    "depends-on": "Depends on::Used by",
+    "hosted-on": "Hosted on::Hosts",
+    "member-of": "Members::Member of"
+  },
+  "_comment_fields": "Fields read back from a CMDB export and compared with the I-BOM. Each maps a canonical key to the column names it may appear under (Table API field names, or list-view labels from a CSV/XLSX export).",
+  "exportFields": {
+    "sys_id": ["sys_id", "Sys ID"],
+    "sys_class_name": ["sys_class_name", "Class"],
+    "name": ["name", "Name"],
+    "serial_number": ["serial_number", "Serial number"],
+    "asset_tag": ["asset_tag", "Asset tag"],
+    "correlation_id": ["correlation_id", "Correlation ID"],
+    "object_id": ["object_id", "Object ID", "Object Id"],
+    "install_status": ["install_status", "Install Status", "Status"],
+    "model_id": ["model_id", "Model ID", "Model"],
+    "manufacturer": ["manufacturer", "Manufacturer"],
+    "location": ["location", "Location"],
+    "cost_center": ["cost_center", "Cost center"],
+    "asset": ["asset", "Asset"],
+    "po_number": ["po_number", "PO number"]
+  }
+}

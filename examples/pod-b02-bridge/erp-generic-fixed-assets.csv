@@ -1,0 +1,6 @@
+asset_number,asset_subnumber,description,serial_number,inventory_number,quantity,capitalization_date,acquisition_value,currency,useful_life_months,depreciation_method,salvage_value,cost_center,gl_account,location,po_number,po_line,invoice_number,vendor_id,accumulated_depreciation,net_book_value,as_of_date,embodied_kgco2e,ghg_scope3_category,ibom_ref
+,,R760XA-CTO-L40S,7XK2Q34,,1,2026-09-01,66900.0,USD,60,straight-line,,CC-AI-INF,1520000,DAL1 receiving dock (sample),4500018823,10,INV-88213,V100482,1115.0,65785.0,2026-09-30,,2,hw-r760xa-cto-l40s#7XK2Q34
+,,R760XA-CTO-L40S,7XK2Q35,,1,2026-09-01,66900.0,USD,60,straight-line,,CC-AI-INF,1520000,DAL1 receiving dock (sample),4500018823,10,INV-88213,V100482,1115.0,65785.0,2026-09-30,,2,hw-r760xa-cto-l40s#7XK2Q35
+,,DCS-7050CX3-32S,JPE26210F1A,,1,,21400.0,USD,60,straight-line,,CC-AI-INF,1520000,DAL1 receiving dock (sample),4500018823,20,INV-88213,V100482,,,2026-09-30,,2,hw-dcs-7050cx3-32s
+,,PDU-SW-0U-17K,PDU24A0193,,1,,1790.0,USD,120,straight-line,,CC-AI-INF,1520000,DAL1 receiving dock (sample),4500018823,50,INV-88213,V100482,,,2026-09-30,,2,hw-pdu-sw-0u-17k#PDU24A0193
+,,PDU-SW-0U-17K,PDU24A0194,,1,,1790.0,USD,120,straight-line,,CC-AI-INF,1520000,DAL1 receiving dock (sample),4500018823,50,INV-88213,V100482,,,2026-09-30,,2,hw-pdu-sw-0u-17k#PDU24A0194

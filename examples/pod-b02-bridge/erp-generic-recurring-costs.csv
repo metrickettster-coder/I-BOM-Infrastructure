@@ -1,0 +1,6 @@
+ibom_ref,description,provider,resource_id,monthly_cost,currency,cost_center,gl_account,ibom_status
+tf-module.inference.aws_instance.gateway-0,inference-gateway-0,aws,arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60001,734.38,USD,,,in-service
+tf-module.inference.aws_instance.gateway-1,inference-gateway-1,aws,arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60002,734.38,USD,,,deployed
+tf-module.inference.aws_instance.router,inference-router,aws,arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60003,147.17,USD,,,deployed
+tf-module.inference.aws_eks_node_group.gpu,module.inference.aws_eks_node_group.gpu,aws,arn:aws:eks:us-east-1:111122223333:nodegroup/inf-b02/gpu/5ec9d2a1,587.65,USD,,,deployed
+shadow-i-0fee1dead0c0ffee1,llm-eval-notebook (unmanaged),aws,arn:aws:ec2:us-east-1:111122223333:instance/i-0fee1dead0c0ffee1,965.79,USD,,,discovered-unmanaged
