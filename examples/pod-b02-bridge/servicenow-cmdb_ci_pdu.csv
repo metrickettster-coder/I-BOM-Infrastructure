@@ -1,0 +1,3 @@
+correlation_id,name,serial_number,asset_tag,object_id,manufacturer,model_id,install_status,operational_status,location,cost_center,po_number,cost,short_description,discovery_source
+hw-pdu-sw-0u-17k#PDU24A0193,PDU-SW-0U-17K PDU24A0193,PDU24A0193,,,Sample PDU Co,PDU-SW-0U-17K,6,5,DAL1 receiving dock (sample),CC-AI-INF,4500018823,1790.0,"Switched rack PDU, zero-U, 17.3kW, 3-phase",I-BOM
+hw-pdu-sw-0u-17k#PDU24A0194,PDU-SW-0U-17K PDU24A0194,PDU24A0194,,,Sample PDU Co,PDU-SW-0U-17K,6,5,DAL1 receiving dock (sample),CC-AI-INF,4500018823,1790.0,"Switched rack PDU, zero-U, 17.3kW, 3-phase",I-BOM

@@ -1,0 +1,2 @@
+correlation_id,name,serial_number,asset_tag,object_id,manufacturer,model_id,install_status,operational_status,location,cost_center,po_number,cost,short_description,discovery_source
+tf-aws_s3_bucket.models,Model artifact bucket,,,arn:aws:s3:::prj-inf-0107-models,,,1,1,AWS us-east-1,,,,Model artifact bucket,I-BOM

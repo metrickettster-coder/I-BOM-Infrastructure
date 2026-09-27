@@ -1,0 +1,4 @@
+correlation_id,name,serial_number,asset_tag,object_id,manufacturer,model_id,install_status,operational_status,location,cost_center,po_number,cost,short_description,discovery_source
+hw-r760xa-cto-l40s#7XK2Q34,inf-b02-01,7XK2Q34,,,Dell,R760XA-CTO-L40S,1,1,DAL1 receiving dock (sample),CC-AI-INF,4500018823,66900.0,"PowerEdge R760xa server, 2x Xeon Gold 6548Y+, 512GB DDR5, 4x NVIDIA L40S 48GB, 2x 3.84TB NVMe",I-BOM
+hw-r760xa-cto-l40s#7XK2Q35,inf-b02-02,7XK2Q35,,,Dell,R760XA-CTO-L40S,1,1,DAL1 receiving dock (sample),CC-AI-INF,4500018823,66900.0,"PowerEdge R760xa server, 2x Xeon Gold 6548Y+, 512GB DDR5, 4x NVIDIA L40S 48GB, 2x 3.84TB NVMe",I-BOM
+shadow-mgmt-b02-01,mgmt-b02-01,4HJ8K21,,,Dell Inc.,PowerEdge R650,1,1,,,,,"Dell Inc. PowerEdge R650 (mgmt-b02-01, unmanaged)",I-BOM

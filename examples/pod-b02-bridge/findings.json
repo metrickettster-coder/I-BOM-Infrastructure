@@ -1,0 +1,359 @@
+{
+  "tool": {
+    "name": "ibom-bridge",
+    "version": "0.1.0"
+  },
+  "bom": "urn:uuid:6f1c2a3b-4d5e-4f60-8a71-92b3c4d5e6f7",
+  "summary": {
+    "total": 32,
+    "bySeverity": {
+      "high": 11,
+      "medium": 13,
+      "low": 5,
+      "info": 3
+    },
+    "byKind": {
+      "erp:unallocated-spend": 5,
+      "cmdb:missing-in-cmdb": 4,
+      "cmdb:field-mismatch": 4,
+      "cmdb:status-mismatch": 2,
+      "erp:invoiced-not-received": 2,
+      "erp:field-mismatch": 2,
+      "erp:invoice-price-variance": 2,
+      "cmdb:duplicate-ci": 1,
+      "cmdb:orphan-ci": 1,
+      "erp:asset-not-in-bom": 1,
+      "erp:not-capitalized": 1,
+      "erp:quantity-mismatch": 1,
+      "cmdb:shadow-known-to-cmdb": 1,
+      "erp:price-mismatch": 1,
+      "erp:procured-not-in-bom": 1,
+      "erp:receipt-not-posted": 1,
+      "erp:shadow-known-to-erp": 1,
+      "cmdb:weak-match": 1
+    }
+  },
+  "findings": [
+    {
+      "system": "cmdb",
+      "kind": "duplicate-ci",
+      "severity": "high",
+      "bomRef": "hw-r760xa-cto-l40s",
+      "serial": "7XK2Q35",
+      "record": "5f1d0c2a1b7e4a10a0000000000b0202, 9a3e77c01b7e4a10a0000000000b0299",
+      "message": "2 CIs match serial number 7XK2Q35: 5f1d0c2a1b7e4a10a0000000000b0202 (cmdb_ci_linux_server), 9a3e77c01b7e4a10a0000000000b0299 (cmdb_ci_server)",
+      "action": "Merge the duplicates in the CMDB and keep the one with the I-BOM correlation_id"
+    },
+    {
+      "system": "cmdb",
+      "kind": "missing-in-cmdb",
+      "severity": "high",
+      "bomRef": "shadow-i-0fee1dead0c0ffee1",
+      "message": "cmdb_ci_vm_instance for llm-eval-notebook (unmanaged) (discovered-unmanaged) has no CMDB record",
+      "action": "Create the CI from the export (servicenow-ire.json)"
+    },
+    {
+      "system": "cmdb",
+      "kind": "missing-in-cmdb",
+      "severity": "high",
+      "bomRef": "tf-module.inference.aws_instance.router",
+      "message": "cmdb_ci_vm_instance for inference-router (deployed) has no CMDB record",
+      "action": "Create the CI from the export (servicenow-ire.json)"
+    },
+    {
+      "system": "cmdb",
+      "kind": "orphan-ci",
+      "severity": "high",
+      "record": "3e8f11aa1b7e4a10a0000000000a0007",
+      "message": "cmdb_ci_linux_server dal1-legacy-07 (serial 9QW3L11) is in the CMDB but not in the I-BOM; the ERP also carries it as asset 100012",
+      "action": "Both systems know this unit: add it to the I-BOM if it serves this project, otherwise record where it belongs",
+      "serial": "9QW3L11"
+    },
+    {
+      "system": "cmdb",
+      "kind": "status-mismatch",
+      "severity": "high",
+      "bomRef": "tf-module.inference.aws_instance.gateway-1",
+      "record": "7c2b9e101b7e4a10a0000000000c0002",
+      "field": "install_status",
+      "bom": "Installed",
+      "other": "Retired",
+      "message": "I-BOM says deployed (Installed), CMDB says Retired",
+      "action": "Update the CMDB install status"
+    },
+    {
+      "system": "erp",
+      "kind": "asset-not-in-bom",
+      "severity": "high",
+      "record": "asset 100012",
+      "message": "Fixed asset 100012 (PowerEdge R740xd, serial 9QW3L11) has no matching I-BOM line; the CMDB also has it as CI 3e8f11aa1b7e4a10a0000000000a0007",
+      "action": "Both systems know this unit: add it to the I-BOM if it serves this project, otherwise record where it belongs",
+      "serial": "9QW3L11"
+    },
+    {
+      "system": "erp",
+      "kind": "invoiced-not-received",
+      "severity": "high",
+      "bomRef": "hw-pdu-sw-0u-17k",
+      "record": "PO 4500018823 line 50",
+      "message": "PO 4500018823 line 50: invoiced 2, received 1",
+      "action": "Block payment until the goods arrive (three-way match fails)"
+    },
+    {
+      "system": "erp",
+      "kind": "invoiced-not-received",
+      "severity": "high",
+      "bomRef": "hw-qsfp-100g-sr4",
+      "record": "PO 4500018823 line 30",
+      "message": "PO 4500018823 line 30: invoiced 10, received 6",
+      "action": "Block payment until the goods arrive (three-way match fails)"
+    },
+    {
+      "system": "erp",
+      "kind": "not-capitalized",
+      "severity": "high",
+      "bomRef": "hw-r760xa-cto-l40s",
+      "serial": "7XK2Q35",
+      "message": "R760XA-CTO-L40S is in-service but has no fixed asset",
+      "action": "Create the asset (row in erp-*-fixed-assets.csv) so depreciation starts"
+    },
+    {
+      "system": "erp",
+      "kind": "quantity-mismatch",
+      "severity": "high",
+      "bomRef": "hw-qsfp-100g-sr4",
+      "record": "PO 4500018823 line 30",
+      "field": "quantity",
+      "bom": 10,
+      "other": 12.0,
+      "message": "PO 4500018823 line 30: I-BOM needs 10, PO orders 12",
+      "action": "Change the PO quantity or the BOM line"
+    },
+    {
+      "system": "erp",
+      "kind": "unallocated-spend",
+      "severity": "high",
+      "bomRef": "shadow-i-0fee1dead0c0ffee1",
+      "message": "llm-eval-notebook (unmanaged) costs 965.79 USD monthly with no cost center and is unmanaged (shadow)",
+      "action": "Assign an owner and cost center, or shut it down"
+    },
+    {
+      "system": "cmdb",
+      "kind": "field-mismatch",
+      "severity": "medium",
+      "bomRef": "hw-dcs-7050cx3-32s",
+      "serial": "JPE26210F1A",
+      "record": "5f1d0c2a1b7e4a10a0000000000b0210",
+      "field": "cost_center",
+      "bom": "CC-AI-INF",
+      "other": "CC-NET-CORE",
+      "message": "Cost center differs",
+      "action": "Align the CI cost center with the ERP/I-BOM value"
+    },
+    {
+      "system": "cmdb",
+      "kind": "missing-in-cmdb",
+      "severity": "medium",
+      "bomRef": "hw-pdu-sw-0u-17k",
+      "serial": "PDU24A0193",
+      "message": "cmdb_ci_pdu for Switched rack PDU, zero-U, 17.3kW, 3-phase (received) has no CMDB record",
+      "action": "Create the CI from the export (servicenow-ire.json)"
+    },
+    {
+      "system": "cmdb",
+      "kind": "missing-in-cmdb",
+      "severity": "medium",
+      "bomRef": "hw-pdu-sw-0u-17k",
+      "serial": "PDU24A0194",
+      "message": "cmdb_ci_pdu for Switched rack PDU, zero-U, 17.3kW, 3-phase (received) has no CMDB record",
+      "action": "Create the CI from the export (servicenow-ire.json)"
+    },
+    {
+      "system": "cmdb",
+      "kind": "shadow-known-to-cmdb",
+      "severity": "medium",
+      "bomRef": "shadow-mgmt-b02-01",
+      "serial": "4HJ8K21",
+      "record": "5f1d0c2a1b7e4a10a0000000000b0230",
+      "message": "Dell Inc. PowerEdge R650 (mgmt-b02-01, unmanaged) is unmanaged in the I-BOM but the CMDB already tracks it as cmdb_ci_linux_server mgmt-b02-01",
+      "action": "Adopt it into the I-BOM (owner, cost center, PO) or retire the CI"
+    },
+    {
+      "system": "cmdb",
+      "kind": "status-mismatch",
+      "severity": "medium",
+      "bomRef": "hw-dcs-7050cx3-32s",
+      "serial": "JPE26210F1A",
+      "record": "5f1d0c2a1b7e4a10a0000000000b0210",
+      "field": "install_status",
+      "bom": "In Stock",
+      "other": "Installed",
+      "message": "I-BOM says received (In Stock), CMDB says Installed",
+      "action": "Update the CMDB install status"
+    },
+    {
+      "system": "erp",
+      "kind": "field-mismatch",
+      "severity": "medium",
+      "bomRef": "hw-dcs-7050cx3-32s",
+      "serial": "JPE26210F1A",
+      "record": "asset 100047",
+      "field": "acquisition_value",
+      "bom": 21400.0,
+      "other": 21900.0,
+      "message": "Acquisition value 21,900.00 vs I-BOM cost 21,400.00",
+      "action": "Post the value adjustment (or capitalize freight/labor deliberately)"
+    },
+    {
+      "system": "erp",
+      "kind": "field-mismatch",
+      "severity": "medium",
+      "bomRef": "hw-pdu-sw-0u-17k",
+      "record": "PO 4500018823 line 50",
+      "field": "cost_center",
+      "bom": "CC-AI-INF",
+      "other": "CC-DC-FAC",
+      "message": "PO 4500018823 line 50: Cost center differs"
+    },
+    {
+      "system": "erp",
+      "kind": "invoice-price-variance",
+      "severity": "medium",
+      "bomRef": "hw-dcs-7050cx3-32s",
+      "record": "PO 4500018823 line 20",
+      "message": "PO 4500018823 line 20: invoiced at 21,900.00 per unit vs PO 21,400.00",
+      "action": "Resolve with the supplier before payment"
+    },
+    {
+      "system": "erp",
+      "kind": "invoice-price-variance",
+      "severity": "medium",
+      "bomRef": "soft-nw-frt",
+      "record": "PO 4500018823 line 90",
+      "message": "PO 4500018823 line 90: invoiced at 912.40 per unit vs PO 850.00",
+      "action": "Resolve with the supplier before payment"
+    },
+    {
+      "system": "erp",
+      "kind": "price-mismatch",
+      "severity": "medium",
+      "bomRef": "soft-nw-frt",
+      "record": "PO 4500018823 line 90",
+      "field": "unit_price",
+      "bom": 912.4,
+      "other": 850.0,
+      "message": "PO 4500018823 line 90: I-BOM actual unit cost 912.40 vs PO price 850.00 (+7.3%)",
+      "action": "Approve the variance or correct the PO/invoice"
+    },
+    {
+      "system": "erp",
+      "kind": "procured-not-in-bom",
+      "severity": "medium",
+      "record": "PO 4500018823 line 110",
+      "message": "PO 4500018823 line 110 (Spare PSU 2400W titanium, 2,440.00) is not in the I-BOM",
+      "action": "Add it to the BOM or cancel the PO line"
+    },
+    {
+      "system": "erp",
+      "kind": "receipt-not-posted",
+      "severity": "medium",
+      "bomRef": "hw-pdu-sw-0u-17k",
+      "record": "PO 4500018823 line 50",
+      "field": "gr_quantity",
+      "bom": 2,
+      "other": 1.0,
+      "message": "PO 4500018823 line 50: I-BOM shows received, ERP has goods receipt for 1 of 2",
+      "action": "Post the goods receipt so the invoice can clear"
+    },
+    {
+      "system": "erp",
+      "kind": "shadow-known-to-erp",
+      "severity": "medium",
+      "bomRef": "shadow-mgmt-b02-01",
+      "serial": "4HJ8K21",
+      "record": "asset 100019",
+      "message": "Dell Inc. PowerEdge R650 (mgmt-b02-01, unmanaged) is unmanaged in the I-BOM but the ERP carries it as asset 100019 (cost center CC-IT-OPS)",
+      "action": "Adopt it into the I-BOM with that owner and cost center"
+    },
+    {
+      "system": "cmdb",
+      "kind": "weak-match",
+      "severity": "low",
+      "bomRef": "tf-module.inference.aws_eks_cluster.this",
+      "record": "7c2b9e101b7e4a10a0000000000c0010",
+      "message": "Matched cmdb_ci_kubernetes_cluster inf-b02 by name only",
+      "action": "Confirm, then set its serial number or correlation_id so the next run matches exactly"
+    },
+    {
+      "system": "erp",
+      "kind": "unallocated-spend",
+      "severity": "low",
+      "bomRef": "tf-module.inference.aws_eks_node_group.gpu",
+      "message": "module.inference.aws_eks_node_group.gpu costs 587.65 USD monthly with no cost center",
+      "action": "Assign an owner and cost center, or shut it down"
+    },
+    {
+      "system": "erp",
+      "kind": "unallocated-spend",
+      "severity": "low",
+      "bomRef": "tf-module.inference.aws_instance.gateway-0",
+      "message": "inference-gateway-0 costs 734.38 USD monthly with no cost center",
+      "action": "Assign an owner and cost center, or shut it down"
+    },
+    {
+      "system": "erp",
+      "kind": "unallocated-spend",
+      "severity": "low",
+      "bomRef": "tf-module.inference.aws_instance.gateway-1",
+      "message": "inference-gateway-1 costs 734.38 USD monthly with no cost center",
+      "action": "Assign an owner and cost center, or shut it down"
+    },
+    {
+      "system": "erp",
+      "kind": "unallocated-spend",
+      "severity": "low",
+      "bomRef": "tf-module.inference.aws_instance.router",
+      "message": "inference-router costs 147.17 USD monthly with no cost center",
+      "action": "Assign an owner and cost center, or shut it down"
+    },
+    {
+      "system": "cmdb",
+      "kind": "field-mismatch",
+      "severity": "info",
+      "bomRef": "hw-dcs-7050cx3-32s",
+      "serial": "JPE26210F1A",
+      "record": "5f1d0c2a1b7e4a10a0000000000b0210",
+      "field": "location",
+      "bom": "DAL1 receiving dock (sample)",
+      "other": "DAL1 Hall 2 / Row C / Rack C14",
+      "message": "Location differs",
+      "action": "Update whichever is stale; the I-BOM placement may still be the receiving location"
+    },
+    {
+      "system": "cmdb",
+      "kind": "field-mismatch",
+      "severity": "info",
+      "bomRef": "hw-r760xa-cto-l40s",
+      "serial": "7XK2Q34",
+      "record": "5f1d0c2a1b7e4a10a0000000000b0201",
+      "field": "location",
+      "bom": "DAL1 receiving dock (sample)",
+      "other": "DAL1 Hall 2 / Row C / Rack C14",
+      "message": "Location differs",
+      "action": "Update whichever is stale; the I-BOM placement may still be the receiving location"
+    },
+    {
+      "system": "cmdb",
+      "kind": "field-mismatch",
+      "severity": "info",
+      "bomRef": "hw-r760xa-cto-l40s",
+      "serial": "7XK2Q35",
+      "record": "5f1d0c2a1b7e4a10a0000000000b0202",
+      "field": "location",
+      "bom": "DAL1 receiving dock (sample)",
+      "other": "DAL1 Hall 2 / Row C / Rack C14",
+      "message": "Location differs",
+      "action": "Update whichever is stale; the I-BOM placement may still be the receiving location"
+    }
+  ]
+}
