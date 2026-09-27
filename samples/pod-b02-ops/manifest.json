@@ -1,0 +1,15 @@
+{
+  "_comment": "SAMPLE DATA pipeline: takes the pod B02 I-BOM built by ibom_ingest and runs two weeks of operations on it. Point these paths at real exports; no code changes needed.",
+  "input": "../../examples/pod-b02.ibom.json",
+  "output": "../../examples/pod-b02-assessed.ibom.json",
+  "at": "2026-10-12T12:00:00Z",
+  "steps": [
+    {"desired": {"spec": "desired/golden-config.json", "at": "2026-09-28T09:00:00Z"}},
+    {"baseline": {"name": "Pod B02 go-live baseline", "approved_by": "Infrastructure lead (sample)", "at": "2026-09-28T10:00:00Z"}},
+    {"drift": {"files": ["live/2026-10-05"], "at": "2026-10-05T08:00:00Z"}},
+    {"desired": {"spec": "desired/unreviewed-edit.json", "at": "2026-10-09T15:00:00Z"}},
+    {"ingest.redfish": {"files": ["live/2026-10-12/redfish"], "at": "2026-10-12T06:00:00Z"}},
+    {"drift": {"files": ["live/2026-10-12"], "at": "2026-10-12T08:00:00Z"}},
+    {"supply": {"signals": "supply/market-signals.json", "need_by": "2026-10-31", "today": "2026-10-12"}}
+  ]
+}

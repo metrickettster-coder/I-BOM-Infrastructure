@@ -1,0 +1,22 @@
+{
+  "_sample": "SAMPLE DATA: synthetic golden configuration for pod B02. Firmware versions and EOS release are illustrative, not vendor recommendations.",
+  "id": "GOLDEN-POD-B02-2026-09",
+  "rules": [
+    {"match": {"mpn": "R760XA"}, "criticality": "high",
+     "configuration": {"firmware": {"bios": "1.9.1", "bmc": "7.10.70.00"}},
+     "drift": {"onDrift": "ticket"}},
+    {"match": {"mpn": "DCS-7050CX3"}, "criticality": "critical",
+     "configuration": {"eosVersion": "4.32.2F", "mtu": 9214, "lldp": true},
+     "drift": {"onDrift": "alert"}},
+    {"match": {"resourceType": "aws_instance", "name": "inference-gateway"},
+     "configuration": {"tags": {"project": "PRJ-INF-0107"}},
+     "drift": {"onDrift": "auto-remediate"}},
+    {"match": {"resourceType": "aws_s3_bucket"}, "criticality": "high",
+     "configuration": {"versioning": {"enabled": true}},
+     "drift": {"onDrift": "alert"}},
+    {"match": {"resourceType": "aws_eks_node_group"},
+     "drift": {"onDrift": "alert", "tolerance": {"/configuration/scalingConfig/desiredSize": 2}}},
+    {"match": {"resourceType": "aws_eks_cluster"},
+     "drift": {"onDrift": "accept-and-update-bom"}}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "_sample": "SAMPLE DATA: someone lowers the switch MTU in the BOM after the baseline, with no change record.",
+  "id": "EDIT-2026-10-09",
+  "rules": [
+    {"match": {"mpn": "DCS-7050CX3"}, "configuration": {"mtu": 9000}}
+  ]
+}

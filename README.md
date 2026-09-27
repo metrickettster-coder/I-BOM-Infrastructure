@@ -20,6 +20,11 @@ It is a **JSON Schema (draft 2020-12)** built to **align with CycloneDX 1.6**. I
 | `samples/pod-b02/` | Synthetic, clearly labeled input files for a full ingestion run |
 | `examples/pod-b02.ibom.json` | I-BOM built from those samples by `python3 -m ibom_ingest build samples/pod-b02/manifest.json` (20 lines, with history, health, EOL and shadow findings) |
 | `tests/test_ingest.py` | 24 ingestion and lifecycle tests |
+| `ibom_risk/` | Drift detection (golden config, approved baselines, live Redfish/cloud/Terraform-refresh/gNMI exports → drift and match observations), predictive supply chain risk (lead-time prediction, delay probability, sub-tier and single-source exposure, alternates) and the health and drift risk scorecard. See [ibom_risk/README.md](ibom_risk/README.md). |
+| `samples/pod-b02-ops/` | Synthetic, clearly labeled golden config, live exports and market signals for two weeks of operations on pod B02 |
+| `examples/pod-b02-assessed.ibom.json` | Pod B02 after `python3 -m ibom_risk build samples/pod-b02-ops/manifest.json`: baseline, drift history, supply risk on every purchased line |
+| `examples/pod-b02-scorecard.md` | The scorecard for that I-BOM |
+| `tests/test_risk.py` | 26 drift, supply risk and scorecard tests |
 
 ```bash
 pip install jsonschema                       # cyclonedx-python-lib too, to check exports
@@ -31,6 +36,11 @@ python3 tests/test_ibom.py
 python3 -m ibom_ingest build samples/pod-b02/manifest.json
 python3 -m ibom_ingest report examples/pod-b02.ibom.json --today 2026-09-27
 python3 tests/test_ingest.py
+
+# drift detection + supply chain risk + scorecard
+python3 -m ibom_risk build samples/pod-b02-ops/manifest.json
+python3 -m ibom_risk scorecard examples/pod-b02-assessed.ibom.json --today 2026-10-12
+python3 tests/test_risk.py
 ```
 
 ## How the schema addresses the three lists

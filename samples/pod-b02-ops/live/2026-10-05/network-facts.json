@@ -1,0 +1,18 @@
+{
+  "_sample": "SAMPLE DATA: synthetic gNMI/eAPI export (`show version`, `show interfaces`) mapped to configuration keys.",
+  "source": "gnmi",
+  "collectedAt": "2026-10-05T06:40:00Z",
+  "devices": [
+    {
+      "keys": [
+        "serial:JPE26210F1A"
+      ],
+      "hostname": "leaf-b02-01",
+      "state": {
+        "eosVersion": "4.31.1F",
+        "mtu": 9214,
+        "lldp": true
+      }
+    }
+  ]
+}

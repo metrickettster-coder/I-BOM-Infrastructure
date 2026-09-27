@@ -1,0 +1,44 @@
+{
+  "_comment": "Hidden tier-2/3 dependencies per product family. ILLUSTRATIVE: compiled from public product documentation and press coverage, not from supplier disclosures. Verify with your suppliers and extend with your own entries; `match` is a regex over manufacturer, MPN, model and name.",
+  "entries": [
+    {
+      "match": "L40S|L4\\b|H100|H200|A100",
+      "dependencies": [
+        {"name": "NVIDIA data-center GPU", "category": "gpu", "supplierName": "NVIDIA", "tier": 2, "singleSource": true,
+         "countryOfOrigin": "TW", "constraint": "leading-edge foundry capacity and vendor allocation during AI demand peaks"}
+      ]
+    },
+    {
+      "match": "PowerEdge|R760|R650|ProLiant|ThinkSystem|Supermicro|SYS-",
+      "dependencies": [
+        {"name": "ASPEED AST2600 BMC SoC", "category": "bmc-controller", "supplierName": "ASPEED Technology", "tier": 3,
+         "singleSource": true, "countryOfOrigin": "TW", "constraint": "the BMC chip in most x86 servers; a shortage hits every server vendor at once"},
+        {"name": "DDR5 RDIMM", "category": "memory", "tier": 2, "singleSource": false,
+         "constraint": "DRAM makers shifting capacity to HBM for AI accelerators"},
+        {"name": "Server CPU", "category": "cpu", "tier": 2, "singleSource": true}
+      ]
+    },
+    {
+      "match": "7050CX3|7050X3",
+      "dependencies": [
+        {"name": "Broadcom Trident3 switch ASIC", "category": "switch-asic", "supplierName": "Broadcom", "tier": 2,
+         "singleSource": true, "countryOfOrigin": "TW", "constraint": "merchant switch silicon with no second source for this platform"}
+      ]
+    },
+    {
+      "match": "QSFP.*(SR4|LR4|DR|FR)|SFP28|OSFP",
+      "dependencies": [
+        {"name": "850 nm VCSEL laser array", "category": "laser", "tier": 3, "singleSource": false,
+         "constraint": "laser capacity shared with 400G/800G AI optics"},
+        {"name": "CDR / laser driver IC", "category": "ic", "tier": 3, "singleSource": false}
+      ]
+    },
+    {
+      "match": "PDU",
+      "dependencies": [
+        {"name": "Hydraulic-magnetic circuit breakers", "category": "electrical", "tier": 2, "singleSource": false,
+         "constraint": "long breaker and relay lead times for data-center electrical gear"}
+      ]
+    }
+  ]
+}
