@@ -1,0 +1,1053 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ibom.dev/schema/0.1/ibom.schema.json",
+  "title": "Open Infrastructure Bill of Materials (I-BOM)",
+  "description": "A cross-vendor, open format for infrastructure BOMs. One document describes physical hardware, firmware, software, virtual and cloud resources, licenses, consumables, labor and soft costs, plus the lifecycle, drift, supply-chain, security (SBOM), sustainability (Scope 3) and ERP/CMDB data needed to keep it live. Designed to align with CycloneDX 1.6: bom-ref identifiers, component types, dependencies and purl/cpe carry over one-to-one, and I-BOM-only data maps to CycloneDX properties under the 'ibom:' namespace.",
+  "type": "object",
+  "required": ["bomFormat", "specVersion", "serialNumber", "version", "metadata", "components"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "bomFormat": { "const": "I-BOM" },
+    "specVersion": { "type": "string", "pattern": "^0\\.1(\\.\\d+)?$", "description": "I-BOM specification version." },
+    "serialNumber": { "type": "string", "pattern": "^urn:uuid:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", "description": "Globally unique id of this I-BOM (same convention as CycloneDX)." },
+    "version": { "type": "integer", "minimum": 1, "description": "Increments on every change to this I-BOM; combine with serialNumber for audit trail." },
+    "metadata": { "$ref": "#/$defs/metadata" },
+    "organizations": { "type": "array", "items": { "$ref": "#/$defs/organization" }, "description": "Manufacturers, suppliers, distributors, integrators, cloud providers and service firms referenced by components." },
+    "locations": { "type": "array", "items": { "$ref": "#/$defs/location" }, "description": "Physical and logical placement tree: site > building > room > row > rack, or cloud account > region > zone." },
+    "components": { "type": "array", "items": { "$ref": "#/$defs/component" } },
+    "relationships": { "type": "array", "items": { "$ref": "#/$defs/relationship" }, "description": "Typed graph edges between components (contains, runs-on, powered-by...). Feeds a topology/graph database." },
+    "dependencies": { "type": "array", "items": { "$ref": "#/$defs/dependency" }, "description": "CycloneDX-compatible dependency list. Optional; exporters derive it from 'relationships' if absent." },
+    "baselines": { "type": "array", "items": { "$ref": "#/$defs/baseline" }, "description": "Approved blueprint snapshots that drift detection compares live state against." },
+    "observations": { "type": "array", "items": { "$ref": "#/$defs/observation" }, "description": "Discovered live state and drift findings, including shadow infrastructure not in the BOM." },
+    "changes": { "type": "array", "items": { "$ref": "#/$defs/changeRecord" }, "description": "Engineering / configuration change records (ECO/ECN/RFC) affecting this I-BOM." },
+    "properties": { "$ref": "#/$defs/properties" },
+    "extensions": { "$ref": "#/$defs/extensions" }
+  },
+
+  "$defs": {
+
+    "bomRef": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9._:/@+-]+$",
+      "description": "Identifier unique within this document (CycloneDX bom-ref)."
+    },
+    "dateTime": { "type": "string", "format": "date-time" },
+    "date": { "type": "string", "format": "date" },
+    "uri": { "type": "string", "format": "uri" },
+    "currencyCode": { "type": "string", "pattern": "^[A-Z]{3}$", "description": "ISO 4217 currency code." },
+    "countryCode": { "type": "string", "pattern": "^[A-Z]{2}$", "description": "ISO 3166-1 alpha-2 country code." },
+    "money": {
+      "type": "object",
+      "required": ["amount", "currency"],
+      "additionalProperties": false,
+      "properties": {
+        "amount": { "type": "number" },
+        "currency": { "$ref": "#/$defs/currencyCode" }
+      }
+    },
+    "hash": {
+      "type": "object",
+      "required": ["alg", "content"],
+      "additionalProperties": false,
+      "properties": {
+        "alg": { "enum": ["SHA-256", "SHA-384", "SHA-512", "SHA3-256", "SHA3-512", "BLAKE3"] },
+        "content": { "type": "string", "pattern": "^[a-fA-F0-9]{32,128}$" }
+      }
+    },
+    "properties": {
+      "type": "array",
+      "description": "Free-form name/value pairs (CycloneDX-compatible). Use namespaced names, e.g. 'acme:costCode'.",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "additionalProperties": false,
+        "properties": { "name": { "type": "string" }, "value": { "type": "string" } }
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Structured vendor or enterprise extensions keyed by a reverse-DNS or URL namespace. Values are unconstrained. Covers the Field Guide's CUSTOM PROPERTIES.",
+      "propertyNames": { "pattern": "^[a-z0-9][a-z0-9.-]*[a-z0-9](/[A-Za-z0-9._-]+)*$" }
+    },
+    "externalReference": {
+      "type": "object",
+      "required": ["type", "url"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "enum": ["datasheet", "drawing", "cad", "work-instruction", "manual", "certification", "compliance-report", "epd", "pcf", "sbom", "vex", "advisory", "support", "warranty", "purchase-order", "invoice", "quote", "contract", "iac-source", "runbook", "other"] },
+        "url": { "type": "string" },
+        "comment": { "type": "string" },
+        "hashes": { "type": "array", "items": { "$ref": "#/$defs/hash" } }
+      }
+    },
+    "person": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "employeeId": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string" }
+      }
+    },
+
+    "metadata": {
+      "type": "object",
+      "required": ["timestamp", "project"],
+      "additionalProperties": false,
+      "properties": {
+        "timestamp": { "$ref": "#/$defs/dateTime", "description": "When this version was produced (Field Guide: TIME STAMP)." },
+        "authors": { "type": "array", "items": { "$ref": "#/$defs/person" }, "description": "Field Guide: AUTHOR NAME." },
+        "tools": {
+          "type": "array",
+          "description": "Tools that generated or enriched this I-BOM (ingestion engine, discovery agents, IaC parsers).",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": false,
+            "properties": { "name": { "type": "string" }, "vendor": { "type": "string" }, "version": { "type": "string" } }
+          }
+        },
+        "project": {
+          "type": "object",
+          "required": ["id", "name"],
+          "additionalProperties": false,
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" },
+            "description": { "type": "string" },
+            "type": { "enum": ["data-center", "ai-cluster", "network", "edge", "cloud", "hybrid", "campus", "telecom", "industrial", "other"] },
+            "owner": { "$ref": "#/$defs/person" },
+            "budget": { "$ref": "#/$defs/money" },
+            "contractType": { "enum": ["fixed-bid", "time-and-materials", "cost-plus", "internal", "other"] },
+            "plannedStart": { "$ref": "#/$defs/date" },
+            "plannedCompletion": { "$ref": "#/$defs/date" }
+          }
+        },
+        "bomViews": {
+          "type": "array",
+          "description": "Which BOM views this document serves (from the BOM Types reference). One I-BOM can serve several.",
+          "items": { "$ref": "#/$defs/bomView" }
+        },
+        "lifecyclePhase": { "$ref": "#/$defs/ilmPhase" },
+        "structure": { "enum": ["single-level", "multi-level", "flat"], "description": "Field Guide: BOM STRUCTURE LEVEL." },
+        "revision": { "type": "string", "description": "Human revision label, e.g. 'B' or '2026.09-rc1' (Field Guide: REVISION & VERSION)." },
+        "approval": { "$ref": "#/$defs/approval" },
+        "effectivity": { "$ref": "#/$defs/effectivity" },
+        "supersedes": { "type": "string", "description": "serialNumber of the I-BOM this one replaces." },
+        "licenses": { "type": "array", "items": { "type": "string" }, "description": "License of the I-BOM document itself (SPDX ids)." },
+        "properties": { "$ref": "#/$defs/properties" }
+      }
+    },
+    "bomView": {
+      "enum": [
+        "design", "engineering", "electrical", "mechanical", "manufacturing", "assembly", "production",
+        "as-built", "as-maintained", "software", "hardware", "service", "sales", "configurable", "planning",
+        "procurement", "phantom", "modular", "kit", "costed", "spare-parts", "packaging", "effectivity",
+        "comparison", "template", "network", "tooling", "infrastructure", "as-deployed", "as-designed"
+      ]
+    },
+    "ilmPhase": {
+      "enum": ["plan", "acquire", "prepare", "deploy", "operate", "retire"],
+      "description": "Infrastructure Lifecycle Management phase: Plan (ILM), Acquire (Supply Management), Prepare (Systems Readiness), Deploy (Systems Deployment), Operate, Retire."
+    },
+    "approval": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": { "enum": ["draft", "in-review", "approved", "rejected", "released", "obsolete"] },
+        "approvedBy": { "$ref": "#/$defs/person" },
+        "approvedAt": { "$ref": "#/$defs/dateTime" }
+      }
+    },
+    "effectivity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "from": { "$ref": "#/$defs/date" },
+        "to": { "$ref": "#/$defs/date" },
+        "serialRange": { "type": "string" },
+        "changeRef": { "type": "string", "description": "id of the change record that introduced this effectivity." }
+      }
+    },
+
+    "organization": {
+      "type": "object",
+      "required": ["bom-ref", "name", "roles"],
+      "additionalProperties": false,
+      "properties": {
+        "bom-ref": { "$ref": "#/$defs/bomRef" },
+        "name": { "type": "string" },
+        "roles": { "type": "array", "minItems": 1, "items": { "enum": ["manufacturer", "supplier", "distributor", "integrator", "contract-manufacturer", "cloud-provider", "service-provider", "logistics", "recycler", "gpo"] } },
+        "identifiers": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "duns": { "type": "string" },
+            "lei": { "type": "string" },
+            "cage": { "type": "string" },
+            "erpVendorId": { "type": "string" },
+            "taxId": { "type": "string" }
+          }
+        },
+        "country": { "$ref": "#/$defs/countryCode" },
+        "url": { "type": "string" },
+        "contact": { "$ref": "#/$defs/person" },
+        "risk": {
+          "type": "object",
+          "description": "Supplier-level risk profile, written by the supply-chain risk engine.",
+          "additionalProperties": false,
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100, "description": "0 = no risk, 100 = critical." },
+            "financialHealth": { "enum": ["strong", "stable", "watch", "distressed", "unknown"] },
+            "geopoliticalExposure": { "enum": ["low", "medium", "high", "unknown"] },
+            "onTimeDeliveryRate": { "type": "number", "minimum": 0, "maximum": 1 },
+            "assessedAt": { "$ref": "#/$defs/dateTime" },
+            "notes": { "type": "string" }
+          }
+        },
+        "sustainability": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sbtiCommitted": { "type": "boolean" },
+            "cdpScore": { "type": "string" },
+            "renewableShare": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "properties": { "$ref": "#/$defs/properties" }
+      }
+    },
+
+    "location": {
+      "type": "object",
+      "required": ["bom-ref", "type", "name"],
+      "additionalProperties": false,
+      "properties": {
+        "bom-ref": { "$ref": "#/$defs/bomRef" },
+        "type": { "enum": ["site", "building", "floor", "room", "cage", "row", "rack", "cloud-account", "cloud-region", "availability-zone", "edge-site", "warehouse", "in-transit"] },
+        "name": { "type": "string" },
+        "parent": { "$ref": "#/$defs/bomRef", "description": "bom-ref of the containing location." },
+        "address": { "type": "string" },
+        "country": { "$ref": "#/$defs/countryCode" },
+        "geo": {
+          "type": "object",
+          "required": ["lat", "lon"],
+          "additionalProperties": false,
+          "properties": { "lat": { "type": "number", "minimum": -90, "maximum": 90 }, "lon": { "type": "number", "minimum": -180, "maximum": 180 } }
+        },
+        "rack": {
+          "type": "object",
+          "description": "Rack-specific capacity. Use when type = rack.",
+          "additionalProperties": false,
+          "properties": {
+            "heightU": { "type": "integer", "minimum": 1 },
+            "powerBudgetKw": { "type": "number", "minimum": 0 },
+            "coolingCapacityKw": { "type": "number", "minimum": 0 },
+            "maxWeightKg": { "type": "number", "minimum": 0 }
+          }
+        },
+        "facility": {
+          "type": "object",
+          "description": "Facility energy data used for operational carbon (Scope 2) alongside embodied carbon (Scope 3).",
+          "additionalProperties": false,
+          "properties": {
+            "pue": { "type": "number", "minimum": 1 },
+            "wue": { "type": "number", "minimum": 0, "description": "Water usage effectiveness, L/kWh." },
+            "gridCarbonIntensity": { "type": "number", "minimum": 0, "description": "gCO2e per kWh." },
+            "renewableShare": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "cloud": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "provider": { "enum": ["aws", "azure", "gcp", "oci", "ibm", "alibaba", "coreweave", "lambda", "other"] },
+            "accountId": { "type": "string" },
+            "region": { "type": "string" },
+            "zone": { "type": "string" }
+          }
+        },
+        "properties": { "$ref": "#/$defs/properties" }
+      }
+    },
+
+    "component": {
+      "type": "object",
+      "required": ["bom-ref", "class", "name", "quantity"],
+      "additionalProperties": false,
+      "properties": {
+        "bom-ref": { "$ref": "#/$defs/bomRef" },
+        "class": {
+          "enum": ["hardware", "firmware", "software", "virtual", "cloud-resource", "license", "consumable", "labor", "service", "soft-cost"],
+          "description": "Top-level I-BOM category. Maps to CycloneDX component types via the exporter."
+        },
+        "category": {
+          "type": "string",
+          "description": "Finer classification, e.g. server, gpu, cpu, memory, nic, dpu, switch, router, optic, cable, pdu, ups, cdu, rack, os, hypervisor, driver, orchestrator, vm, container-cluster, object-storage, installation, disposal-fee."
+        },
+        "partNumber": { "type": "string", "description": "Internal part number / component id (Field Guide: PART NUMBER/COMPONENT ID)." },
+        "name": { "type": "string", "description": "Field Guide: PART NAME." },
+        "description": { "type": "string" },
+        "version": { "type": "string", "description": "Firmware/software version or hardware revision." },
+        "revision": { "type": "string" },
+        "manufacturer": { "$ref": "#/$defs/bomRef", "description": "bom-ref of an organization with role manufacturer." },
+        "model": { "type": "string" },
+        "mpn": { "type": "string", "description": "Manufacturer part number." },
+        "purl": { "type": "string", "pattern": "^pkg:", "description": "Package URL, for software and firmware." },
+        "cpe": { "type": "string", "pattern": "^cpe:", "description": "CPE 2.3 name, used for vulnerability matching of hardware and firmware." },
+        "hashes": { "type": "array", "items": { "$ref": "#/$defs/hash" } },
+        "quantity": { "type": "number", "exclusiveMinimum": 0 },
+        "unitOfMeasure": { "enum": ["EA", "SET", "KIT", "M", "FT", "KG", "LB", "L", "HR", "DAY", "MONTH", "YEAR", "SEAT", "CORE", "GPU", "TB", "LOT"], "default": "EA" },
+        "parent": { "$ref": "#/$defs/bomRef", "description": "bom-ref of the parent assembly (multi-level BOM). Equivalent to a 'contains' relationship." },
+        "findNumber": { "type": "string", "description": "Line / item number within the parent." },
+        "referenceDesignator": { "type": "string", "description": "Slot or position id, e.g. 'GPU0', 'PSU1', 'Eth1/1'." },
+        "units": {
+          "type": "array",
+          "description": "Serialized instances when quantity > 1 and each unit is tracked (as-built / as-maintained).",
+          "items": { "$ref": "#/$defs/unit" }
+        },
+        "serialNumber": { "type": "string", "description": "Use when quantity = 1." },
+        "assetTag": { "type": "string" },
+        "placement": { "$ref": "#/$defs/placement" },
+        "physical": { "$ref": "#/$defs/physical" },
+        "compute": { "$ref": "#/$defs/compute" },
+        "network": { "$ref": "#/$defs/network" },
+        "software": { "$ref": "#/$defs/software" },
+        "virtual": { "$ref": "#/$defs/virtual" },
+        "licensing": { "$ref": "#/$defs/licensing" },
+        "labor": { "$ref": "#/$defs/labor" },
+        "lifecycle": { "$ref": "#/$defs/lifecycle" },
+        "supply": { "$ref": "#/$defs/supply" },
+        "security": { "$ref": "#/$defs/security" },
+        "sustainability": { "$ref": "#/$defs/sustainability" },
+        "financial": { "$ref": "#/$defs/financial" },
+        "identifiers": { "$ref": "#/$defs/systemIdentifiers" },
+        "drift": { "$ref": "#/$defs/driftControl" },
+        "configuration": {
+          "type": "object",
+          "description": "Declared configuration (desired state) for this component. Keys are free-form; drift detection compares these against observed values.",
+          "additionalProperties": true
+        },
+        "variants": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "configurationCode": { "type": "string" },
+            "alternates": { "type": "array", "items": { "$ref": "#/$defs/alternatePart" }, "description": "Approved form-fit-function alternates (Field Guide: ALTERNATE PART NUMBER)." },
+            "substitutes": { "type": "array", "items": { "$ref": "#/$defs/alternatePart" }, "description": "Conditional substitutes (Field Guide: SUBSTITUTE PART NUMBER)." },
+            "inherited": { "type": "boolean", "description": "Field Guide: INHERITED — line comes from a template/modular BOM." },
+            "phantom": { "type": "boolean" }
+          }
+        },
+        "procurementType": { "enum": ["buy", "make", "lease", "subscribe", "reuse", "customer-furnished", "consign"], "description": "Field Guide: PROCUREMENT TYPE / MAKE VS BUY." },
+        "consumable": { "type": "boolean" },
+        "quality": { "$ref": "#/$defs/quality" },
+        "criticality": { "enum": ["critical", "high", "medium", "low"], "description": "Field Guide: CRITICALITY / SAFETY LEVEL. Drives drift and supply-risk alerting severity." },
+        "priority": { "type": "integer", "minimum": 1 },
+        "effectivity": { "$ref": "#/$defs/effectivity" },
+        "notes": { "type": "string" },
+        "externalReferences": { "type": "array", "items": { "$ref": "#/$defs/externalReference" } },
+        "properties": { "$ref": "#/$defs/properties" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "class": { "const": "labor" } } },
+          "then": { "required": ["labor"] }
+        },
+        {
+          "if": { "properties": { "class": { "const": "cloud-resource" } } },
+          "then": { "required": ["virtual"] }
+        },
+        {
+          "if": { "properties": { "class": { "const": "license" } } },
+          "then": { "required": ["licensing"] }
+        }
+      ]
+    },
+
+    "unit": {
+      "type": "object",
+      "required": ["serialNumber"],
+      "additionalProperties": false,
+      "properties": {
+        "serialNumber": { "type": "string" },
+        "assetTag": { "type": "string" },
+        "referenceDesignator": { "type": "string" },
+        "placement": { "$ref": "#/$defs/placement" },
+        "lifecycleStatus": { "$ref": "#/$defs/lifecycleStatus" },
+        "health": { "$ref": "#/$defs/health" },
+        "identifiers": { "$ref": "#/$defs/systemIdentifiers" }
+      }
+    },
+
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "location": { "$ref": "#/$defs/bomRef", "description": "bom-ref of a location (rack, room, cloud region...)." },
+        "rackUnit": { "type": "integer", "minimum": 1, "description": "Lowest U occupied." },
+        "heightU": { "type": "integer", "minimum": 0 },
+        "face": { "enum": ["front", "rear", "zero-u-left", "zero-u-right"] },
+        "slot": { "type": "string" }
+      }
+    },
+
+    "physical": {
+      "type": "object",
+      "description": "Physical attributes (Field Guide: DIMS, MATERIAL SPECIFICATIONS) plus power and cooling profile.",
+      "additionalProperties": false,
+      "properties": {
+        "formFactor": { "type": "string", "description": "e.g. 1U, 2U, 4U, 8U, OCP, SXM, OAM, PCIe FHFL, QSFP-DD, OSFP." },
+        "dimensionsMm": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "width": { "type": "number" }, "depth": { "type": "number" }, "height": { "type": "number" } }
+        },
+        "lengthM": { "type": "number", "minimum": 0, "description": "For cables and fibers." },
+        "weightKg": { "type": "number", "minimum": 0 },
+        "materials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["material"],
+            "additionalProperties": false,
+            "properties": { "material": { "type": "string" }, "massKg": { "type": "number", "minimum": 0 }, "recycledContent": { "type": "number", "minimum": 0, "maximum": 1 } }
+          }
+        },
+        "power": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "typicalW": { "type": "number", "minimum": 0 },
+            "maxW": { "type": "number", "minimum": 0 },
+            "idleW": { "type": "number", "minimum": 0 },
+            "inputVoltage": { "type": "string", "description": "e.g. '200-240VAC', '48VDC', '415VAC 3-phase'." },
+            "psuCount": { "type": "integer", "minimum": 0 },
+            "redundancy": { "type": "string", "description": "e.g. N, N+1, 2N." },
+            "connector": { "type": "string", "description": "e.g. C19, C13, IEC 60309." },
+            "outputCapacityKw": { "type": "number", "minimum": 0, "description": "For PDUs/UPS/busway." }
+          }
+        },
+        "cooling": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "method": { "enum": ["air", "direct-liquid", "rear-door-heat-exchanger", "single-phase-immersion", "two-phase-immersion", "hybrid"] },
+            "heatLoadW": { "type": "number", "minimum": 0 },
+            "liquidFractionPct": { "type": "number", "minimum": 0, "maximum": 100, "description": "Share of heat captured by liquid loop." },
+            "coolantType": { "type": "string", "description": "e.g. PG25, deionized water, dielectric fluid." },
+            "flowRateLpm": { "type": "number", "minimum": 0 },
+            "inletTempC": { "type": "number" },
+            "coolingCapacityKw": { "type": "number", "minimum": 0, "description": "For CDUs/CRAHs." }
+          }
+        },
+        "environmental": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "operatingTempC": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+            "ashraeClass": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "compute": {
+      "type": "object",
+      "description": "Compute and accelerator specifics.",
+      "additionalProperties": false,
+      "properties": {
+        "cpuModel": { "type": "string" },
+        "cpuSockets": { "type": "integer", "minimum": 0 },
+        "coresTotal": { "type": "integer", "minimum": 0 },
+        "memoryGiB": { "type": "number", "minimum": 0 },
+        "acceleratorModel": { "type": "string" },
+        "acceleratorCount": { "type": "integer", "minimum": 0 },
+        "acceleratorMemoryGiB": { "type": "number", "minimum": 0, "description": "Per accelerator." },
+        "acceleratorInterconnect": { "type": "string", "description": "e.g. NVLink 4 / NVSwitch, Infinity Fabric, ICI." },
+        "storageTB": { "type": "number", "minimum": 0 }
+      }
+    },
+
+    "network": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "portCount": { "type": "integer", "minimum": 0 },
+        "portSpeedGbps": { "type": "number", "minimum": 0 },
+        "fabric": { "enum": ["ethernet", "infiniband", "fibre-channel", "nvlink", "omni-path", "management", "other"] },
+        "role": { "type": "string", "description": "e.g. leaf, spine, tor, oob-mgmt, border." },
+        "mediaType": { "type": "string", "description": "e.g. SR4, DR4, FR4, DAC, AOC, OM4, SMF." },
+        "managementIp": { "type": "string" },
+        "macAddresses": { "type": "array", "items": { "type": "string", "pattern": "^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$" } },
+        "endpoints": {
+          "type": "array",
+          "description": "For cables: the two ends, as bom-ref plus port.",
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["component"],
+            "additionalProperties": false,
+            "properties": { "component": { "$ref": "#/$defs/bomRef" }, "port": { "type": "string" } }
+          }
+        }
+      }
+    },
+
+    "software": {
+      "type": "object",
+      "description": "Firmware, OS, hypervisor, driver, platform software.",
+      "additionalProperties": false,
+      "properties": {
+        "layer": { "enum": ["bios-uefi", "bmc", "device-firmware", "microcode", "bootloader", "os", "hypervisor", "driver", "runtime", "orchestrator", "network-os", "management-platform", "application"] },
+        "targetComponent": { "$ref": "#/$defs/bomRef", "description": "Hardware this firmware/software is installed on. Also expressible as a 'runs-on' relationship." },
+        "releaseDate": { "$ref": "#/$defs/date" },
+        "supportedUntil": { "$ref": "#/$defs/date" },
+        "signed": { "type": "boolean" },
+        "updateChannel": { "type": "string" }
+      }
+    },
+
+    "virtual": {
+      "type": "object",
+      "description": "Virtual and cloud resource specifics. Bridges IaC and cloud inventories into the same BOM.",
+      "additionalProperties": false,
+      "properties": {
+        "provider": { "enum": ["aws", "azure", "gcp", "oci", "ibm", "alibaba", "coreweave", "lambda", "vmware", "proxmox", "openstack", "kubernetes", "other"] },
+        "resourceType": { "type": "string", "description": "Provider-native type, e.g. aws_instance, Microsoft.Compute/virtualMachines, v1/Namespace." },
+        "resourceId": { "type": "string", "description": "ARN, Azure resource id, GCP self-link, VM UUID." },
+        "region": { "type": "string" },
+        "instanceType": { "type": "string" },
+        "vcpus": { "type": "integer", "minimum": 0 },
+        "memoryGiB": { "type": "number", "minimum": 0 },
+        "tags": { "type": "object", "additionalProperties": { "type": "string" } },
+        "iac": {
+          "type": "object",
+          "description": "Where this resource is declared, for IaC-to-BOM reconciliation.",
+          "additionalProperties": false,
+          "properties": {
+            "tool": { "enum": ["terraform", "opentofu", "pulumi", "cloudformation", "bicep", "ansible", "helm", "kustomize", "crossplane", "other"] },
+            "address": { "type": "string", "description": "e.g. module.gpu.aws_instance.trainer[0]." },
+            "source": { "type": "string", "description": "Repository URL and path of the declaring file." },
+            "stateRef": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "licensing": {
+      "type": "object",
+      "description": "Field Guide: LICENSE INFORMATION.",
+      "additionalProperties": false,
+      "properties": {
+        "spdxExpression": { "type": "string" },
+        "licenseType": { "enum": ["perpetual", "subscription", "term", "open-source", "oem-bundled", "consumption", "trial"] },
+        "metric": { "type": "string", "description": "e.g. per-GPU, per-socket, per-core, per-node, per-user." },
+        "entitlementId": { "type": "string" },
+        "seats": { "type": "number", "minimum": 0 },
+        "validFrom": { "$ref": "#/$defs/date" },
+        "validTo": { "$ref": "#/$defs/date" },
+        "licensedComponents": { "type": "array", "items": { "$ref": "#/$defs/bomRef" } }
+      }
+    },
+
+    "labor": {
+      "type": "object",
+      "required": ["role", "hours"],
+      "additionalProperties": false,
+      "properties": {
+        "role": { "type": "string", "description": "e.g. rack-and-stack technician, network engineer, electrician, project manager." },
+        "phase": { "$ref": "#/$defs/ilmPhase" },
+        "activity": { "enum": ["site-prep", "installation", "cabling", "configuration", "testing", "commissioning", "maintenance", "decommissioning", "project-management", "training", "other"] },
+        "hours": { "type": "number", "minimum": 0 },
+        "rate": { "$ref": "#/$defs/money" },
+        "provider": { "$ref": "#/$defs/bomRef", "description": "Organization supplying the labor, if external." },
+        "recurring": { "enum": ["one-time", "monthly", "quarterly", "annual"] },
+        "workInstructions": { "type": "string", "description": "Field Guide: WORK INSTRUCTIONS; URL or document id." }
+      }
+    },
+
+    "lifecycleStatus": {
+      "enum": ["planned", "quoted", "ordered", "backordered", "in-transit", "received", "staged", "burn-in", "deployed", "in-service", "degraded", "failed", "in-repair", "rma", "spare", "decommissioned", "disposed", "discovered-unmanaged"],
+      "description": "'discovered-unmanaged' marks shadow infrastructure found by discovery but not yet approved into the BOM."
+    },
+    "health": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": { "enum": ["healthy", "warning", "critical", "unknown", "offline"] },
+        "observedAt": { "$ref": "#/$defs/dateTime" },
+        "source": { "type": "string", "description": "e.g. redfish, ipmi, snmp, dcgm, gnmi, cloudwatch, otel." },
+        "metrics": {
+          "type": "object",
+          "description": "Latest scalar readings, e.g. {\"tempC\": 61, \"eccErrors\": 0, \"powerW\": 680}.",
+          "additionalProperties": { "type": ["number", "string", "boolean"] }
+        },
+        "remainingUsefulLifeDays": { "type": "number", "minimum": 0, "description": "Predicted, from telemetry models." },
+        "failureProbability90d": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "description": "Dynamic lifecycle tracking: status, key dates, health and event history. Replaces the static-spreadsheet view.",
+      "additionalProperties": false,
+      "properties": {
+        "status": { "$ref": "#/$defs/lifecycleStatus" },
+        "phase": { "$ref": "#/$defs/ilmPhase" },
+        "dates": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ordered": { "$ref": "#/$defs/date" },
+            "promised": { "$ref": "#/$defs/date" },
+            "received": { "$ref": "#/$defs/date" },
+            "installed": { "$ref": "#/$defs/date" },
+            "inService": { "$ref": "#/$defs/date" },
+            "warrantyEnd": { "$ref": "#/$defs/date" },
+            "supportContractEnd": { "$ref": "#/$defs/date" },
+            "plannedRefresh": { "$ref": "#/$defs/date" },
+            "decommissioned": { "$ref": "#/$defs/date" },
+            "disposed": { "$ref": "#/$defs/date" }
+          }
+        },
+        "vendorLifecycle": {
+          "type": "object",
+          "description": "Manufacturer lifecycle milestones; the obsolescence signal for fast-moving AI hardware.",
+          "additionalProperties": false,
+          "properties": {
+            "stage": { "enum": ["preview", "active", "nrnd", "last-time-buy", "end-of-sale", "end-of-support", "end-of-life", "obsolete", "unknown"], "description": "nrnd = not recommended for new designs." },
+            "announced": { "$ref": "#/$defs/date" },
+            "endOfSale": { "$ref": "#/$defs/date" },
+            "lastTimeBuy": { "$ref": "#/$defs/date" },
+            "endOfSupport": { "$ref": "#/$defs/date" },
+            "endOfLife": { "$ref": "#/$defs/date" },
+            "successor": { "type": "string", "description": "Successor model or MPN." },
+            "source": { "type": "string" },
+            "checkedAt": { "$ref": "#/$defs/dateTime" }
+          }
+        },
+        "health": { "$ref": "#/$defs/health" },
+        "maintenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "intervalDays": { "type": "integer", "minimum": 1 },
+            "lastPerformed": { "$ref": "#/$defs/date" },
+            "nextDue": { "$ref": "#/$defs/date" },
+            "sparesRef": { "type": "array", "items": { "$ref": "#/$defs/bomRef" }, "description": "Spare-parts components for this item." }
+          }
+        },
+        "events": {
+          "type": "array",
+          "description": "Append-only history (firmware updates, RMAs, moves, config changes).",
+          "items": {
+            "type": "object",
+            "required": ["at", "type"],
+            "additionalProperties": false,
+            "properties": {
+              "at": { "$ref": "#/$defs/dateTime" },
+              "type": { "enum": ["status-change", "firmware-update", "software-update", "config-change", "move", "rma", "repair", "part-replacement", "inspection", "alert", "eol-notice", "disposal"] },
+              "from": { "type": "string" },
+              "to": { "type": "string" },
+              "actor": { "type": "string" },
+              "changeRef": { "type": "string" },
+              "note": { "type": "string" }
+            }
+          }
+        },
+        "disposal": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "method": { "enum": ["resale", "redeploy", "refurbish", "recycle", "harvest-parts", "landfill", "return-to-vendor"] },
+            "dataSanitization": { "enum": ["none-required", "nist-800-88-clear", "nist-800-88-purge", "nist-800-88-destroy"] },
+            "certificateRef": { "type": "string" },
+            "recycler": { "$ref": "#/$defs/bomRef" }
+          }
+        }
+      }
+    },
+
+    "supply": {
+      "type": "object",
+      "description": "Multi-tier supply chain data for risk prediction and alternate sourcing.",
+      "additionalProperties": false,
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["supplier"],
+            "additionalProperties": false,
+            "properties": {
+              "supplier": { "$ref": "#/$defs/bomRef" },
+              "supplierPartNumber": { "type": "string" },
+              "preferred": { "type": "boolean" },
+              "tier": { "type": "integer", "minimum": 1, "description": "1 = direct supplier to you." },
+              "leadTimeDays": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "quoted": { "type": "number", "minimum": 0 },
+                  "observed": { "type": "number", "minimum": 0, "description": "Rolling actual." },
+                  "predicted": { "type": "number", "minimum": 0, "description": "Model output from the predictive logistics engine." },
+                  "predictedAt": { "$ref": "#/$defs/dateTime" }
+                }
+              },
+              "moq": { "type": "number", "minimum": 0 },
+              "unitPrice": { "$ref": "#/$defs/money" },
+              "priceBreaks": {
+                "type": "array",
+                "items": { "type": "object", "required": ["minQty", "unitPrice"], "additionalProperties": false, "properties": { "minQty": { "type": "number", "minimum": 0 }, "unitPrice": { "$ref": "#/$defs/money" } } }
+              },
+              "stockAvailable": { "type": "number", "minimum": 0 },
+              "stockCheckedAt": { "$ref": "#/$defs/dateTime" },
+              "countryOfOrigin": { "$ref": "#/$defs/countryCode" },
+              "incoterm": { "type": "string" },
+              "contractRef": { "type": "string" },
+              "gpoContract": { "type": "string", "description": "Group purchasing organization contract id, if bought through a GPO." }
+            }
+          }
+        },
+        "singleSource": { "type": "boolean" },
+        "subTierDependencies": {
+          "type": "array",
+          "description": "Hidden critical sub-components (tier 2+), e.g. HBM, substrate, laser die, PSU controller IC. The layer that usually stalls a build.",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string" },
+              "category": { "type": "string" },
+              "mpn": { "type": "string" },
+              "supplier": { "$ref": "#/$defs/bomRef" },
+              "tier": { "type": "integer", "minimum": 2 },
+              "singleSource": { "type": "boolean" },
+              "countryOfOrigin": { "$ref": "#/$defs/countryCode" },
+              "constraint": { "type": "string", "description": "Known bottleneck, e.g. 'CoWoS packaging capacity'." }
+            }
+          }
+        },
+        "risk": {
+          "type": "object",
+          "description": "Component-level supply risk, written by the risk engine.",
+          "additionalProperties": false,
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "level": { "enum": ["low", "medium", "high", "critical"] },
+            "drivers": { "type": "array", "items": { "enum": ["single-source", "long-lead-time", "lead-time-increasing", "allocation", "eol-approaching", "geopolitical", "tariff", "supplier-financial", "logistics", "demand-spike", "quality", "counterfeit-risk", "export-control"] } },
+            "delayProbability": { "type": "number", "minimum": 0, "maximum": 1, "description": "Probability the item misses its need-by date." },
+            "needBy": { "$ref": "#/$defs/date" },
+            "recommendedAction": { "type": "string" },
+            "assessedAt": { "$ref": "#/$defs/dateTime" }
+          }
+        },
+        "exportControl": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "eccn": { "type": "string" },
+            "htsCode": { "type": "string" },
+            "restricted": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "alternatePart": {
+      "type": "object",
+      "required": ["mpn"],
+      "additionalProperties": false,
+      "properties": {
+        "mpn": { "type": "string" },
+        "manufacturer": { "$ref": "#/$defs/bomRef" },
+        "partNumber": { "type": "string" },
+        "qualified": { "type": "boolean", "description": "Validated for use in this design." },
+        "condition": { "type": "string" },
+        "impact": { "type": "string", "description": "Known differences: power, performance, firmware, lead time." }
+      }
+    },
+
+    "security": {
+      "type": "object",
+      "description": "Unified hardware-software security: links each item to its SBOM/HBOM, VEX and advisories so a zero-day in firmware can be traced to every affected rack.",
+      "additionalProperties": false,
+      "properties": {
+        "sbomRefs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["format", "url"],
+            "additionalProperties": false,
+            "properties": {
+              "format": { "enum": ["CycloneDX", "SPDX"] },
+              "specVersion": { "type": "string" },
+              "url": { "type": "string" },
+              "bomLink": { "type": "string", "pattern": "^urn:cdx:", "description": "CycloneDX BOM-Link to the exact document/version/component." },
+              "spdxDocumentNamespace": { "type": "string" },
+              "hashes": { "type": "array", "items": { "$ref": "#/$defs/hash" } }
+            }
+          }
+        },
+        "vexRefs": { "type": "array", "items": { "type": "string" } },
+        "knownVulnerabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string", "description": "CVE, GHSA or vendor advisory id." },
+              "severity": { "enum": ["critical", "high", "medium", "low", "none", "unknown"] },
+              "cvss": { "type": "number", "minimum": 0, "maximum": 10 },
+              "state": { "enum": ["affected", "not-affected", "fixed", "under-investigation", "mitigated"] },
+              "fixedIn": { "type": "string" },
+              "kev": { "type": "boolean", "description": "Listed in CISA Known Exploited Vulnerabilities." }
+            }
+          }
+        },
+        "rootOfTrust": { "type": "string", "description": "e.g. TPM 2.0, Caliptra, OpenTitan, vendor HRoT." },
+        "secureBoot": { "type": "boolean" },
+        "attestation": { "type": "string", "description": "e.g. SPDM, DICE, TCG." },
+        "provenance": { "type": "string", "description": "Supply chain provenance evidence, e.g. platform certificate, SLSA attestation URL." },
+        "counterfeitCheck": { "enum": ["passed", "failed", "not-performed"] }
+      }
+    },
+
+    "sustainability": {
+      "type": "object",
+      "description": "Scope 3 embodied carbon and end-of-life data, plus operating energy for Scope 2.",
+      "additionalProperties": false,
+      "properties": {
+        "embodiedCarbon": {
+          "type": "object",
+          "required": ["kgCO2e"],
+          "additionalProperties": false,
+          "properties": {
+            "kgCO2e": { "type": "number", "minimum": 0, "description": "Per unit, cradle-to-gate unless boundary says otherwise." },
+            "boundary": { "enum": ["cradle-to-gate", "cradle-to-grave", "gate-to-gate"] },
+            "stages": {
+              "type": "object",
+              "description": "Breakdown by life-cycle stage, kgCO2e per unit.",
+              "additionalProperties": false,
+              "properties": {
+                "manufacturing": { "type": "number", "minimum": 0 },
+                "transport": { "type": "number", "minimum": 0 },
+                "use": { "type": "number", "minimum": 0 },
+                "endOfLife": { "type": "number" }
+              }
+            },
+            "scope3Categories": { "type": "array", "items": { "type": "integer", "minimum": 1, "maximum": 15 }, "description": "GHG Protocol Scope 3 categories (1 purchased goods, 2 capital goods, 4 upstream transport, 12 end-of-life)." },
+            "method": { "enum": ["pcf-vendor", "epd", "iso-14067", "paia", "spend-based", "estimate"] },
+            "source": { "type": "string" },
+            "uncertaintyPct": { "type": "number", "minimum": 0 }
+          }
+        },
+        "annualEnergyKwh": { "type": "number", "minimum": 0, "description": "Expected annual IT energy per unit." },
+        "waterLitersPerYear": { "type": "number", "minimum": 0 },
+        "recyclability": { "type": "number", "minimum": 0, "maximum": 1 },
+        "hazardousSubstances": { "type": "array", "items": { "type": "string" } },
+        "certifications": { "type": "array", "items": { "type": "string" }, "description": "e.g. EPEAT Gold, ENERGY STAR, TCO Certified." }
+      }
+    },
+
+    "financial": {
+      "type": "object",
+      "description": "Field Guide: COST / UNIT COST / EXTENDED COST, plus ERP accounting fields.",
+      "additionalProperties": false,
+      "properties": {
+        "unitCost": { "$ref": "#/$defs/money" },
+        "extendedCost": { "$ref": "#/$defs/money", "description": "unitCost x quantity; validators check it." },
+        "costType": { "enum": ["standard", "actual", "quoted", "budget", "list"] },
+        "expenseType": { "enum": ["capex", "opex"] },
+        "spendType": { "enum": ["direct", "indirect"] },
+        "glAccount": { "type": "string" },
+        "costCenter": { "type": "string" },
+        "wbsElement": { "type": "string" },
+        "depreciation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "method": { "enum": ["straight-line", "declining-balance", "double-declining-balance", "units-of-production", "none"] },
+            "usefulLifeMonths": { "type": "integer", "minimum": 1 },
+            "startDate": { "$ref": "#/$defs/date" },
+            "salvageValue": { "$ref": "#/$defs/money" }
+          }
+        },
+        "recurringCost": {
+          "type": "object",
+          "required": ["amount", "period"],
+          "additionalProperties": false,
+          "properties": { "amount": { "$ref": "#/$defs/money" }, "period": { "enum": ["hourly", "monthly", "quarterly", "annual"] } }
+        }
+      }
+    },
+
+    "systemIdentifiers": {
+      "type": "object",
+      "description": "Keys into enterprise systems so ERP, CMDB, DCIM, cloud and IaC views of the same item stay linked.",
+      "additionalProperties": false,
+      "properties": {
+        "erp": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "system": { "type": "string", "description": "e.g. SAP S/4HANA, Oracle Fusion, NetSuite, Dynamics 365." },
+            "materialNumber": { "type": "string" },
+            "assetNumber": { "type": "string" },
+            "purchaseRequisition": { "type": "string" },
+            "purchaseOrder": { "type": "string" },
+            "poLine": { "type": "string" },
+            "goodsReceipt": { "type": "string" },
+            "invoice": { "type": "string" },
+            "vendorId": { "type": "string" }
+          }
+        },
+        "cmdb": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "system": { "type": "string", "description": "e.g. ServiceNow, BMC Helix, Device42, NetBox." },
+            "ciId": { "type": "string" },
+            "ciClass": { "type": "string", "description": "e.g. cmdb_ci_server, cmdb_ci_ip_switch." },
+            "sysId": { "type": "string" }
+          }
+        },
+        "dcim": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "system": { "type": "string" }, "deviceId": { "type": "string" } }
+        },
+        "cloud": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "provider": { "type": "string" }, "resourceId": { "type": "string" } }
+        },
+        "iacAddress": { "type": "string" },
+        "other": { "type": "object", "additionalProperties": { "type": "string" } }
+      }
+    },
+
+    "driftControl": {
+      "type": "object",
+      "description": "Per-component drift policy: which attributes are tracked and how deviations are handled.",
+      "additionalProperties": false,
+      "properties": {
+        "tracked": { "type": "boolean", "default": true },
+        "attributes": { "type": "array", "items": { "type": "string" }, "description": "JSON Pointers into this component, e.g. '/version', '/configuration/mtu', '/placement/rackUnit'." },
+        "discoverySources": { "type": "array", "items": { "enum": ["redfish", "ipmi", "snmp", "lldp", "gnmi", "netconf", "ssh", "dcgm", "kubernetes-api", "cloud-api", "terraform-state", "cmdb", "dcim", "agent", "manual-audit"] } },
+        "tolerance": { "type": "object", "additionalProperties": { "type": "number" }, "description": "Numeric tolerance per attribute pointer." },
+        "onDrift": { "enum": ["alert", "ticket", "auto-remediate", "accept-and-update-bom", "ignore"] }
+      }
+    },
+
+    "quality": {
+      "type": "object",
+      "description": "Field Guide: QUALITY & COMPLIANCE.",
+      "additionalProperties": false,
+      "properties": {
+        "compliance": { "type": "array", "items": { "type": "string" }, "description": "e.g. RoHS, REACH, WEEE, TAA, NDAA 889, FIPS 140-3." },
+        "certifications": { "type": "array", "items": { "type": "string" }, "description": "e.g. UL, CE, FCC, NEBS." },
+        "inspectionRequired": { "type": "boolean" },
+        "burnInHours": { "type": "number", "minimum": 0 }
+      }
+    },
+
+    "relationship": {
+      "type": "object",
+      "required": ["from", "type", "to"],
+      "additionalProperties": false,
+      "properties": {
+        "from": { "$ref": "#/$defs/bomRef" },
+        "type": { "enum": ["contains", "installed-in", "runs-on", "hosted-on", "powered-by", "cooled-by", "connects-to", "managed-by", "licensed-by", "installed-by", "depends-on", "backs-up", "replaces", "spare-for"] },
+        "to": { "$ref": "#/$defs/bomRef" },
+        "properties": { "$ref": "#/$defs/properties" }
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "required": ["ref"],
+      "additionalProperties": false,
+      "properties": {
+        "ref": { "$ref": "#/$defs/bomRef" },
+        "dependsOn": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/bomRef" } }
+      }
+    },
+
+    "baseline": {
+      "type": "object",
+      "required": ["id", "createdAt", "scope"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "createdAt": { "$ref": "#/$defs/dateTime" },
+        "approvedBy": { "$ref": "#/$defs/person" },
+        "bomVersion": { "type": "integer", "minimum": 1, "description": "The I-BOM version this baseline froze." },
+        "scope": { "type": "array", "items": { "$ref": "#/$defs/bomRef" }, "description": "Components (or locations) covered. Empty array = whole BOM." },
+        "digest": { "$ref": "#/$defs/hash", "description": "Hash over the canonicalised tracked attributes, for fast whole-baseline comparison." },
+        "expected": {
+          "type": "array",
+          "description": "Explicit expected values per component attribute.",
+          "items": {
+            "type": "object",
+            "required": ["component", "attribute", "value"],
+            "additionalProperties": false,
+            "properties": {
+              "component": { "$ref": "#/$defs/bomRef" },
+              "attribute": { "type": "string", "description": "JSON Pointer within the component." },
+              "value": {}
+            }
+          }
+        }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "required": ["id", "observedAt", "source", "kind"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "observedAt": { "$ref": "#/$defs/dateTime" },
+        "source": { "type": "string", "description": "Discovery source that reported this (see driftControl.discoverySources)." },
+        "kind": { "enum": ["match", "drift", "missing", "unmanaged", "extra-quantity"], "description": "unmanaged = shadow infrastructure: present live, absent from BOM." },
+        "component": { "$ref": "#/$defs/bomRef", "description": "BOM component concerned; absent for unmanaged items." },
+        "baseline": { "type": "string" },
+        "attribute": { "type": "string" },
+        "expected": {},
+        "actual": {},
+        "discovered": {
+          "type": "object",
+          "description": "For unmanaged items: what was found, in component shape where possible.",
+          "additionalProperties": true
+        },
+        "severity": { "enum": ["critical", "high", "medium", "low", "info"] },
+        "status": { "enum": ["open", "acknowledged", "remediated", "accepted", "false-positive"] },
+        "ticket": { "type": "string" }
+      }
+    },
+    "changeRecord": {
+      "type": "object",
+      "required": ["id", "type", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "enum": ["eco", "ecn", "ecr", "rfc", "deviation", "waiver"] },
+        "title": { "type": "string" },
+        "status": { "enum": ["proposed", "approved", "implemented", "rejected", "cancelled"] },
+        "affects": { "type": "array", "items": { "$ref": "#/$defs/bomRef" } },
+        "requestedBy": { "$ref": "#/$defs/person" },
+        "approvedBy": { "$ref": "#/$defs/person" },
+        "effectiveDate": { "$ref": "#/$defs/date" },
+        "reason": { "type": "string" },
+        "externalRef": { "type": "string", "description": "Change ticket in ITSM/PLM, e.g. ServiceNow CHG number." }
+      }
+    }
+  }
+}

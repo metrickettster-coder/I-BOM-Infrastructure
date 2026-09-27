@@ -1,0 +1,819 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:40a1b2e2-278f-4749-8582-9f8761fa92a9",
+  "version": 7,
+  "metadata": {
+    "timestamp": "2026-09-27T05:30:00Z",
+    "component": {
+      "type": "platform",
+      "bom-ref": "ibom-root",
+      "name": "AI training pod A01 (illustrative example)",
+      "version": "7",
+      "properties": [
+        {
+          "name": "ibom:projectId",
+          "value": "PRJ-AI-0042"
+        },
+        {
+          "name": "ibom:line",
+          "value": "{\"bom-ref\":\"lic-nvaie\",\"class\":\"license\",\"category\":\"software-subscription\",\"name\":\"NVIDIA AI Enterprise, 3-year subscription\",\"manufacturer\":\"org-nvidia\",\"partNumber\":\"IB-LIC-NVAIE-3Y\",\"quantity\":16,\"unitOfMeasure\":\"GPU\",\"licensing\":{\"licenseType\":\"subscription\",\"metric\":\"per-GPU\",\"entitlementId\":\"NVAIE-EXAMPLE-0001\",\"seats\":16,\"validFrom\":\"2026-09-01\",\"validTo\":\"2029-08-31\",\"licensedComponents\":[\"gpu-srv01\",\"srv-gpu-02\"]},\"supply\":{\"sources\":[{\"supplier\":\"org-northwind\",\"tier\":1}]},\"financial\":{\"unitCost\":{\"amount\":13500,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":216000,\"currency\":\"USD\"},\"costType\":\"actual\",\"expenseType\":\"opex\",\"depreciation\":{\"method\":\"straight-line\",\"usefulLifeMonths\":36,\"startDate\":\"2026-09-01\"}},\"criticality\":\"medium\"}"
+        },
+        {
+          "name": "ibom:line",
+          "value": "{\"bom-ref\":\"cons-mounting\",\"class\":\"consumable\",\"category\":\"mounting-hardware\",\"name\":\"M6 cage nut and screw kit (50 pc)\",\"quantity\":2,\"unitOfMeasure\":\"KIT\",\"consumable\":true,\"financial\":{\"unitCost\":{\"amount\":28,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":56,\"currency\":\"USD\"},\"expenseType\":\"opex\",\"spendType\":\"indirect\"}}"
+        },
+        {
+          "name": "ibom:line",
+          "value": "{\"bom-ref\":\"cons-labels\",\"class\":\"consumable\",\"category\":\"labeling\",\"name\":\"Cable and asset label set\",\"quantity\":1,\"unitOfMeasure\":\"KIT\",\"consumable\":true,\"financial\":{\"unitCost\":{\"amount\":140,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":140,\"currency\":\"USD\"},\"expenseType\":\"opex\",\"spendType\":\"indirect\"}}"
+        },
+        {
+          "name": "ibom:line",
+          "value": "{\"bom-ref\":\"lab-rackstack\",\"class\":\"labor\",\"category\":\"installation\",\"name\":\"Rack, stack and power-up\",\"quantity\":1,\"unitOfMeasure\":\"LOT\",\"labor\":{\"role\":\"data center technician\",\"phase\":\"deploy\",\"activity\":\"installation\",\"hours\":16,\"rate\":{\"amount\":125,\"currency\":\"USD\"},\"provider\":\"org-cascade\",\"recurring\":\"one-time\"},\"financial\":{\"extendedCost\":{\"amount\":2000,\"currency\":\"USD\"},\"expenseType\":\"capex\"}}"
+        },
+        {
+          "name": "ibom:line",
+          "value": "{\"bom-ref\":\"lab-liquid\",\"class\":\"labor\",\"category\":\"commissioning\",\"name\":\"Liquid loop fill, pressure test and commissioning\",\"quantity\":1,\"unitOfMeasure\":\"LOT\",\"labor\":{\"role\":\"mechanical technician\",\"phase\":\"prepare\",\"activity\":\"commissioning\",\"hours\":12,\"rate\":{\"amount\":165,\"currency\":\"USD\"},\"provider\":\"org-cascade\"},\"financial\":{\"extendedCost\":{\"amount\":1980,\"currency\":\"USD\"},\"expenseType\":\"capex\"}}"
+        },
+        {
+          "name": "ibom:line",
+          "value": "{\"bom-ref\":\"lab-netcfg\",\"class\":\"labor\",\"category\":\"configuration\",\"name\":\"Fabric configuration and RoCE tuning\",\"quantity\":1,\"unitOfMeasure\":\"LOT\",\"labor\":{\"role\":\"network engineer\",\"phase\":\"deploy\",\"activity\":\"configuration\",\"hours\":24,\"rate\":{\"amount\":180,\"currency\":\"USD\"}},\"financial\":{\"extendedCost\":{\"amount\":4320,\"currency\":\"USD\"},\"expenseType\":\"capex\"}}"
+        },
+        {
+          "name": "ibom:line",
+          "value": "{\"bom-ref\":\"svc-maint\",\"class\":\"service\",\"category\":\"support-contract\",\"name\":\"3-year next-business-day onsite hardware support\",\"quantity\":2,\"unitOfMeasure\":\"EA\",\"supply\":{\"sources\":[{\"supplier\":\"org-smc\",\"tier\":1}]},\"financial\":{\"unitCost\":{\"amount\":18000,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":36000,\"currency\":\"USD\"},\"expenseType\":\"opex\"},\"lifecycle\":{\"dates\":{\"supportContractEnd\":\"2029-09-01\"}}}"
+        },
+        {
+          "name": "ibom:line",
+          "value": "{\"bom-ref\":\"soft-siteprep\",\"class\":\"soft-cost\",\"category\":\"site-prep\",\"name\":\"Colo cross-connects and floor liquid tap-off\",\"quantity\":1,\"unitOfMeasure\":\"LOT\",\"financial\":{\"extendedCost\":{\"amount\":9500,\"currency\":\"USD\"},\"expenseType\":\"capex\"}}"
+        },
+        {
+          "name": "ibom:line",
+          "value": "{\"bom-ref\":\"soft-disposal\",\"class\":\"soft-cost\",\"category\":\"disposal-fee\",\"name\":\"Packaging recycling and e-waste pickup\",\"quantity\":1,\"unitOfMeasure\":\"LOT\",\"financial\":{\"extendedCost\":{\"amount\":450,\"currency\":\"USD\"},\"expenseType\":\"opex\"},\"lifecycle\":{\"disposal\":{\"method\":\"recycle\",\"recycler\":\"org-greencycle\"}}}"
+        }
+      ],
+      "description": "One liquid-assisted rack with two 8-GPU training servers, 800G ToR switch, and a cloud checkpoint bucket. All vendors, part numbers, prices and carbon values are illustrative."
+    },
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "ibom_to_cyclonedx",
+          "version": "0.1.0"
+        }
+      ]
+    },
+    "properties": [
+      {
+        "name": "ibom:specVersion",
+        "value": "0.1.0"
+      },
+      {
+        "name": "ibom:serialNumber",
+        "value": "urn:uuid:40a1b2e2-278f-4749-8582-9f8761fa92a9"
+      },
+      {
+        "name": "ibom:bomViews",
+        "value": "infrastructure,as-built,procurement,costed,software"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Chi"
+      }
+    ],
+    "lifecycles": [
+      {
+        "phase": "post-build"
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "device",
+      "bom-ref": "rack-a01",
+      "name": "48U 600x1200 rack enclosure",
+      "manufacturer": {
+        "name": "Vertiv",
+        "bom-ref": "org-vertiv"
+      },
+      "group": "VR3300",
+      "properties": [
+        {
+          "name": "ibom:class",
+          "value": "hardware"
+        },
+        {
+          "name": "ibom:quantity",
+          "value": "1"
+        },
+        {
+          "name": "ibom:category",
+          "value": "rack"
+        },
+        {
+          "name": "ibom:partNumber",
+          "value": "IB-RCK-48U-1200"
+        },
+        {
+          "name": "ibom:mpn",
+          "value": "VR3300"
+        },
+        {
+          "name": "ibom:serialNumber",
+          "value": "VR3300-26A-11873"
+        },
+        {
+          "name": "ibom:assetTag",
+          "value": "AT-004511"
+        },
+        {
+          "name": "ibom:unitOfMeasure",
+          "value": "EA"
+        },
+        {
+          "name": "ibom:data",
+          "value": "{\"lifecycle\":{\"status\":\"in-service\",\"phase\":\"deploy\",\"dates\":{\"received\":\"2026-08-20\",\"installed\":\"2026-08-22\"}},\"sustainability\":{\"embodiedCarbon\":{\"kgCO2e\":410,\"boundary\":\"cradle-to-gate\",\"scope3Categories\":[2],\"method\":\"estimate\",\"uncertaintyPct\":40}},\"financial\":{\"unitCost\":{\"amount\":2400,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":2400,\"currency\":\"USD\"},\"costType\":\"actual\",\"expenseType\":\"capex\",\"depreciation\":{\"method\":\"straight-line\",\"usefulLifeMonths\":120,\"startDate\":\"2026-09-01\"}},\"identifiers\":{\"erp\":{\"system\":\"SAP S/4HANA\",\"assetNumber\":\"100004511\",\"purchaseOrder\":\"4500098812\",\"poLine\":\"10\"},\"cmdb\":{\"system\":\"ServiceNow\",\"ciClass\":\"cmdb_ci_rack\",\"sysId\":\"9f1c0a7e1b2d4e10a3c5d6e7f8091a2b\"}},\"placement\":{\"location\":\"loc-rack-a01\"},\"physical\":{\"formFactor\":\"48U\",\"dimensionsMm\":{\"width\":600,\"depth\":1200,\"height\":2265},\"weightKg\":160},\"criticality\":\"medium\",\"procurementType\":\"buy\"}"
+        }
+      ],
+      "components": [
+        {
+          "type": "device",
+          "bom-ref": "pdu-a01",
+          "name": "Switched rack PDU, 415V 3-phase, 36x C13/C19",
+          "manufacturer": {
+            "name": "Vertiv",
+            "bom-ref": "org-vertiv"
+          },
+          "supplier": {
+            "name": "Northwind IT Distribution",
+            "bom-ref": "org-northwind"
+          },
+          "group": "Geist rPDU",
+          "properties": [
+            {
+              "name": "ibom:class",
+              "value": "hardware"
+            },
+            {
+              "name": "ibom:quantity",
+              "value": "2"
+            },
+            {
+              "name": "ibom:category",
+              "value": "pdu"
+            },
+            {
+              "name": "ibom:partNumber",
+              "value": "IB-PDU-415-36"
+            },
+            {
+              "name": "ibom:mpn",
+              "value": "VP9868"
+            },
+            {
+              "name": "ibom:unitOfMeasure",
+              "value": "EA"
+            },
+            {
+              "name": "ibom:data",
+              "value": "{\"lifecycle\":{\"status\":\"in-service\",\"dates\":{\"installed\":\"2026-08-22\"}},\"supply\":{\"sources\":[{\"supplier\":\"org-northwind\",\"tier\":1,\"preferred\":true,\"leadTimeDays\":{\"quoted\":21,\"observed\":19}}]},\"financial\":{\"unitCost\":{\"amount\":3100,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":6200,\"currency\":\"USD\"},\"costType\":\"actual\",\"expenseType\":\"capex\"},\"drift\":{\"attributes\":[\"/configuration/outletPolicy\"],\"discoverySources\":[\"snmp\"],\"onDrift\":\"alert\"},\"physical\":{\"power\":{\"inputVoltage\":\"415VAC 3-phase\",\"outputCapacityKw\":22,\"connector\":\"IEC 60309 5-pin\"}},\"units\":[{\"serialNumber\":\"VP9868-0091\",\"referenceDesignator\":\"PDU-A\",\"placement\":{\"location\":\"loc-rack-a01\",\"face\":\"zero-u-left\"}},{\"serialNumber\":\"VP9868-0092\",\"referenceDesignator\":\"PDU-B\",\"placement\":{\"location\":\"loc-rack-a01\",\"face\":\"zero-u-right\"}}],\"configuration\":{\"outletPolicy\":\"sequenced-2s\"},\"criticality\":\"critical\"}"
+            }
+          ]
+        },
+        {
+          "type": "device",
+          "bom-ref": "cdu-a01",
+          "name": "In-rack coolant distribution unit, 100 kW",
+          "manufacturer": {
+            "name": "Vertiv",
+            "bom-ref": "org-vertiv"
+          },
+          "supplier": {
+            "name": "Northwind IT Distribution",
+            "bom-ref": "org-northwind"
+          },
+          "group": "Liebert XDU100",
+          "properties": [
+            {
+              "name": "ibom:class",
+              "value": "hardware"
+            },
+            {
+              "name": "ibom:quantity",
+              "value": "1"
+            },
+            {
+              "name": "ibom:category",
+              "value": "cdu"
+            },
+            {
+              "name": "ibom:partNumber",
+              "value": "IB-CDU-RM-100"
+            },
+            {
+              "name": "ibom:mpn",
+              "value": "XDU100"
+            },
+            {
+              "name": "ibom:serialNumber",
+              "value": "XDU100-26-0417"
+            },
+            {
+              "name": "ibom:data",
+              "value": "{\"lifecycle\":{\"status\":\"in-service\",\"dates\":{\"installed\":\"2026-08-25\"},\"maintenance\":{\"intervalDays\":90,\"nextDue\":\"2026-11-25\"},\"health\":{\"status\":\"healthy\",\"observedAt\":\"2026-09-27T05:00:00Z\",\"source\":\"redfish\",\"metrics\":{\"supplyTempC\":31.8,\"flowLpm\":142,\"leakDetected\":false}}},\"supply\":{\"sources\":[{\"supplier\":\"org-northwind\",\"tier\":1,\"leadTimeDays\":{\"quoted\":70,\"observed\":84,\"predicted\":90}}],\"singleSource\":true,\"risk\":{\"score\":62,\"level\":\"high\",\"drivers\":[\"single-source\",\"long-lead-time\",\"lead-time-increasing\"],\"recommendedAction\":\"Qualify a second CDU vendor before pod A02 order.\"}},\"financial\":{\"unitCost\":{\"amount\":38000,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":38000,\"currency\":\"USD\"},\"costType\":\"actual\",\"expenseType\":\"capex\"},\"placement\":{\"location\":\"loc-rack-a01\",\"rackUnit\":1,\"heightU\":4,\"face\":\"front\"},\"physical\":{\"weightKg\":190,\"power\":{\"typicalW\":1800,\"maxW\":3000},\"cooling\":{\"method\":\"direct-liquid\",\"coolantType\":\"PG25\",\"coolingCapacityKw\":100,\"flowRateLpm\":150,\"inletTempC\":32}},\"criticality\":\"critical\"}"
+            }
+          ]
+        },
+        {
+          "type": "device",
+          "bom-ref": "srv-gpu-01",
+          "name": "8U 8-GPU training server",
+          "manufacturer": {
+            "name": "Supermicro",
+            "bom-ref": "org-smc"
+          },
+          "supplier": {
+            "name": "Northwind IT Distribution",
+            "bom-ref": "org-northwind"
+          },
+          "cpe": "cpe:2.3:h:supermicro:sys-821ge-tnhr:-:*:*:*:*:*:*:*",
+          "group": "SYS-821GE-TNHR",
+          "externalReferences": [
+            {
+              "type": "bom",
+              "url": "https://example.com/sbom/smc-821ge-hbom.cdx.json",
+              "comment": "CycloneDX 1.6"
+            }
+          ],
+          "properties": [
+            {
+              "name": "ibom:class",
+              "value": "hardware"
+            },
+            {
+              "name": "ibom:quantity",
+              "value": "1"
+            },
+            {
+              "name": "ibom:category",
+              "value": "server"
+            },
+            {
+              "name": "ibom:partNumber",
+              "value": "IB-SRV-HGX8-H200"
+            },
+            {
+              "name": "ibom:mpn",
+              "value": "SYS-821GE-TNHR"
+            },
+            {
+              "name": "ibom:serialNumber",
+              "value": "S821GE-26B-00381"
+            },
+            {
+              "name": "ibom:assetTag",
+              "value": "AT-004512"
+            },
+            {
+              "name": "ibom:data",
+              "value": "{\"lifecycle\":{\"status\":\"in-service\",\"phase\":\"operate\",\"dates\":{\"ordered\":\"2026-06-10\",\"promised\":\"2026-08-15\",\"received\":\"2026-08-19\",\"installed\":\"2026-08-27\",\"inService\":\"2026-09-02\",\"warrantyEnd\":\"2029-09-01\",\"plannedRefresh\":\"2029-09-01\"},\"vendorLifecycle\":{\"stage\":\"nrnd\",\"successor\":\"HGX B300 platform\",\"source\":\"vendor roadmap briefing\",\"checkedAt\":\"2026-09-20T00:00:00Z\"},\"health\":{\"status\":\"healthy\",\"observedAt\":\"2026-09-27T05:00:00Z\",\"source\":\"redfish\",\"metrics\":{\"inletTempC\":24,\"powerW\":8120,\"correctableEcc24h\":0},\"failureProbability90d\":0.02},\"events\":[{\"at\":\"2026-08-27T21:10:00Z\",\"type\":\"status-change\",\"from\":\"received\",\"to\":\"burn-in\",\"actor\":\"org-cascade\"},{\"at\":\"2026-09-02T16:00:00Z\",\"type\":\"status-change\",\"from\":\"burn-in\",\"to\":\"in-service\"},{\"at\":\"2026-09-18T03:00:00Z\",\"type\":\"firmware-update\",\"from\":\"BMC 01.03.09\",\"to\":\"BMC 01.04.02\",\"changeRef\":\"CHG0031177\"}]},\"supply\":{\"sources\":[{\"supplier\":\"org-northwind\",\"supplierPartNumber\":\"NW-SMC-821GE-H200\",\"tier\":1,\"preferred\":true,\"leadTimeDays\":{\"quoted\":56,\"observed\":70,\"predicted\":98,\"predictedAt\":\"2026-09-25T00:00:00Z\"},\"unitPrice\":{\"amount\":315000,\"currency\":\"USD\"},\"countryOfOrigin\":\"US\",\"incoterm\":\"DAP\"}],\"singleSource\":false,\"subTierDependencies\":[{\"name\":\"HBM3e 141GB stacks\",\"category\":\"memory\",\"supplier\":\"org-skhynix\",\"tier\":3,\"singleSource\":false,\"countryOfOrigin\":\"KR\"},{\"name\":\"CoWoS advanced packaging\",\"category\":\"packaging\",\"supplier\":\"org-tsmc\",\"tier\":3,\"singleSource\":true,\"countryOfOrigin\":\"TW\",\"constraint\":\"CoWoS capacity allocation\"}],\"risk\":{\"score\":71,\"level\":\"high\",\"drivers\":[\"allocation\",\"lead-time-increasing\",\"eol-approaching\",\"export-control\"],\"delayProbability\":0.45,\"needBy\":\"2026-12-01\",\"recommendedAction\":\"For pod A02, pre-qualify the B300 successor now; H200 allocation is shrinking.\",\"assessedAt\":\"2026-09-25T00:00:00Z\"},\"exportControl\":{\"eccn\":\"4A090.a\",\"restricted\":true}},\"sustainability\":{\"embodiedCarbon\":{\"kgCO2e\":3700,\"boundary\":\"cradle-to-gate\",\"stages\":{\"manufacturing\":3550,\"transport\":150},\"scope3Categories\":[2,4],\"method\":\"estimate\",\"source\":\"Spend and mass-based estimate pending vendor PCF\",\"uncertaintyPct\":35},\"annualEnergyKwh\":74460,\"recyclability\":0.8},\"financial\":{\"unitCost\":{\"amount\":315000,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":315000,\"currency\":\"USD\"},\"costType\":\"actual\",\"expenseType\":\"capex\",\"spendType\":\"direct\",\"glAccount\":\"170200\",\"costCenter\":\"CC-AI-PLAT\",\"wbsElement\":\"PRJ-AI-0042.1.2\",\"depreciation\":{\"method\":\"straight-line\",\"usefulLifeMonths\":36,\"startDate\":\"2026-09-02\"}},\"identifiers\":{\"erp\":{\"system\":\"SAP S/4HANA\",\"materialNumber\":\"MAT-7700121\",\"assetNumber\":\"100004512\",\"purchaseOrder\":\"4500098812\",\"poLine\":\"20\",\"goodsReceipt\":\"5000123877\",\"vendorId\":\"V100482\"},\"cmdb\":{\"system\":\"ServiceNow\",\"ciClass\":\"cmdb_ci_server\",\"sysId\":\"0a4b2c6d8e1f4a2b9c3d5e7f10213243\"},\"dcim\":{\"system\":\"NetBox\",\"deviceId\":\"1182\"}},\"drift\":{\"attributes\":[\"/placement/rackUnit\",\"/compute/acceleratorCount\",\"/configuration/bmcFirmware\",\"/configuration/biosVersion\"],\"discoverySources\":[\"redfish\",\"dcgm\",\"cmdb\"],\"onDrift\":\"ticket\"},\"placement\":{\"location\":\"loc-rack-a01\",\"rackUnit\":10,\"heightU\":8,\"face\":\"front\"},\"physical\":{\"formFactor\":\"8U\",\"weightKg\":130,\"power\":{\"typicalW\":8500,\"maxW\":10200,\"psuCount\":6,\"redundancy\":\"N+2\",\"inputVoltage\":\"200-240VAC\",\"connector\":\"C19\"},\"cooling\":{\"method\":\"hybrid\",\"heatLoadW\":8500,\"liquidFractionPct\":0}},\"compute\":{\"cpuModel\":\"Intel Xeon Platinum 8568Y+\",\"cpuSockets\":2,\"coresTotal\":96,\"memoryGiB\":2048,\"acceleratorModel\":\"NVIDIA H200 SXM\",\"acceleratorCount\":8,\"acceleratorMemoryGiB\":141,\"acceleratorInterconnect\":\"NVLink 4 / NVSwitch\",\"storageTB\":30.72},\"network\":{\"managementIp\":\"10.20.0.11\",\"macAddresses\":[\"3C:EC:EF:12:34:01\"]},\"variants\":{\"alternates\":[{\"mpn\":\"SYS-A21GE-NBRT\",\"manufacturer\":\"org-smc\",\"qualified\":false,\"impact\":\"B200/B300 platform; needs 1.4x power and liquid loop.\"}]},\"configuration\":{\"bmcFirmware\":\"01.04.02\",\"biosVersion\":\"2.3\",\"hostname\":\"a01-gpu01\"},\"quality\":{\"compliance\":[\"RoHS\",\"TAA\"],\"certifications\":[\"UL\",\"FCC\"],\"burnInHours\":72},\"criticality\":\"critical\",\"procurementType\":\"buy\",\"security\":{\"rootOfTrust\":\"Supermicro HRoT\",\"secureBoot\":true,\"attestation\":\"SPDM\",\"counterfeitCheck\":\"passed\"}}"
+            }
+          ],
+          "components": [
+            {
+              "type": "device",
+              "bom-ref": "gpu-srv01",
+              "name": "H200 SXM5 141GB GPU (in HGX baseboard)",
+              "manufacturer": {
+                "name": "NVIDIA",
+                "bom-ref": "org-nvidia"
+              },
+              "group": "H200 SXM",
+              "properties": [
+                {
+                  "name": "ibom:class",
+                  "value": "hardware"
+                },
+                {
+                  "name": "ibom:quantity",
+                  "value": "8"
+                },
+                {
+                  "name": "ibom:category",
+                  "value": "gpu"
+                },
+                {
+                  "name": "ibom:partNumber",
+                  "value": "IB-GPU-H200-SXM"
+                },
+                {
+                  "name": "ibom:mpn",
+                  "value": "935-24287-0000-000"
+                },
+                {
+                  "name": "ibom:unitOfMeasure",
+                  "value": "EA"
+                },
+                {
+                  "name": "ibom:data",
+                  "value": "{\"lifecycle\":{\"status\":\"in-service\",\"vendorLifecycle\":{\"stage\":\"nrnd\",\"successor\":\"B300\"},\"health\":{\"status\":\"healthy\",\"observedAt\":\"2026-09-27T05:00:00Z\",\"source\":\"dcgm\",\"metrics\":{\"maxTempC\":71,\"xidErrors24h\":0,\"retiredPages\":0}}},\"physical\":{\"formFactor\":\"SXM\",\"power\":{\"maxW\":700}},\"variants\":{\"inherited\":true},\"criticality\":\"critical\"}"
+                }
+              ]
+            },
+            {
+              "type": "device",
+              "bom-ref": "nic-srv01",
+              "name": "ConnectX-7 400G OSFP adapter",
+              "manufacturer": {
+                "name": "NVIDIA",
+                "bom-ref": "org-nvidia"
+              },
+              "group": "ConnectX-7",
+              "properties": [
+                {
+                  "name": "ibom:class",
+                  "value": "hardware"
+                },
+                {
+                  "name": "ibom:quantity",
+                  "value": "8"
+                },
+                {
+                  "name": "ibom:category",
+                  "value": "nic"
+                },
+                {
+                  "name": "ibom:partNumber",
+                  "value": "IB-NIC-CX7-400"
+                },
+                {
+                  "name": "ibom:mpn",
+                  "value": "MCX75310AAS-NEAT"
+                },
+                {
+                  "name": "ibom:data",
+                  "value": "{\"network\":{\"portCount\":1,\"portSpeedGbps\":400,\"fabric\":\"ethernet\",\"role\":\"compute-fabric\"},\"variants\":{\"inherited\":true},\"criticality\":\"high\"}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "device",
+          "bom-ref": "srv-gpu-02",
+          "name": "8U 8-GPU training server",
+          "manufacturer": {
+            "name": "Supermicro",
+            "bom-ref": "org-smc"
+          },
+          "supplier": {
+            "name": "Northwind IT Distribution",
+            "bom-ref": "org-northwind"
+          },
+          "cpe": "cpe:2.3:h:supermicro:sys-821ge-tnhr:-:*:*:*:*:*:*:*",
+          "group": "SYS-821GE-TNHR",
+          "externalReferences": [
+            {
+              "type": "bom",
+              "url": "https://example.com/sbom/smc-821ge-hbom.cdx.json",
+              "comment": "CycloneDX 1.6"
+            }
+          ],
+          "properties": [
+            {
+              "name": "ibom:class",
+              "value": "hardware"
+            },
+            {
+              "name": "ibom:quantity",
+              "value": "1"
+            },
+            {
+              "name": "ibom:category",
+              "value": "server"
+            },
+            {
+              "name": "ibom:partNumber",
+              "value": "IB-SRV-HGX8-H200"
+            },
+            {
+              "name": "ibom:mpn",
+              "value": "SYS-821GE-TNHR"
+            },
+            {
+              "name": "ibom:serialNumber",
+              "value": "S821GE-26B-00382"
+            },
+            {
+              "name": "ibom:assetTag",
+              "value": "AT-004513"
+            },
+            {
+              "name": "ibom:data",
+              "value": "{\"lifecycle\":{\"status\":\"in-service\",\"dates\":{\"installed\":\"2026-08-27\",\"inService\":\"2026-09-02\",\"warrantyEnd\":\"2029-09-01\"},\"health\":{\"status\":\"warning\",\"observedAt\":\"2026-09-27T05:00:00Z\",\"source\":\"dcgm\",\"metrics\":{\"correctableEcc24h\":214,\"gpu5TempC\":83},\"failureProbability90d\":0.14}},\"supply\":{\"sources\":[{\"supplier\":\"org-northwind\",\"tier\":1,\"leadTimeDays\":{\"quoted\":56,\"observed\":70}}]},\"sustainability\":{\"embodiedCarbon\":{\"kgCO2e\":3700,\"boundary\":\"cradle-to-gate\",\"scope3Categories\":[2,4],\"method\":\"estimate\",\"uncertaintyPct\":35},\"annualEnergyKwh\":74460},\"financial\":{\"unitCost\":{\"amount\":315000,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":315000,\"currency\":\"USD\"},\"costType\":\"actual\",\"expenseType\":\"capex\",\"depreciation\":{\"method\":\"straight-line\",\"usefulLifeMonths\":36,\"startDate\":\"2026-09-02\"}},\"identifiers\":{\"erp\":{\"system\":\"SAP S/4HANA\",\"assetNumber\":\"100004513\",\"purchaseOrder\":\"4500098812\",\"poLine\":\"30\"},\"cmdb\":{\"system\":\"ServiceNow\",\"ciClass\":\"cmdb_ci_server\",\"sysId\":\"1b5c3d7e9f2a4b3c8d4e6f8021324354\"}},\"drift\":{\"attributes\":[\"/placement/rackUnit\",\"/configuration/bmcFirmware\"],\"discoverySources\":[\"redfish\"],\"onDrift\":\"ticket\"},\"placement\":{\"location\":\"loc-rack-a01\",\"rackUnit\":20,\"heightU\":8,\"face\":\"front\"},\"physical\":{\"formFactor\":\"8U\",\"weightKg\":130,\"power\":{\"typicalW\":8500,\"maxW\":10200,\"psuCount\":6,\"redundancy\":\"N+2\",\"connector\":\"C19\"}},\"compute\":{\"cpuModel\":\"Intel Xeon Platinum 8568Y+\",\"cpuSockets\":2,\"coresTotal\":96,\"memoryGiB\":2048,\"acceleratorModel\":\"NVIDIA H200 SXM\",\"acceleratorCount\":8,\"acceleratorMemoryGiB\":141},\"network\":{\"managementIp\":\"10.20.0.12\"},\"configuration\":{\"bmcFirmware\":\"01.04.02\",\"biosVersion\":\"2.3\",\"hostname\":\"a01-gpu02\"},\"criticality\":\"critical\",\"security\":{\"secureBoot\":true}}"
+            }
+          ]
+        },
+        {
+          "type": "device",
+          "bom-ref": "sw-tor-01",
+          "name": "64-port 800G Ethernet switch",
+          "manufacturer": {
+            "name": "NVIDIA",
+            "bom-ref": "org-nvidia"
+          },
+          "supplier": {
+            "name": "Northwind IT Distribution",
+            "bom-ref": "org-northwind"
+          },
+          "group": "Spectrum-4 SN5600",
+          "properties": [
+            {
+              "name": "ibom:class",
+              "value": "hardware"
+            },
+            {
+              "name": "ibom:quantity",
+              "value": "1"
+            },
+            {
+              "name": "ibom:category",
+              "value": "switch"
+            },
+            {
+              "name": "ibom:partNumber",
+              "value": "IB-SW-800G-64"
+            },
+            {
+              "name": "ibom:mpn",
+              "value": "920-9N42F-00RI-7C0"
+            },
+            {
+              "name": "ibom:serialNumber",
+              "value": "MT2634X01122"
+            },
+            {
+              "name": "ibom:data",
+              "value": "{\"lifecycle\":{\"status\":\"in-service\",\"dates\":{\"installed\":\"2026-08-26\"},\"vendorLifecycle\":{\"stage\":\"active\"}},\"supply\":{\"sources\":[{\"supplier\":\"org-northwind\",\"tier\":1,\"leadTimeDays\":{\"quoted\":42,\"observed\":45}}]},\"sustainability\":{\"embodiedCarbon\":{\"kgCO2e\":900,\"scope3Categories\":[2],\"method\":\"estimate\",\"uncertaintyPct\":40}},\"financial\":{\"unitCost\":{\"amount\":58000,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":58000,\"currency\":\"USD\"},\"costType\":\"actual\",\"expenseType\":\"capex\"},\"identifiers\":{\"cmdb\":{\"system\":\"ServiceNow\",\"ciClass\":\"cmdb_ci_ip_switch\",\"sysId\":\"2c6d4e8f0a3b4c5d9e5f7a9132435465\"}},\"drift\":{\"attributes\":[\"/configuration/mtu\",\"/configuration/nosVersion\"],\"discoverySources\":[\"gnmi\",\"lldp\"],\"onDrift\":\"alert\"},\"placement\":{\"location\":\"loc-rack-a01\",\"rackUnit\":44,\"heightU\":2,\"face\":\"rear\"},\"physical\":{\"formFactor\":\"2U\",\"power\":{\"typicalW\":1100,\"maxW\":2200,\"psuCount\":2,\"redundancy\":\"1+1\"}},\"network\":{\"portCount\":64,\"portSpeedGbps\":800,\"fabric\":\"ethernet\",\"role\":\"tor\",\"managementIp\":\"10.20.0.2\"},\"configuration\":{\"mtu\":9216,\"nosVersion\":\"Cumulus Linux 5.10\",\"roceEnabled\":true},\"criticality\":\"critical\"}"
+            }
+          ]
+        },
+        {
+          "type": "device",
+          "bom-ref": "optic-800g",
+          "name": "800G OSFP 2xDR4 transceiver",
+          "manufacturer": {
+            "name": "NVIDIA",
+            "bom-ref": "org-nvidia"
+          },
+          "supplier": {
+            "name": "Northwind IT Distribution",
+            "bom-ref": "org-northwind"
+          },
+          "group": "MMS4X00-NM",
+          "properties": [
+            {
+              "name": "ibom:class",
+              "value": "hardware"
+            },
+            {
+              "name": "ibom:quantity",
+              "value": "24"
+            },
+            {
+              "name": "ibom:category",
+              "value": "optic"
+            },
+            {
+              "name": "ibom:partNumber",
+              "value": "IB-OPT-OSFP-800-DR8"
+            },
+            {
+              "name": "ibom:mpn",
+              "value": "MMS4X00-NM"
+            },
+            {
+              "name": "ibom:unitOfMeasure",
+              "value": "EA"
+            },
+            {
+              "name": "ibom:data",
+              "value": "{\"lifecycle\":{\"status\":\"deployed\"},\"supply\":{\"sources\":[{\"supplier\":\"org-northwind\",\"tier\":1,\"leadTimeDays\":{\"quoted\":84,\"observed\":112,\"predicted\":126},\"unitPrice\":{\"amount\":1650,\"currency\":\"USD\"},\"moq\":8}],\"singleSource\":true,\"subTierDependencies\":[{\"name\":\"200G/lane PAM4 DSP\",\"category\":\"ic\",\"supplier\":\"org-broadcom\",\"tier\":2,\"singleSource\":true,\"constraint\":\"DSP allocation\"},{\"name\":\"Silicon photonics engine\",\"category\":\"photonics\",\"tier\":3,\"singleSource\":true}],\"risk\":{\"score\":78,\"level\":\"critical\",\"drivers\":[\"single-source\",\"long-lead-time\",\"lead-time-increasing\",\"demand-spike\"],\"delayProbability\":0.6,\"needBy\":\"2026-11-15\",\"recommendedAction\":\"Approve ECO-0142 to qualify a third-party MSA-compliant DR8 optic; hold 10% spares.\"}},\"financial\":{\"unitCost\":{\"amount\":1650,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":39600,\"currency\":\"USD\"},\"costType\":\"actual\",\"expenseType\":\"capex\"},\"physical\":{\"formFactor\":\"OSFP\",\"power\":{\"maxW\":17}},\"network\":{\"portSpeedGbps\":800,\"fabric\":\"ethernet\",\"mediaType\":\"DR8\"},\"variants\":{\"alternates\":[{\"mpn\":\"OSFP-800G-2DR4-TP\",\"qualified\":false,\"impact\":\"Needs NOS optics allow-list update; 30% shorter lead time.\"}]},\"criticality\":\"high\"}"
+            }
+          ]
+        },
+        {
+          "type": "device",
+          "bom-ref": "cable-dac-mgmt",
+          "name": "Cat6A patch cable 2m (OOB management)",
+          "properties": [
+            {
+              "name": "ibom:class",
+              "value": "hardware"
+            },
+            {
+              "name": "ibom:quantity",
+              "value": "6"
+            },
+            {
+              "name": "ibom:category",
+              "value": "cable"
+            },
+            {
+              "name": "ibom:partNumber",
+              "value": "IB-CBL-CAT6A-2M"
+            },
+            {
+              "name": "ibom:data",
+              "value": "{\"financial\":{\"unitCost\":{\"amount\":9,\"currency\":\"USD\"},\"extendedCost\":{\"amount\":54,\"currency\":\"USD\"},\"costType\":\"actual\",\"expenseType\":\"opex\"},\"physical\":{\"lengthM\":2},\"network\":{\"fabric\":\"management\",\"mediaType\":\"Cat6A\"},\"criticality\":\"low\"}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "firmware",
+      "bom-ref": "fw-bmc-821ge",
+      "name": "Supermicro BMC firmware",
+      "manufacturer": {
+        "name": "Supermicro",
+        "bom-ref": "org-smc"
+      },
+      "version": "01.04.02",
+      "purl": "pkg:generic/supermicro/bmc-x13@01.04.02",
+      "cpe": "cpe:2.3:o:supermicro:x13_bmc_firmware:01.04.02:*:*:*:*:*:*:*",
+      "externalReferences": [
+        {
+          "type": "bom",
+          "url": "urn:cdx:5b0f0c4e-7e0a-4d0d-9d64-1b2c3d4e5f60/1#fw-bmc",
+          "comment": "CycloneDX 1.6"
+        }
+      ],
+      "properties": [
+        {
+          "name": "ibom:class",
+          "value": "firmware"
+        },
+        {
+          "name": "ibom:quantity",
+          "value": "2"
+        },
+        {
+          "name": "ibom:category",
+          "value": "bmc-firmware"
+        },
+        {
+          "name": "ibom:data",
+          "value": "{\"lifecycle\":{\"status\":\"deployed\"},\"criticality\":\"critical\"}"
+        }
+      ]
+    },
+    {
+      "type": "firmware",
+      "bom-ref": "fw-gpu-vbios",
+      "name": "H200 VBIOS",
+      "manufacturer": {
+        "name": "NVIDIA",
+        "bom-ref": "org-nvidia"
+      },
+      "version": "96.00.A5.00.01",
+      "properties": [
+        {
+          "name": "ibom:class",
+          "value": "firmware"
+        },
+        {
+          "name": "ibom:quantity",
+          "value": "16"
+        },
+        {
+          "name": "ibom:category",
+          "value": "gpu-firmware"
+        },
+        {
+          "name": "ibom:data",
+          "value": "{\"lifecycle\":{\"status\":\"deployed\"},\"criticality\":\"high\"}"
+        }
+      ]
+    },
+    {
+      "type": "operating-system",
+      "bom-ref": "os-ubuntu",
+      "name": "Ubuntu Server",
+      "manufacturer": {
+        "name": "Canonical",
+        "bom-ref": "org-canonical"
+      },
+      "version": "24.04.3 LTS",
+      "purl": "pkg:generic/canonical/ubuntu-server@24.04.3",
+      "cpe": "cpe:2.3:o:canonical:ubuntu_linux:24.04:*:*:*:lts:*:*:*",
+      "licenses": [
+        {
+          "expression": "GPL-2.0-only AND LicenseRef-Canonical-Mixed"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "bom",
+          "url": "https://example.com/sbom/ubuntu-24.04.3-server.spdx.json",
+          "comment": "SPDX 2.3"
+        }
+      ],
+      "properties": [
+        {
+          "name": "ibom:class",
+          "value": "software"
+        },
+        {
+          "name": "ibom:quantity",
+          "value": "2"
+        },
+        {
+          "name": "ibom:category",
+          "value": "os"
+        },
+        {
+          "name": "ibom:data",
+          "value": "{\"lifecycle\":{\"status\":\"deployed\",\"vendorLifecycle\":{\"stage\":\"active\",\"endOfSupport\":\"2029-05-31\"}},\"criticality\":\"high\"}"
+        }
+      ]
+    },
+    {
+      "type": "device-driver",
+      "bom-ref": "drv-nvidia",
+      "name": "NVIDIA data center GPU driver",
+      "manufacturer": {
+        "name": "NVIDIA",
+        "bom-ref": "org-nvidia"
+      },
+      "version": "570.172.08",
+      "purl": "pkg:generic/nvidia/datacenter-driver@570.172.08",
+      "properties": [
+        {
+          "name": "ibom:class",
+          "value": "software"
+        },
+        {
+          "name": "ibom:quantity",
+          "value": "2"
+        },
+        {
+          "name": "ibom:category",
+          "value": "driver"
+        },
+        {
+          "name": "ibom:data",
+          "value": "{\"lifecycle\":{\"status\":\"deployed\"},\"criticality\":\"high\"}"
+        }
+      ]
+    },
+    {
+      "type": "platform",
+      "bom-ref": "k8s",
+      "name": "Kubernetes (kubeadm)",
+      "version": "1.33.4",
+      "purl": "pkg:github/kubernetes/kubernetes@v1.33.4",
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ],
+      "properties": [
+        {
+          "name": "ibom:class",
+          "value": "software"
+        },
+        {
+          "name": "ibom:quantity",
+          "value": "1"
+        },
+        {
+          "name": "ibom:category",
+          "value": "orchestrator"
+        },
+        {
+          "name": "ibom:data",
+          "value": "{\"lifecycle\":{\"status\":\"deployed\",\"vendorLifecycle\":{\"stage\":\"end-of-support\",\"endOfSupport\":\"2026-06-28\",\"successor\":\"1.35\"}},\"drift\":{\"attributes\":[\"/version\"],\"discoverySources\":[\"kubernetes-api\"],\"onDrift\":\"alert\"},\"criticality\":\"high\"}"
+        }
+      ]
+    }
+  ],
+  "services": [
+    {
+      "bom-ref": "s3-ckpt",
+      "name": "Training checkpoint bucket",
+      "provider": {
+        "name": "aws"
+      },
+      "endpoints": [
+        "arn:aws:s3:::prj-ai-0042-checkpoints"
+      ],
+      "properties": [
+        {
+          "name": "ibom:class",
+          "value": "cloud-resource"
+        },
+        {
+          "name": "ibom:data",
+          "value": "{\"lifecycle\":{\"status\":\"in-service\"},\"financial\":{\"recurringCost\":{\"amount\":{\"amount\":1150,\"currency\":\"USD\"},\"period\":\"monthly\"},\"expenseType\":\"opex\",\"costCenter\":\"CC-AI-PLAT\"},\"identifiers\":{\"cloud\":{\"provider\":\"aws\",\"resourceId\":\"arn:aws:s3:::prj-ai-0042-checkpoints\"},\"iacAddress\":\"module.storage.aws_s3_bucket.checkpoints\"},\"drift\":{\"attributes\":[\"/configuration/versioning\",\"/configuration/publicAccessBlock\"],\"discoverySources\":[\"cloud-api\",\"terraform-state\"],\"onDrift\":\"auto-remediate\"},\"placement\":{\"location\":\"loc-aws-usw2\"},\"configuration\":{\"versioning\":true,\"publicAccessBlock\":true,\"encryption\":\"aws:kms\"},\"criticality\":\"high\",\"virtual\":{\"provider\":\"aws\",\"resourceType\":\"aws_s3_bucket\",\"resourceId\":\"arn:aws:s3:::prj-ai-0042-checkpoints\",\"region\":\"us-west-2\",\"tags\":{\"project\":\"PRJ-AI-0042\",\"owner\":\"ai-platform\"},\"iac\":{\"tool\":\"terraform\",\"address\":\"module.storage.aws_s3_bucket.checkpoints\",\"source\":\"git::https://example.com/infra/ai-pod.git//storage/main.tf\"}}}"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "srv-gpu-01",
+      "dependsOn": [
+        "cdu-a01",
+        "pdu-a01",
+        "sw-tor-01"
+      ]
+    },
+    {
+      "ref": "srv-gpu-02",
+      "dependsOn": [
+        "cdu-a01",
+        "pdu-a01",
+        "sw-tor-01"
+      ]
+    },
+    {
+      "ref": "sw-tor-01",
+      "dependsOn": [
+        "pdu-a01"
+      ]
+    },
+    {
+      "ref": "cdu-a01",
+      "dependsOn": [
+        "pdu-a01"
+      ]
+    },
+    {
+      "ref": "fw-bmc-821ge",
+      "dependsOn": [
+        "srv-gpu-01",
+        "srv-gpu-02"
+      ]
+    },
+    {
+      "ref": "fw-gpu-vbios",
+      "dependsOn": [
+        "gpu-srv01"
+      ]
+    },
+    {
+      "ref": "os-ubuntu",
+      "dependsOn": [
+        "srv-gpu-01",
+        "srv-gpu-02"
+      ]
+    },
+    {
+      "ref": "drv-nvidia",
+      "dependsOn": [
+        "os-ubuntu"
+      ]
+    },
+    {
+      "ref": "k8s",
+      "dependsOn": [
+        "os-ubuntu",
+        "s3-ckpt"
+      ]
+    },
+    {
+      "ref": "ibom-root",
+      "dependsOn": [
+        "drv-nvidia",
+        "fw-bmc-821ge",
+        "fw-gpu-vbios",
+        "k8s",
+        "os-ubuntu",
+        "rack-a01",
+        "s3-ckpt"
+      ]
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "bom-ref": "vuln-CVE-2026-00000-fw-bmc-821ge",
+      "id": "CVE-2026-00000",
+      "affects": [
+        {
+          "ref": "fw-bmc-821ge"
+        }
+      ],
+      "ratings": [
+        {
+          "severity": "high"
+        }
+      ],
+      "analysis": {
+        "state": "resolved",
+        "detail": "Fixed in 01.04.02"
+      }
+    }
+  ]
+}

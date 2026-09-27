@@ -1,0 +1,436 @@
+{
+  "$schema": "../ibom.schema.json",
+  "bomFormat": "I-BOM",
+  "specVersion": "0.1.0",
+  "serialNumber": "urn:uuid:40a1b2e2-278f-4749-8582-9f8761fa92a9",
+  "version": 7,
+  "metadata": {
+    "timestamp": "2026-09-27T05:30:00Z",
+    "authors": [{ "name": "Chi", "role": "BOM owner" }],
+    "tools": [{ "name": "ibom-ingest", "version": "0.1.0" }, { "name": "ibom-discover", "version": "0.1.0" }],
+    "project": {
+      "id": "PRJ-AI-0042",
+      "name": "AI training pod A01 (illustrative example)",
+      "description": "One liquid-assisted rack with two 8-GPU training servers, 800G ToR switch, and a cloud checkpoint bucket. All vendors, part numbers, prices and carbon values are illustrative.",
+      "type": "ai-cluster",
+      "owner": { "name": "Chi" },
+      "budget": { "amount": 1000000, "currency": "USD" },
+      "contractType": "fixed-bid",
+      "plannedStart": "2026-08-01",
+      "plannedCompletion": "2026-10-15"
+    },
+    "bomViews": ["infrastructure", "as-built", "procurement", "costed", "software"],
+    "lifecyclePhase": "deploy",
+    "structure": "multi-level",
+    "revision": "C",
+    "approval": { "status": "released", "approvedBy": { "name": "Chi" }, "approvedAt": "2026-09-20T17:00:00Z" },
+    "licenses": ["CC-BY-4.0"]
+  },
+
+  "organizations": [
+    { "bom-ref": "org-smc", "name": "Supermicro", "roles": ["manufacturer"], "country": "US" },
+    { "bom-ref": "org-nvidia", "name": "NVIDIA", "roles": ["manufacturer"], "country": "US",
+      "risk": { "score": 35, "financialHealth": "strong", "geopoliticalExposure": "high", "assessedAt": "2026-09-25T00:00:00Z", "notes": "Export-control exposure on accelerators." } },
+    { "bom-ref": "org-skhynix", "name": "SK hynix", "roles": ["manufacturer"], "country": "KR" },
+    { "bom-ref": "org-tsmc", "name": "TSMC", "roles": ["contract-manufacturer"], "country": "TW",
+      "risk": { "score": 55, "geopoliticalExposure": "high", "assessedAt": "2026-09-25T00:00:00Z" } },
+    { "bom-ref": "org-broadcom", "name": "Broadcom", "roles": ["manufacturer"], "country": "US" },
+    { "bom-ref": "org-vertiv", "name": "Vertiv", "roles": ["manufacturer"], "country": "US" },
+    { "bom-ref": "org-canonical", "name": "Canonical", "roles": ["manufacturer"], "country": "GB" },
+    { "bom-ref": "org-aws", "name": "Amazon Web Services", "roles": ["cloud-provider"], "country": "US" },
+    { "bom-ref": "org-northwind", "name": "Northwind IT Distribution", "roles": ["distributor", "supplier"], "country": "US",
+      "identifiers": { "erpVendorId": "V100482" },
+      "risk": { "score": 20, "financialHealth": "stable", "onTimeDeliveryRate": 0.91, "assessedAt": "2026-09-25T00:00:00Z" } },
+    { "bom-ref": "org-cascade", "name": "Cascade Integration Services", "roles": ["integrator", "service-provider"], "country": "US",
+      "identifiers": { "erpVendorId": "V100733" } },
+    { "bom-ref": "org-greencycle", "name": "GreenCycle ITAD", "roles": ["recycler"], "country": "US" }
+  ],
+
+  "locations": [
+    { "bom-ref": "loc-site-sea1", "type": "site", "name": "SEA1 colocation", "country": "US", "geo": { "lat": 47.48, "lon": -122.21 },
+      "facility": { "pue": 1.3, "wue": 0.4, "gridCarbonIntensity": 95, "renewableShare": 0.8 } },
+    { "bom-ref": "loc-room-dh2", "type": "room", "name": "Data hall 2", "parent": "loc-site-sea1" },
+    { "bom-ref": "loc-row-a", "type": "row", "name": "Row A", "parent": "loc-room-dh2" },
+    { "bom-ref": "loc-rack-a01", "type": "rack", "name": "A01", "parent": "loc-row-a",
+      "rack": { "heightU": 48, "powerBudgetKw": 30, "coolingCapacityKw": 30, "maxWeightKg": 1360 } },
+    { "bom-ref": "loc-aws-usw2", "type": "cloud-region", "name": "AWS us-west-2",
+      "cloud": { "provider": "aws", "accountId": "111122223333", "region": "us-west-2" } }
+  ],
+
+  "components": [
+    {
+      "bom-ref": "rack-a01", "class": "hardware", "category": "rack",
+      "partNumber": "IB-RCK-48U-1200", "name": "48U 600x1200 rack enclosure", "manufacturer": "org-vertiv", "model": "VR3300", "mpn": "VR3300",
+      "quantity": 1, "unitOfMeasure": "EA", "serialNumber": "VR3300-26A-11873", "assetTag": "AT-004511",
+      "placement": { "location": "loc-rack-a01" },
+      "physical": { "formFactor": "48U", "dimensionsMm": { "width": 600, "depth": 1200, "height": 2265 }, "weightKg": 160 },
+      "lifecycle": { "status": "in-service", "phase": "deploy", "dates": { "received": "2026-08-20", "installed": "2026-08-22" } },
+      "financial": { "unitCost": { "amount": 2400, "currency": "USD" }, "extendedCost": { "amount": 2400, "currency": "USD" }, "costType": "actual", "expenseType": "capex",
+        "depreciation": { "method": "straight-line", "usefulLifeMonths": 120, "startDate": "2026-09-01" } },
+      "sustainability": { "embodiedCarbon": { "kgCO2e": 410, "boundary": "cradle-to-gate", "scope3Categories": [2], "method": "estimate", "uncertaintyPct": 40 } },
+      "identifiers": { "erp": { "system": "SAP S/4HANA", "assetNumber": "100004511", "purchaseOrder": "4500098812", "poLine": "10" },
+                       "cmdb": { "system": "ServiceNow", "ciClass": "cmdb_ci_rack", "sysId": "9f1c0a7e1b2d4e10a3c5d6e7f8091a2b" } },
+      "procurementType": "buy", "criticality": "medium"
+    },
+    {
+      "bom-ref": "pdu-a01", "class": "hardware", "category": "pdu",
+      "partNumber": "IB-PDU-415-36", "name": "Switched rack PDU, 415V 3-phase, 36x C13/C19", "manufacturer": "org-vertiv", "model": "Geist rPDU", "mpn": "VP9868",
+      "quantity": 2, "unitOfMeasure": "EA", "parent": "rack-a01",
+      "units": [
+        { "serialNumber": "VP9868-0091", "referenceDesignator": "PDU-A", "placement": { "location": "loc-rack-a01", "face": "zero-u-left" } },
+        { "serialNumber": "VP9868-0092", "referenceDesignator": "PDU-B", "placement": { "location": "loc-rack-a01", "face": "zero-u-right" } }
+      ],
+      "physical": { "power": { "inputVoltage": "415VAC 3-phase", "outputCapacityKw": 22, "connector": "IEC 60309 5-pin" } },
+      "lifecycle": { "status": "in-service", "dates": { "installed": "2026-08-22" } },
+      "supply": { "sources": [{ "supplier": "org-northwind", "tier": 1, "preferred": true, "leadTimeDays": { "quoted": 21, "observed": 19 } }] },
+      "financial": { "unitCost": { "amount": 3100, "currency": "USD" }, "extendedCost": { "amount": 6200, "currency": "USD" }, "costType": "actual", "expenseType": "capex" },
+      "drift": { "attributes": ["/configuration/outletPolicy"], "discoverySources": ["snmp"], "onDrift": "alert" },
+      "configuration": { "outletPolicy": "sequenced-2s" },
+      "criticality": "critical"
+    },
+    {
+      "bom-ref": "cdu-a01", "class": "hardware", "category": "cdu",
+      "partNumber": "IB-CDU-RM-100", "name": "In-rack coolant distribution unit, 100 kW", "manufacturer": "org-vertiv", "model": "Liebert XDU100", "mpn": "XDU100",
+      "quantity": 1, "serialNumber": "XDU100-26-0417", "parent": "rack-a01",
+      "placement": { "location": "loc-rack-a01", "rackUnit": 1, "heightU": 4, "face": "front" },
+      "physical": { "weightKg": 190, "power": { "typicalW": 1800, "maxW": 3000 }, "cooling": { "method": "direct-liquid", "coolantType": "PG25", "coolingCapacityKw": 100, "flowRateLpm": 150, "inletTempC": 32 } },
+      "lifecycle": { "status": "in-service", "dates": { "installed": "2026-08-25" }, "maintenance": { "intervalDays": 90, "nextDue": "2026-11-25" },
+        "health": { "status": "healthy", "observedAt": "2026-09-27T05:00:00Z", "source": "redfish", "metrics": { "supplyTempC": 31.8, "flowLpm": 142, "leakDetected": false } } },
+      "supply": { "sources": [{ "supplier": "org-northwind", "tier": 1, "leadTimeDays": { "quoted": 70, "observed": 84, "predicted": 90 } }], "singleSource": true,
+        "risk": { "score": 62, "level": "high", "drivers": ["single-source", "long-lead-time", "lead-time-increasing"], "recommendedAction": "Qualify a second CDU vendor before pod A02 order." } },
+      "financial": { "unitCost": { "amount": 38000, "currency": "USD" }, "extendedCost": { "amount": 38000, "currency": "USD" }, "costType": "actual", "expenseType": "capex" },
+      "criticality": "critical"
+    },
+
+    {
+      "bom-ref": "srv-gpu-01", "class": "hardware", "category": "server",
+      "partNumber": "IB-SRV-HGX8-H200", "name": "8U 8-GPU training server", "manufacturer": "org-smc", "model": "SYS-821GE-TNHR", "mpn": "SYS-821GE-TNHR",
+      "cpe": "cpe:2.3:h:supermicro:sys-821ge-tnhr:-:*:*:*:*:*:*:*",
+      "quantity": 1, "serialNumber": "S821GE-26B-00381", "assetTag": "AT-004512", "parent": "rack-a01",
+      "placement": { "location": "loc-rack-a01", "rackUnit": 10, "heightU": 8, "face": "front" },
+      "physical": { "formFactor": "8U", "weightKg": 130,
+        "power": { "typicalW": 8500, "maxW": 10200, "psuCount": 6, "redundancy": "N+2", "inputVoltage": "200-240VAC", "connector": "C19" },
+        "cooling": { "method": "hybrid", "heatLoadW": 8500, "liquidFractionPct": 0 } },
+      "compute": { "cpuModel": "Intel Xeon Platinum 8568Y+", "cpuSockets": 2, "coresTotal": 96, "memoryGiB": 2048,
+        "acceleratorModel": "NVIDIA H200 SXM", "acceleratorCount": 8, "acceleratorMemoryGiB": 141, "acceleratorInterconnect": "NVLink 4 / NVSwitch", "storageTB": 30.72 },
+      "network": { "managementIp": "10.20.0.11", "macAddresses": ["3C:EC:EF:12:34:01"] },
+      "lifecycle": {
+        "status": "in-service", "phase": "operate",
+        "dates": { "ordered": "2026-06-10", "promised": "2026-08-15", "received": "2026-08-19", "installed": "2026-08-27", "inService": "2026-09-02", "warrantyEnd": "2029-09-01", "plannedRefresh": "2029-09-01" },
+        "vendorLifecycle": { "stage": "nrnd", "successor": "HGX B300 platform", "source": "vendor roadmap briefing", "checkedAt": "2026-09-20T00:00:00Z" },
+        "health": { "status": "healthy", "observedAt": "2026-09-27T05:00:00Z", "source": "redfish", "metrics": { "inletTempC": 24, "powerW": 8120, "correctableEcc24h": 0 }, "failureProbability90d": 0.02 },
+        "events": [
+          { "at": "2026-08-27T21:10:00Z", "type": "status-change", "from": "received", "to": "burn-in", "actor": "org-cascade" },
+          { "at": "2026-09-02T16:00:00Z", "type": "status-change", "from": "burn-in", "to": "in-service" },
+          { "at": "2026-09-18T03:00:00Z", "type": "firmware-update", "from": "BMC 01.03.09", "to": "BMC 01.04.02", "changeRef": "CHG0031177" }
+        ]
+      },
+      "supply": {
+        "sources": [{ "supplier": "org-northwind", "supplierPartNumber": "NW-SMC-821GE-H200", "tier": 1, "preferred": true,
+          "leadTimeDays": { "quoted": 56, "observed": 70, "predicted": 98, "predictedAt": "2026-09-25T00:00:00Z" },
+          "unitPrice": { "amount": 315000, "currency": "USD" }, "countryOfOrigin": "US", "incoterm": "DAP" }],
+        "singleSource": false,
+        "subTierDependencies": [
+          { "name": "HBM3e 141GB stacks", "category": "memory", "supplier": "org-skhynix", "tier": 3, "singleSource": false, "countryOfOrigin": "KR" },
+          { "name": "CoWoS advanced packaging", "category": "packaging", "supplier": "org-tsmc", "tier": 3, "singleSource": true, "countryOfOrigin": "TW", "constraint": "CoWoS capacity allocation" }
+        ],
+        "risk": { "score": 71, "level": "high", "drivers": ["allocation", "lead-time-increasing", "eol-approaching", "export-control"], "delayProbability": 0.45, "needBy": "2026-12-01",
+          "recommendedAction": "For pod A02, pre-qualify the B300 successor now; H200 allocation is shrinking.", "assessedAt": "2026-09-25T00:00:00Z" },
+        "exportControl": { "eccn": "4A090.a", "restricted": true }
+      },
+      "security": {
+        "sbomRefs": [{ "format": "CycloneDX", "specVersion": "1.6", "url": "https://example.com/sbom/smc-821ge-hbom.cdx.json" }],
+        "rootOfTrust": "Supermicro HRoT", "secureBoot": true, "attestation": "SPDM", "counterfeitCheck": "passed"
+      },
+      "sustainability": {
+        "embodiedCarbon": { "kgCO2e": 3700, "boundary": "cradle-to-gate", "stages": { "manufacturing": 3550, "transport": 150 }, "scope3Categories": [2, 4], "method": "estimate", "source": "Spend and mass-based estimate pending vendor PCF", "uncertaintyPct": 35 },
+        "annualEnergyKwh": 74460, "recyclability": 0.8
+      },
+      "financial": { "unitCost": { "amount": 315000, "currency": "USD" }, "extendedCost": { "amount": 315000, "currency": "USD" }, "costType": "actual", "expenseType": "capex", "spendType": "direct",
+        "glAccount": "170200", "costCenter": "CC-AI-PLAT", "wbsElement": "PRJ-AI-0042.1.2",
+        "depreciation": { "method": "straight-line", "usefulLifeMonths": 36, "startDate": "2026-09-02" } },
+      "identifiers": {
+        "erp": { "system": "SAP S/4HANA", "materialNumber": "MAT-7700121", "assetNumber": "100004512", "purchaseOrder": "4500098812", "poLine": "20", "goodsReceipt": "5000123877", "vendorId": "V100482" },
+        "cmdb": { "system": "ServiceNow", "ciClass": "cmdb_ci_server", "sysId": "0a4b2c6d8e1f4a2b9c3d5e7f10213243" },
+        "dcim": { "system": "NetBox", "deviceId": "1182" }
+      },
+      "drift": { "attributes": ["/placement/rackUnit", "/compute/acceleratorCount", "/configuration/bmcFirmware", "/configuration/biosVersion"], "discoverySources": ["redfish", "dcgm", "cmdb"], "onDrift": "ticket" },
+      "configuration": { "bmcFirmware": "01.04.02", "biosVersion": "2.3", "hostname": "a01-gpu01" },
+      "variants": { "alternates": [{ "mpn": "SYS-A21GE-NBRT", "manufacturer": "org-smc", "qualified": false, "impact": "B200/B300 platform; needs 1.4x power and liquid loop." }] },
+      "quality": { "compliance": ["RoHS", "TAA"], "certifications": ["UL", "FCC"], "burnInHours": 72 },
+      "procurementType": "buy", "criticality": "critical"
+    },
+    {
+      "bom-ref": "gpu-srv01", "class": "hardware", "category": "gpu",
+      "partNumber": "IB-GPU-H200-SXM", "name": "H200 SXM5 141GB GPU (in HGX baseboard)", "manufacturer": "org-nvidia", "model": "H200 SXM", "mpn": "935-24287-0000-000",
+      "quantity": 8, "unitOfMeasure": "EA", "parent": "srv-gpu-01", "referenceDesignator": "GPU0-GPU7",
+      "physical": { "formFactor": "SXM", "power": { "maxW": 700 } },
+      "lifecycle": { "status": "in-service", "vendorLifecycle": { "stage": "nrnd", "successor": "B300" },
+        "health": { "status": "healthy", "observedAt": "2026-09-27T05:00:00Z", "source": "dcgm", "metrics": { "maxTempC": 71, "xidErrors24h": 0, "retiredPages": 0 } } },
+      "variants": { "inherited": true },
+      "notes": "Cost carried on parent server line; this line exists for health, EOL and sub-tier tracking.",
+      "criticality": "critical"
+    },
+    {
+      "bom-ref": "nic-srv01", "class": "hardware", "category": "nic",
+      "partNumber": "IB-NIC-CX7-400", "name": "ConnectX-7 400G OSFP adapter", "manufacturer": "org-nvidia", "model": "ConnectX-7", "mpn": "MCX75310AAS-NEAT",
+      "quantity": 8, "parent": "srv-gpu-01",
+      "network": { "portCount": 1, "portSpeedGbps": 400, "fabric": "ethernet", "role": "compute-fabric" },
+      "variants": { "inherited": true },
+      "criticality": "high"
+    },
+    {
+      "bom-ref": "srv-gpu-02", "class": "hardware", "category": "server",
+      "partNumber": "IB-SRV-HGX8-H200", "name": "8U 8-GPU training server", "manufacturer": "org-smc", "model": "SYS-821GE-TNHR", "mpn": "SYS-821GE-TNHR",
+      "cpe": "cpe:2.3:h:supermicro:sys-821ge-tnhr:-:*:*:*:*:*:*:*",
+      "quantity": 1, "serialNumber": "S821GE-26B-00382", "assetTag": "AT-004513", "parent": "rack-a01",
+      "placement": { "location": "loc-rack-a01", "rackUnit": 20, "heightU": 8, "face": "front" },
+      "physical": { "formFactor": "8U", "weightKg": 130, "power": { "typicalW": 8500, "maxW": 10200, "psuCount": 6, "redundancy": "N+2", "connector": "C19" } },
+      "compute": { "cpuModel": "Intel Xeon Platinum 8568Y+", "cpuSockets": 2, "coresTotal": 96, "memoryGiB": 2048, "acceleratorModel": "NVIDIA H200 SXM", "acceleratorCount": 8, "acceleratorMemoryGiB": 141 },
+      "network": { "managementIp": "10.20.0.12" },
+      "lifecycle": { "status": "in-service", "dates": { "installed": "2026-08-27", "inService": "2026-09-02", "warrantyEnd": "2029-09-01" },
+        "health": { "status": "warning", "observedAt": "2026-09-27T05:00:00Z", "source": "dcgm", "metrics": { "correctableEcc24h": 214, "gpu5TempC": 83 }, "failureProbability90d": 0.14 } },
+      "supply": { "sources": [{ "supplier": "org-northwind", "tier": 1, "leadTimeDays": { "quoted": 56, "observed": 70 } }] },
+      "security": { "sbomRefs": [{ "format": "CycloneDX", "specVersion": "1.6", "url": "https://example.com/sbom/smc-821ge-hbom.cdx.json" }], "secureBoot": true },
+      "sustainability": { "embodiedCarbon": { "kgCO2e": 3700, "boundary": "cradle-to-gate", "scope3Categories": [2, 4], "method": "estimate", "uncertaintyPct": 35 }, "annualEnergyKwh": 74460 },
+      "financial": { "unitCost": { "amount": 315000, "currency": "USD" }, "extendedCost": { "amount": 315000, "currency": "USD" }, "costType": "actual", "expenseType": "capex",
+        "depreciation": { "method": "straight-line", "usefulLifeMonths": 36, "startDate": "2026-09-02" } },
+      "identifiers": { "erp": { "system": "SAP S/4HANA", "assetNumber": "100004513", "purchaseOrder": "4500098812", "poLine": "30" },
+                       "cmdb": { "system": "ServiceNow", "ciClass": "cmdb_ci_server", "sysId": "1b5c3d7e9f2a4b3c8d4e6f8021324354" } },
+      "drift": { "attributes": ["/placement/rackUnit", "/configuration/bmcFirmware"], "discoverySources": ["redfish"], "onDrift": "ticket" },
+      "configuration": { "bmcFirmware": "01.04.02", "biosVersion": "2.3", "hostname": "a01-gpu02" },
+      "criticality": "critical"
+    },
+
+    {
+      "bom-ref": "sw-tor-01", "class": "hardware", "category": "switch",
+      "partNumber": "IB-SW-800G-64", "name": "64-port 800G Ethernet switch", "manufacturer": "org-nvidia", "model": "Spectrum-4 SN5600", "mpn": "920-9N42F-00RI-7C0",
+      "quantity": 1, "serialNumber": "MT2634X01122", "parent": "rack-a01",
+      "placement": { "location": "loc-rack-a01", "rackUnit": 44, "heightU": 2, "face": "rear" },
+      "physical": { "formFactor": "2U", "power": { "typicalW": 1100, "maxW": 2200, "psuCount": 2, "redundancy": "1+1" } },
+      "network": { "portCount": 64, "portSpeedGbps": 800, "fabric": "ethernet", "role": "tor", "managementIp": "10.20.0.2" },
+      "lifecycle": { "status": "in-service", "dates": { "installed": "2026-08-26" }, "vendorLifecycle": { "stage": "active" } },
+      "supply": { "sources": [{ "supplier": "org-northwind", "tier": 1, "leadTimeDays": { "quoted": 42, "observed": 45 } }] },
+      "financial": { "unitCost": { "amount": 58000, "currency": "USD" }, "extendedCost": { "amount": 58000, "currency": "USD" }, "costType": "actual", "expenseType": "capex" },
+      "sustainability": { "embodiedCarbon": { "kgCO2e": 900, "scope3Categories": [2], "method": "estimate", "uncertaintyPct": 40 } },
+      "identifiers": { "cmdb": { "system": "ServiceNow", "ciClass": "cmdb_ci_ip_switch", "sysId": "2c6d4e8f0a3b4c5d9e5f7a9132435465" } },
+      "drift": { "attributes": ["/configuration/mtu", "/configuration/nosVersion"], "discoverySources": ["gnmi", "lldp"], "onDrift": "alert" },
+      "configuration": { "mtu": 9216, "nosVersion": "Cumulus Linux 5.10", "roceEnabled": true },
+      "criticality": "critical"
+    },
+    {
+      "bom-ref": "optic-800g", "class": "hardware", "category": "optic",
+      "partNumber": "IB-OPT-OSFP-800-DR8", "name": "800G OSFP 2xDR4 transceiver", "manufacturer": "org-nvidia", "model": "MMS4X00-NM", "mpn": "MMS4X00-NM",
+      "quantity": 24, "unitOfMeasure": "EA", "parent": "rack-a01",
+      "network": { "portSpeedGbps": 800, "fabric": "ethernet", "mediaType": "DR8" },
+      "physical": { "formFactor": "OSFP", "power": { "maxW": 17 } },
+      "lifecycle": { "status": "deployed" },
+      "supply": {
+        "sources": [{ "supplier": "org-northwind", "tier": 1, "leadTimeDays": { "quoted": 84, "observed": 112, "predicted": 126 }, "unitPrice": { "amount": 1650, "currency": "USD" }, "moq": 8 }],
+        "singleSource": true,
+        "subTierDependencies": [
+          { "name": "200G/lane PAM4 DSP", "category": "ic", "supplier": "org-broadcom", "tier": 2, "singleSource": true, "constraint": "DSP allocation" },
+          { "name": "Silicon photonics engine", "category": "photonics", "tier": 3, "singleSource": true }
+        ],
+        "risk": { "score": 78, "level": "critical", "drivers": ["single-source", "long-lead-time", "lead-time-increasing", "demand-spike"], "delayProbability": 0.6,
+          "needBy": "2026-11-15", "recommendedAction": "Approve ECO-0142 to qualify a third-party MSA-compliant DR8 optic; hold 10% spares." }
+      },
+      "variants": { "alternates": [{ "mpn": "OSFP-800G-2DR4-TP", "qualified": false, "impact": "Needs NOS optics allow-list update; 30% shorter lead time." }] },
+      "financial": { "unitCost": { "amount": 1650, "currency": "USD" }, "extendedCost": { "amount": 39600, "currency": "USD" }, "costType": "actual", "expenseType": "capex" },
+      "criticality": "high"
+    },
+    {
+      "bom-ref": "cable-dac-mgmt", "class": "hardware", "category": "cable",
+      "partNumber": "IB-CBL-CAT6A-2M", "name": "Cat6A patch cable 2m (OOB management)",
+      "quantity": 6, "parent": "rack-a01",
+      "physical": { "lengthM": 2 },
+      "network": { "fabric": "management", "mediaType": "Cat6A" },
+      "financial": { "unitCost": { "amount": 9, "currency": "USD" }, "extendedCost": { "amount": 54, "currency": "USD" }, "costType": "actual", "expenseType": "opex" },
+      "consumable": true, "criticality": "low"
+    },
+
+    {
+      "bom-ref": "fw-bmc-821ge", "class": "firmware", "category": "bmc-firmware",
+      "name": "Supermicro BMC firmware", "version": "01.04.02", "manufacturer": "org-smc",
+      "purl": "pkg:generic/supermicro/bmc-x13@01.04.02",
+      "cpe": "cpe:2.3:o:supermicro:x13_bmc_firmware:01.04.02:*:*:*:*:*:*:*",
+      "quantity": 2,
+      "software": { "layer": "bmc", "signed": true, "releaseDate": "2026-08-30" },
+      "security": {
+        "sbomRefs": [{ "format": "CycloneDX", "specVersion": "1.6", "url": "https://example.com/sbom/smc-bmc-01.04.02.cdx.json", "bomLink": "urn:cdx:5b0f0c4e-7e0a-4d0d-9d64-1b2c3d4e5f60/1#fw-bmc" }],
+        "knownVulnerabilities": [{ "id": "CVE-2026-00000", "severity": "high", "state": "fixed", "fixedIn": "01.04.02", "kev": false }]
+      },
+      "lifecycle": { "status": "deployed" },
+      "criticality": "critical"
+    },
+    {
+      "bom-ref": "fw-gpu-vbios", "class": "firmware", "category": "gpu-firmware",
+      "name": "H200 VBIOS", "version": "96.00.A5.00.01", "manufacturer": "org-nvidia",
+      "quantity": 16,
+      "software": { "layer": "device-firmware", "signed": true },
+      "lifecycle": { "status": "deployed" },
+      "criticality": "high"
+    },
+    {
+      "bom-ref": "os-ubuntu", "class": "software", "category": "os",
+      "name": "Ubuntu Server", "version": "24.04.3 LTS", "manufacturer": "org-canonical",
+      "purl": "pkg:generic/canonical/ubuntu-server@24.04.3",
+      "cpe": "cpe:2.3:o:canonical:ubuntu_linux:24.04:*:*:*:lts:*:*:*",
+      "quantity": 2,
+      "software": { "layer": "os", "supportedUntil": "2029-05-31" },
+      "licensing": { "spdxExpression": "GPL-2.0-only AND LicenseRef-Canonical-Mixed", "licenseType": "open-source" },
+      "security": { "sbomRefs": [{ "format": "SPDX", "specVersion": "2.3", "url": "https://example.com/sbom/ubuntu-24.04.3-server.spdx.json" }] },
+      "lifecycle": { "status": "deployed", "vendorLifecycle": { "stage": "active", "endOfSupport": "2029-05-31" } },
+      "criticality": "high"
+    },
+    {
+      "bom-ref": "drv-nvidia", "class": "software", "category": "driver",
+      "name": "NVIDIA data center GPU driver", "version": "570.172.08", "manufacturer": "org-nvidia",
+      "purl": "pkg:generic/nvidia/datacenter-driver@570.172.08",
+      "quantity": 2,
+      "software": { "layer": "driver" },
+      "lifecycle": { "status": "deployed" },
+      "criticality": "high"
+    },
+    {
+      "bom-ref": "k8s", "class": "software", "category": "orchestrator",
+      "name": "Kubernetes (kubeadm)", "version": "1.33.4",
+      "purl": "pkg:github/kubernetes/kubernetes@v1.33.4",
+      "quantity": 1,
+      "software": { "layer": "orchestrator", "supportedUntil": "2026-06-28" },
+      "licensing": { "spdxExpression": "Apache-2.0", "licenseType": "open-source" },
+      "lifecycle": { "status": "deployed", "vendorLifecycle": { "stage": "end-of-support", "endOfSupport": "2026-06-28", "successor": "1.35" } },
+      "drift": { "attributes": ["/version"], "discoverySources": ["kubernetes-api"], "onDrift": "alert" },
+      "criticality": "high"
+    },
+    {
+      "bom-ref": "lic-nvaie", "class": "license", "category": "software-subscription",
+      "name": "NVIDIA AI Enterprise, 3-year subscription", "manufacturer": "org-nvidia", "partNumber": "IB-LIC-NVAIE-3Y",
+      "quantity": 16, "unitOfMeasure": "GPU",
+      "licensing": { "licenseType": "subscription", "metric": "per-GPU", "entitlementId": "NVAIE-EXAMPLE-0001", "seats": 16, "validFrom": "2026-09-01", "validTo": "2029-08-31", "licensedComponents": ["gpu-srv01", "srv-gpu-02"] },
+      "supply": { "sources": [{ "supplier": "org-northwind", "tier": 1 }] },
+      "financial": { "unitCost": { "amount": 13500, "currency": "USD" }, "extendedCost": { "amount": 216000, "currency": "USD" }, "costType": "actual", "expenseType": "opex",
+        "depreciation": { "method": "straight-line", "usefulLifeMonths": 36, "startDate": "2026-09-01" } },
+      "criticality": "medium"
+    },
+    {
+      "bom-ref": "s3-ckpt", "class": "cloud-resource", "category": "object-storage",
+      "name": "Training checkpoint bucket", "quantity": 1, "unitOfMeasure": "EA",
+      "placement": { "location": "loc-aws-usw2" },
+      "virtual": { "provider": "aws", "resourceType": "aws_s3_bucket", "resourceId": "arn:aws:s3:::prj-ai-0042-checkpoints", "region": "us-west-2",
+        "tags": { "project": "PRJ-AI-0042", "owner": "ai-platform" },
+        "iac": { "tool": "terraform", "address": "module.storage.aws_s3_bucket.checkpoints", "source": "git::https://example.com/infra/ai-pod.git//storage/main.tf" } },
+      "financial": { "recurringCost": { "amount": { "amount": 1150, "currency": "USD" }, "period": "monthly" }, "expenseType": "opex", "costCenter": "CC-AI-PLAT" },
+      "identifiers": { "cloud": { "provider": "aws", "resourceId": "arn:aws:s3:::prj-ai-0042-checkpoints" }, "iacAddress": "module.storage.aws_s3_bucket.checkpoints" },
+      "drift": { "attributes": ["/configuration/versioning", "/configuration/publicAccessBlock"], "discoverySources": ["cloud-api", "terraform-state"], "onDrift": "auto-remediate" },
+      "configuration": { "versioning": true, "publicAccessBlock": true, "encryption": "aws:kms" },
+      "lifecycle": { "status": "in-service" },
+      "criticality": "high"
+    },
+
+    {
+      "bom-ref": "cons-mounting", "class": "consumable", "category": "mounting-hardware",
+      "name": "M6 cage nut and screw kit (50 pc)", "quantity": 2, "unitOfMeasure": "KIT", "consumable": true,
+      "financial": { "unitCost": { "amount": 28, "currency": "USD" }, "extendedCost": { "amount": 56, "currency": "USD" }, "expenseType": "opex", "spendType": "indirect" }
+    },
+    {
+      "bom-ref": "cons-labels", "class": "consumable", "category": "labeling",
+      "name": "Cable and asset label set", "quantity": 1, "unitOfMeasure": "KIT", "consumable": true,
+      "financial": { "unitCost": { "amount": 140, "currency": "USD" }, "extendedCost": { "amount": 140, "currency": "USD" }, "expenseType": "opex", "spendType": "indirect" }
+    },
+    {
+      "bom-ref": "lab-rackstack", "class": "labor", "category": "installation",
+      "name": "Rack, stack and power-up", "quantity": 1, "unitOfMeasure": "LOT",
+      "labor": { "role": "data center technician", "phase": "deploy", "activity": "installation", "hours": 16, "rate": { "amount": 125, "currency": "USD" }, "provider": "org-cascade", "recurring": "one-time" },
+      "financial": { "extendedCost": { "amount": 2000, "currency": "USD" }, "expenseType": "capex" }
+    },
+    {
+      "bom-ref": "lab-liquid", "class": "labor", "category": "commissioning",
+      "name": "Liquid loop fill, pressure test and commissioning", "quantity": 1, "unitOfMeasure": "LOT",
+      "labor": { "role": "mechanical technician", "phase": "prepare", "activity": "commissioning", "hours": 12, "rate": { "amount": 165, "currency": "USD" }, "provider": "org-cascade" },
+      "financial": { "extendedCost": { "amount": 1980, "currency": "USD" }, "expenseType": "capex" }
+    },
+    {
+      "bom-ref": "lab-netcfg", "class": "labor", "category": "configuration",
+      "name": "Fabric configuration and RoCE tuning", "quantity": 1, "unitOfMeasure": "LOT",
+      "labor": { "role": "network engineer", "phase": "deploy", "activity": "configuration", "hours": 24, "rate": { "amount": 180, "currency": "USD" } },
+      "financial": { "extendedCost": { "amount": 4320, "currency": "USD" }, "expenseType": "capex" }
+    },
+    {
+      "bom-ref": "svc-maint", "class": "service", "category": "support-contract",
+      "name": "3-year next-business-day onsite hardware support", "quantity": 2, "unitOfMeasure": "EA",
+      "supply": { "sources": [{ "supplier": "org-smc", "tier": 1 }] },
+      "financial": { "unitCost": { "amount": 18000, "currency": "USD" }, "extendedCost": { "amount": 36000, "currency": "USD" }, "expenseType": "opex" },
+      "lifecycle": { "dates": { "supportContractEnd": "2029-09-01" } }
+    },
+    {
+      "bom-ref": "soft-siteprep", "class": "soft-cost", "category": "site-prep",
+      "name": "Colo cross-connects and floor liquid tap-off", "quantity": 1, "unitOfMeasure": "LOT",
+      "financial": { "extendedCost": { "amount": 9500, "currency": "USD" }, "expenseType": "capex" }
+    },
+    {
+      "bom-ref": "soft-disposal", "class": "soft-cost", "category": "disposal-fee",
+      "name": "Packaging recycling and e-waste pickup", "quantity": 1, "unitOfMeasure": "LOT",
+      "financial": { "extendedCost": { "amount": 450, "currency": "USD" }, "expenseType": "opex" },
+      "lifecycle": { "disposal": { "method": "recycle", "recycler": "org-greencycle" } }
+    }
+  ],
+
+  "relationships": [
+    { "from": "rack-a01", "type": "contains", "to": "srv-gpu-01" },
+    { "from": "rack-a01", "type": "contains", "to": "srv-gpu-02" },
+    { "from": "rack-a01", "type": "contains", "to": "sw-tor-01" },
+    { "from": "rack-a01", "type": "contains", "to": "cdu-a01" },
+    { "from": "rack-a01", "type": "contains", "to": "pdu-a01" },
+    { "from": "srv-gpu-01", "type": "contains", "to": "gpu-srv01" },
+    { "from": "srv-gpu-01", "type": "contains", "to": "nic-srv01" },
+    { "from": "srv-gpu-01", "type": "powered-by", "to": "pdu-a01" },
+    { "from": "srv-gpu-02", "type": "powered-by", "to": "pdu-a01" },
+    { "from": "sw-tor-01", "type": "powered-by", "to": "pdu-a01" },
+    { "from": "cdu-a01", "type": "powered-by", "to": "pdu-a01" },
+    { "from": "srv-gpu-01", "type": "cooled-by", "to": "cdu-a01" },
+    { "from": "srv-gpu-02", "type": "cooled-by", "to": "cdu-a01" },
+    { "from": "srv-gpu-01", "type": "connects-to", "to": "sw-tor-01" },
+    { "from": "srv-gpu-02", "type": "connects-to", "to": "sw-tor-01" },
+    { "from": "fw-bmc-821ge", "type": "runs-on", "to": "srv-gpu-01" },
+    { "from": "fw-bmc-821ge", "type": "runs-on", "to": "srv-gpu-02" },
+    { "from": "fw-gpu-vbios", "type": "runs-on", "to": "gpu-srv01" },
+    { "from": "os-ubuntu", "type": "runs-on", "to": "srv-gpu-01" },
+    { "from": "os-ubuntu", "type": "runs-on", "to": "srv-gpu-02" },
+    { "from": "drv-nvidia", "type": "runs-on", "to": "os-ubuntu" },
+    { "from": "k8s", "type": "runs-on", "to": "os-ubuntu" },
+    { "from": "k8s", "type": "depends-on", "to": "s3-ckpt" },
+    { "from": "gpu-srv01", "type": "licensed-by", "to": "lic-nvaie" },
+    { "from": "srv-gpu-02", "type": "licensed-by", "to": "lic-nvaie" },
+    { "from": "srv-gpu-01", "type": "installed-by", "to": "lab-rackstack" },
+    { "from": "cdu-a01", "type": "installed-by", "to": "lab-liquid" },
+    { "from": "sw-tor-01", "type": "installed-by", "to": "lab-netcfg" }
+  ],
+
+  "baselines": [
+    {
+      "id": "BL-A01-GOLIVE", "name": "Pod A01 go-live", "createdAt": "2026-09-02T16:00:00Z", "approvedBy": { "name": "Chi" }, "bomVersion": 5,
+      "scope": [],
+      "expected": [
+        { "component": "srv-gpu-01", "attribute": "/configuration/bmcFirmware", "value": "01.04.02" },
+        { "component": "srv-gpu-02", "attribute": "/configuration/bmcFirmware", "value": "01.04.02" },
+        { "component": "srv-gpu-02", "attribute": "/placement/rackUnit", "value": 20 },
+        { "component": "sw-tor-01", "attribute": "/configuration/mtu", "value": 9216 },
+        { "component": "s3-ckpt", "attribute": "/configuration/publicAccessBlock", "value": true }
+      ]
+    }
+  ],
+
+  "observations": [
+    { "id": "OBS-1001", "observedAt": "2026-09-27T05:00:00Z", "source": "redfish", "kind": "match", "component": "srv-gpu-01", "baseline": "BL-A01-GOLIVE", "attribute": "/configuration/bmcFirmware", "expected": "01.04.02", "actual": "01.04.02", "severity": "info", "status": "accepted" },
+    { "id": "OBS-1002", "observedAt": "2026-09-27T05:00:00Z", "source": "redfish", "kind": "drift", "component": "srv-gpu-02", "baseline": "BL-A01-GOLIVE", "attribute": "/configuration/bmcFirmware", "expected": "01.04.02", "actual": "01.03.09", "severity": "high", "status": "open", "ticket": "INC0088231" },
+    { "id": "OBS-1003", "observedAt": "2026-09-27T05:00:00Z", "source": "cloud-api", "kind": "unmanaged", "severity": "medium", "status": "open",
+      "discovered": { "class": "cloud-resource", "name": "g6e.12xlarge dev box", "virtual": { "provider": "aws", "resourceType": "aws_instance", "resourceId": "arn:aws:ec2:us-west-2:111122223333:instance/i-0abc123def4567890", "instanceType": "g6e.12xlarge", "tags": { "project": "PRJ-AI-0042" } }, "estimatedMonthlyCost": 7600 } }
+  ],
+
+  "changes": [
+    { "id": "ECO-0142", "type": "eco", "title": "Qualify alternate 800G DR8 optic", "status": "proposed", "affects": ["optic-800g", "sw-tor-01"], "requestedBy": { "name": "Chi" },
+      "reason": "Single-source optic with 112-day observed lead time threatens pod A02 schedule." },
+    { "id": "CHG0031177", "type": "rfc", "title": "BMC firmware 01.04.02 rollout", "status": "implemented", "affects": ["fw-bmc-821ge", "srv-gpu-01", "srv-gpu-02"], "effectiveDate": "2026-09-18", "externalRef": "CHG0031177" }
+  ]
+}
