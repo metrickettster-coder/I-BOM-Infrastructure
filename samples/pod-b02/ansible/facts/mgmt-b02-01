@@ -1,0 +1,33 @@
+{
+  "_sample": "SAMPLE DATA: synthetic `ansible -m setup` facts, trimmed.",
+  "ansible_facts": {
+    "ansible_hostname": "mgmt-b02-01",
+    "ansible_system_vendor": "Dell Inc.",
+    "ansible_product_name": "PowerEdge R650",
+    "ansible_product_serial": "4HJ8K21",
+    "ansible_bios_version": "1.14.1",
+    "ansible_bios_date": "07/15/2026",
+    "ansible_processor": [
+      "0",
+      "GenuineIntel",
+      "Intel(R) Xeon(R) Silver 4314",
+      "1",
+      "GenuineIntel",
+      "Intel(R) Xeon(R) Silver 4314"
+    ],
+    "ansible_processor_count": 2,
+    "ansible_processor_cores": 16,
+    "ansible_processor_vcpus": 64,
+    "ansible_memtotal_mb": 128000,
+    "ansible_distribution": "Ubuntu",
+    "ansible_distribution_version": "22.04",
+    "ansible_distribution_release": "jammy",
+    "ansible_kernel": "5.15.0-119-generic",
+    "ansible_virtualization_role": "host",
+    "ansible_virtualization_type": "kvm",
+    "ansible_default_ipv4": {
+      "address": "10.40.0.5",
+      "macaddress": "b0:7b:25:00:00:01"
+    }
+  }
+}

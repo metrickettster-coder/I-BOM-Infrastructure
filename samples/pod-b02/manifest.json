@@ -1,0 +1,21 @@
+{
+  "_comment": "SAMPLE DATA pipeline for pod B02. Point these paths at real exports to build a real I-BOM; no code changes needed. Each step's `at` is when that snapshot was taken.",
+  "output": "../../examples/pod-b02.ibom.json",
+  "serialNumber": "urn:uuid:6f1c2a3b-4d5e-4f60-8a71-92b3c4d5e6f7",
+  "at": "2026-09-27T12:00:00Z",
+  "project": {"id": "PRJ-INF-0107", "name": "Inference pod B02 (sample data)", "type": "hybrid",
+              "author": "ibom-ingest sample pipeline", "budget": 300000, "currency": "USD"},
+  "steps": [
+    {"purchasing": {"files": ["purchasing/quote-Q-24117.csv"]}},
+    {"purchasing": {"files": ["purchasing/po-4500018823.csv"]}},
+    {"purchasing": {"files": ["purchasing/invoice-INV-88213.pdf"]}},
+    {"purchasing": {"files": ["purchasing/receipt-GR-5000044120.xlsx"], "location": "DAL1 receiving dock (sample)"}},
+    {"terraform": {"files": ["iac/terraform-state.json"], "at": "2026-08-20T15:00:00Z",
+                   "source_url": "git::https://example.com/infra/pod-b02.git//terraform"}},
+    {"ansible": {"inventory": "ansible/inventory.ini", "facts": "ansible/facts", "at": "2026-09-01T09:00:00Z"}},
+    {"redfish": {"files": ["redfish/2026-09-20", "redfish/2026-09-27"]}},
+    {"discover": {"files": ["discovery/aws-ec2-describe-instances.json"], "at": "2026-09-27T06:30:00Z"}},
+    {"terraform": {"files": ["iac/terraform-plan.json"], "at": "2026-09-27T11:00:00Z"}},
+    {"eol": {"at": "2026-09-27T12:00:00Z"}}
+  ]
+}

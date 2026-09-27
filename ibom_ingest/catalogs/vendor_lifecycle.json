@@ -1,0 +1,19 @@
+{
+  "_comment": "Vendor lifecycle catalog. Each entry's `match` is a case-insensitive regex tested against 'manufacturer model mpn name version purl' of a component. The stage is recomputed from the milestone dates every time the catalog is applied, so the same catalog moves a part from active to end-of-sale to end-of-support as time passes. ENTRIES MARKED sample:true ARE ILLUSTRATIVE, NOT VENDOR-CONFIRMED DATES. Replace them with the vendor's published end-of-life notice (and put its URL in `source`) before relying on them. Software entries can come from endoflife.date via `python3 -m ibom_ingest eol --endoflife ubuntu`.",
+  "entries": [
+    {"sample": true, "match": "PowerEdge R750xa",
+     "vendorLifecycle": {"stage": "end-of-sale", "endOfSale": "2025-06-30", "endOfSupport": "2030-06-30", "successor": "PowerEdge R760xa", "source": "SAMPLE: illustrative dates, verify on Dell's product lifecycle page"}},
+    {"sample": true, "match": "PowerEdge R760xa",
+     "vendorLifecycle": {"stage": "active", "endOfSale": "2027-03-31", "successor": "PowerEdge R770xa (assumed)", "source": "SAMPLE: illustrative dates, verify on Dell's product lifecycle page"}},
+    {"sample": true, "match": "DCS-7050CX3-32S",
+     "vendorLifecycle": {"stage": "active", "lastTimeBuy": "2027-06-30", "endOfSale": "2027-06-30", "endOfSupport": "2032-06-30", "successor": "DCS-7060X6 series (assumed)", "source": "SAMPLE: illustrative dates, verify at arista.com end-of-life notices"}},
+    {"sample": true, "match": "A100",
+     "vendorLifecycle": {"stage": "last-time-buy", "successor": "H100 / H200", "source": "SAMPLE: illustrative, verify with NVIDIA or OEM EOL notice"}},
+    {"sample": true, "match": "L40S",
+     "vendorLifecycle": {"stage": "active", "successor": "RTX PRO 6000 Blackwell Server Edition (assumed)", "source": "SAMPLE: illustrative, verify with NVIDIA or OEM EOL notice"}},
+    {"sample": true, "match": "Ubuntu\\b.*(?<![\\d.])22\\.04(?![\\d])",
+     "vendorLifecycle": {"stage": "active", "announced": "2022-04-21", "endOfSupport": "2027-06-01", "endOfLife": "2032-04-21", "source": "SAMPLE snapshot; refresh from https://endoflife.date/ubuntu"}},
+    {"sample": true, "match": "Ubuntu\\b.*(?<![\\d.])20\\.04(?![\\d])",
+     "vendorLifecycle": {"stage": "active", "announced": "2020-04-23", "endOfSupport": "2025-05-31", "endOfLife": "2030-04-23", "source": "SAMPLE snapshot; refresh from https://endoflife.date/ubuntu"}}
+  ]
+}

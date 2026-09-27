@@ -16,12 +16,21 @@ It is a **JSON Schema (draft 2020-12)** built to **align with CycloneDX 1.6**. I
 | `tools/ibom_validate.py` | Validator: schema check plus rules JSON Schema can't express (below), then a cost, carbon, risk and drift rollup |
 | `tools/ibom_to_cyclonedx.py` | Exporter to CycloneDX 1.6 JSON |
 | `tests/test_ibom.py` | 12 positive and negative checks |
+| `ibom_ingest/` | Ingestion engine and lifecycle tracker: quotes, POs, invoices, receipts (CSV/XLSX/PDF), Terraform state and plans, Ansible facts, Redfish, cloud inventories and EOL data → a validated I-BOM that stays current. See [ibom_ingest/README.md](ibom_ingest/README.md). |
+| `samples/pod-b02/` | Synthetic, clearly labeled input files for a full ingestion run |
+| `examples/pod-b02.ibom.json` | I-BOM built from those samples by `python3 -m ibom_ingest build samples/pod-b02/manifest.json` (20 lines, with history, health, EOL and shadow findings) |
+| `tests/test_ingest.py` | 24 ingestion and lifecycle tests |
 
 ```bash
 pip install jsonschema                       # cyclonedx-python-lib too, to check exports
 python3 tools/ibom_validate.py examples/ai-gpu-rack.ibom.json
 python3 tools/ibom_to_cyclonedx.py examples/ai-gpu-rack.ibom.json -o out.cdx.json
 python3 tests/test_ibom.py
+
+# ingestion + lifecycle (pip install pypdf openpyxl pyyaml for PDF/XLSX/YAML inputs)
+python3 -m ibom_ingest build samples/pod-b02/manifest.json
+python3 -m ibom_ingest report examples/pod-b02.ibom.json --today 2026-09-27
+python3 tests/test_ingest.py
 ```
 
 ## How the schema addresses the three lists

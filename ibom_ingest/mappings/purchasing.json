@@ -1,0 +1,513 @@
+{
+  "_comment": "Column aliases and classification rules for purchasing documents. Edit or pass your own copy with --mapping to read a new vendor or ERP format without code changes. Header matching ignores case, spaces, punctuation and the words no/number/#.",
+  "columns": {
+    "docType": [
+      "doc type",
+      "document type",
+      "type"
+    ],
+    "docNumber": [
+      "doc number",
+      "document number",
+      "quote",
+      "quote number",
+      "quote id",
+      "po",
+      "po number",
+      "purchase order",
+      "purchasing doc",
+      "purchasing document",
+      "invoice",
+      "invoice number",
+      "receipt",
+      "receipt number",
+      "gr number"
+    ],
+    "docDate": [
+      "date",
+      "doc date",
+      "document date",
+      "quote date",
+      "po date",
+      "invoice date",
+      "receipt date",
+      "posting date"
+    ],
+    "vendor": [
+      "vendor",
+      "vendor name",
+      "supplier",
+      "supplier name",
+      "seller",
+      "reseller",
+      "bill from"
+    ],
+    "vendorId": [
+      "vendor id",
+      "vendor code",
+      "supplier id",
+      "supplier code",
+      "vendor account"
+    ],
+    "line": [
+      "line",
+      "line item",
+      "item",
+      "po line",
+      "item number",
+      "ln"
+    ],
+    "mpn": [
+      "mpn",
+      "mfr part",
+      "mfr part number",
+      "manufacturer part",
+      "manufacturer part number",
+      "mfg part",
+      "mfg pn",
+      "part number",
+      "model"
+    ],
+    "supplierPartNumber": [
+      "supplier part",
+      "vendor part",
+      "vendor part number",
+      "sku",
+      "reseller sku",
+      "cdw",
+      "item code",
+      "vendor material",
+      "vendor mat",
+      "vendor material number",
+      "vendor sku"
+    ],
+    "material": [
+      "material",
+      "material number",
+      "internal part",
+      "internal part number",
+      "part id",
+      "component id"
+    ],
+    "manufacturer": [
+      "manufacturer",
+      "mfr",
+      "mfg",
+      "brand",
+      "make",
+      "oem"
+    ],
+    "description": [
+      "description",
+      "item description",
+      "short text",
+      "product description",
+      "product",
+      "name"
+    ],
+    "quantity": [
+      "qty",
+      "quantity",
+      "qty ordered",
+      "po quantity",
+      "order qty",
+      "qty shipped",
+      "qty invoiced",
+      "qty received",
+      "quantity received",
+      "units"
+    ],
+    "uom": [
+      "uom",
+      "unit",
+      "unit of measure",
+      "order unit",
+      "um"
+    ],
+    "unitPrice": [
+      "unit price",
+      "price",
+      "net price",
+      "unit cost",
+      "each",
+      "price each",
+      "sell price"
+    ],
+    "extendedPrice": [
+      "extended price",
+      "ext price",
+      "extended",
+      "amount",
+      "line total",
+      "total",
+      "net value",
+      "extended cost"
+    ],
+    "currency": [
+      "currency",
+      "crcy",
+      "curr"
+    ],
+    "leadTimeDays": [
+      "lead time",
+      "lead time days",
+      "lt days",
+      "est lead time"
+    ],
+    "promisedDate": [
+      "deliv date",
+      "delivery date",
+      "promised date",
+      "est ship date",
+      "ship date",
+      "eta"
+    ],
+    "serials": [
+      "serial",
+      "serials",
+      "serial number",
+      "serial numbers",
+      "service tag",
+      "service tags",
+      "sn"
+    ],
+    "assetTag": [
+      "asset tag",
+      "asset number",
+      "asset"
+    ],
+    "class": [
+      "class",
+      "line type",
+      "category type"
+    ],
+    "category": [
+      "category",
+      "product category",
+      "commodity"
+    ],
+    "costCenter": [
+      "cost center",
+      "cost ctr",
+      "cctr"
+    ],
+    "glAccount": [
+      "gl account",
+      "g l account",
+      "gl"
+    ],
+    "wbsElement": [
+      "wbs",
+      "wbs element"
+    ],
+    "poNumber": [
+      "po reference",
+      "customer po",
+      "your po",
+      "po ref",
+      "po number ref",
+      "purchase order ref"
+    ],
+    "backorderQty": [
+      "backorder",
+      "backordered",
+      "qty backordered",
+      "bo qty"
+    ],
+    "location": [
+      "ship to",
+      "location",
+      "site",
+      "receiving location",
+      "storage location"
+    ]
+  },
+  "docTypes": {
+    "quote": [
+      "quote",
+      "quotation",
+      "rfq",
+      "estimate",
+      "qt"
+    ],
+    "po": [
+      "po",
+      "purchase order",
+      "order",
+      "nb",
+      "me2n"
+    ],
+    "invoice": [
+      "invoice",
+      "inv",
+      "bill"
+    ],
+    "receipt": [
+      "receipt",
+      "receiving",
+      "goods receipt",
+      "gr",
+      "packing list",
+      "asn",
+      "inventory"
+    ]
+  },
+  "uom": {
+    "EA": [
+      "ea",
+      "each",
+      "pc",
+      "pcs",
+      "piece",
+      "unit",
+      "units",
+      "st"
+    ],
+    "SET": [
+      "set"
+    ],
+    "KIT": [
+      "kit"
+    ],
+    "LOT": [
+      "lot"
+    ],
+    "M": [
+      "m",
+      "meter",
+      "meters",
+      "metre"
+    ],
+    "FT": [
+      "ft",
+      "feet",
+      "foot"
+    ],
+    "HR": [
+      "hr",
+      "hrs",
+      "hour",
+      "hours",
+      "h"
+    ],
+    "DAY": [
+      "day",
+      "days"
+    ],
+    "MONTH": [
+      "mo",
+      "mon",
+      "month",
+      "months"
+    ],
+    "YEAR": [
+      "yr",
+      "yrs",
+      "year",
+      "years",
+      "annual"
+    ],
+    "SEAT": [
+      "seat",
+      "seats",
+      "user",
+      "users"
+    ],
+    "CORE": [
+      "core",
+      "cores"
+    ],
+    "GPU": [
+      "gpu",
+      "gpus"
+    ],
+    "TB": [
+      "tb"
+    ],
+    "KG": [
+      "kg"
+    ],
+    "LB": [
+      "lb",
+      "lbs"
+    ],
+    "L": [
+      "l",
+      "liter",
+      "litre"
+    ]
+  },
+  "classify": [
+    {
+      "class": "labor",
+      "category": "installation",
+      "any": [
+        "installation labor",
+        "install labor",
+        "rack and stack",
+        "rack & stack",
+        "technician",
+        "labor",
+        "labour",
+        "cabling labor",
+        "engineer hours",
+        "professional services hours"
+      ]
+    },
+    {
+      "class": "service",
+      "category": "support-contract",
+      "any": [
+        "prosupport",
+        "support",
+        "warranty",
+        "care pack",
+        "smartnet",
+        "maintenance contract",
+        "service contract",
+        "managed service",
+        "deployment service"
+      ]
+    },
+    {
+      "class": "license",
+      "category": "software-license",
+      "any": [
+        "license",
+        "licence",
+        "subscription",
+        "entitlement",
+        "per-gpu",
+        "per gpu",
+        "enterprise software"
+      ]
+    },
+    {
+      "class": "soft-cost",
+      "category": "freight",
+      "any": [
+        "freight",
+        "shipping",
+        "delivery charge",
+        "handling"
+      ]
+    },
+    {
+      "class": "soft-cost",
+      "category": "site-prep",
+      "any": [
+        "site prep",
+        "site survey",
+        "temporary power",
+        "permit"
+      ]
+    },
+    {
+      "class": "soft-cost",
+      "category": "disposal-fee",
+      "any": [
+        "disposal",
+        "recycling fee",
+        "e-waste",
+        "itad"
+      ]
+    },
+    {
+      "class": "consumable",
+      "category": "mounting-hardware",
+      "any": [
+        "cage nut",
+        "screws",
+        "velcro",
+        "cable tie",
+        "zip tie",
+        "label",
+        "blanking panel",
+        "mounting kit"
+      ]
+    },
+    {
+      "class": "hardware",
+      "category": "pdu",
+      "any": [
+        "pdu",
+        "power distribution"
+      ]
+    },
+    {
+      "class": "hardware",
+      "category": "server",
+      "any": [
+        "server",
+        "poweredge",
+        "proliant",
+        "thinksystem",
+        "superserver"
+      ]
+    },
+    {
+      "class": "hardware",
+      "category": "switch",
+      "any": [
+        "switch"
+      ]
+    },
+    {
+      "class": "hardware",
+      "category": "cable",
+      "any": [
+        "cable",
+        "dac",
+        "aoc",
+        "patch cord",
+        "fiber jumper",
+        "power cord"
+      ]
+    },
+    {
+      "class": "hardware",
+      "category": "optic",
+      "any": [
+        "transceiver",
+        "qsfp",
+        "osfp",
+        "sfp"
+      ]
+    },
+    {
+      "class": "hardware",
+      "category": "gpu",
+      "any": [
+        "gpu",
+        "accelerator",
+        "l40s",
+        "h100",
+        "h200",
+        "a100"
+      ]
+    },
+    {
+      "class": "hardware",
+      "category": "rack",
+      "any": [
+        "rack enclosure",
+        "42u",
+        "48u",
+        "netshelter"
+      ]
+    }
+  ],
+  "laborRoleDefault": "installation technician",
+  "pdf": {
+    "_comment": "Regexes for text extracted from PDF or plain-text invoices. Named groups map to the column names above.",
+    "header": {
+      "docNumber": "(?:Invoice|Quote|Quotation|Purchase Order|PO)\\s*(?:No\\.?|Number|#)\\s*[:#]?\\s*([A-Z0-9-]+)",
+      "docDate": "(?:Invoice|Quote|Order)?\\s*Date\\s*[:#]?\\s*(\\d{4}-\\d{2}-\\d{2})",
+      "poNumber": "(?:Customer PO|Your PO|PO Reference|PO Number)\\s*[:#]?\\s*([A-Z0-9-]+)",
+      "vendor": "(?:From|Bill From|Seller|Vendor)\\s*[:]\\s*(.+)",
+      "currency": "Currency\\s*[:]\\s*([A-Z]{3})"
+    },
+    "line": "^\\s*(?P<line>\\d{1,4})\\s+(?P<mpn>[A-Z0-9][A-Z0-9./-]{2,})\\s+(?P<description>.+?)\\s+(?P<quantity>\\d+(?:\\.\\d+)?)\\s+(?P<uom>[A-Za-z]{1,5})\\s+\\$?(?P<unitPrice>[\\d,]+\\.\\d{2})\\s+\\$?(?P<extendedPrice>[\\d,]+\\.\\d{2})\\s*$",
+    "serials": "(?:S/N|Serials?|Service Tags?)\\s*[:]\\s*(.+)"
+  }
+}
