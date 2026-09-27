@@ -25,6 +25,10 @@ It is a **JSON Schema (draft 2020-12)** built to **align with CycloneDX 1.6**. I
 | `examples/pod-b02-assessed.ibom.json` | Pod B02 after `python3 -m ibom_risk build samples/pod-b02-ops/manifest.json`: baseline, drift history, supply risk on every purchased line |
 | `examples/pod-b02-scorecard.md` | The scorecard for that I-BOM |
 | `tests/test_risk.py` | 26 drift, supply risk and scorecard tests |
+| `ibom_bridge/` | ERP and CMDB interoperability bridge: exports the I-BOM to ServiceNow (IRE payload, Import Set CSVs) and to SAP-, Oracle- or generic-style ERP CSVs (PO lines, fixed assets, depreciation, cloud spend), reconciles their exports back and writes the matched keys into the I-BOM. See [ibom_bridge/README.md](ibom_bridge/README.md). |
+| `samples/pod-b02/cmdb/`, `samples/pod-b02/erp/`, `samples/pod-b02/bridge.json` | Synthetic ServiceNow and ERP exports with planted discrepancies, and the bridge run that uses them |
+| `examples/pod-b02-bridge/` | Output of `python3 -m ibom_bridge run samples/pod-b02/bridge.json`: exports, reconciliation report, unified view, and the I-BOM with CMDB and ERP keys written back |
+| `tests/test_bridge.py` | 24 bridge tests |
 
 ```bash
 pip install jsonschema                       # cyclonedx-python-lib too, to check exports
@@ -41,6 +45,11 @@ python3 tests/test_ingest.py
 python3 -m ibom_risk build samples/pod-b02-ops/manifest.json
 python3 -m ibom_risk scorecard examples/pod-b02-assessed.ibom.json --today 2026-10-12
 python3 tests/test_risk.py
+
+# ERP / CMDB bridge
+python3 -m ibom_bridge run samples/pod-b02/bridge.json
+python3 -m ibom_bridge reconcile examples/pod-b02.ibom.json --cmdb samples/pod-b02/cmdb/servicenow-cmdb-export.json
+python3 tests/test_bridge.py
 ```
 
 ## How the schema addresses the three lists
@@ -57,7 +66,7 @@ python3 tests/test_risk.py
 | **Opportunity: hardware + software security** | Firmware and software are first-class lines tied to hardware by `runs-on`. `security.sbomRefs[]` links CycloneDX or SPDX SBOMs (including BOM-Link), and the section also holds `knownVulnerabilities[]` (with CISA KEV flag), root of trust, secure boot, attestation and counterfeit check. A CVE in BMC firmware therefore traces to every server and rack it runs on. |
 | **Missing: open I-BOM standard** | This schema, openly licensed, with a CycloneDX export path so it extends the existing standard |
 | **Missing: dynamic lifecycle tracking** | `lifecycle.status` (18 states from planned to disposed), key dates, `health` (status, metrics, remaining useful life, 90-day failure probability), `maintenance`, an append-only `events[]` history, and `disposal` (NIST 800-88 sanitization, recycler) |
-| **Missing: ERP/CMDB interoperability** | `identifiers` holds ERP keys (material, asset, PR, PO and line, goods receipt, invoice, vendor), CMDB keys (CI id, class, sys_id), DCIM, cloud and IaC. `financial` holds GL account, cost center, WBS, capex/opex, direct/indirect and depreciation, so procurement and engineering reference the same line. |
+| **Missing: ERP/CMDB interoperability** | `identifiers` holds ERP keys (material, asset, PR, PO and line, goods receipt, invoice, vendor), CMDB keys (CI id, class, sys_id), DCIM, cloud and IaC. `financial` holds GL account, cost center, WBS, capex/opex, direct/indirect and depreciation, so procurement and engineering reference the same line. `ibom_bridge` uses these keys to export to and reconcile with ServiceNow and ERP systems. |
 
 ## Document structure
 

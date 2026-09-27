@@ -1,0 +1,2 @@
+correlation_id,name,serial_number,asset_tag,object_id,manufacturer,model_id,install_status,operational_status,location,cost_center,po_number,cost,short_description,discovery_source
+hw-dcs-7050cx3-32s,"Arista 7050CX3-32S switch, 32x 100GbE QSFP100",JPE26210F1A,,,Arista,DCS-7050CX3-32S,6,5,DAL1 receiving dock (sample),CC-AI-INF,4500018823,21400.0,"Arista 7050CX3-32S switch, 32x 100GbE QSFP100",I-BOM

@@ -1,0 +1,199 @@
+{
+  "items": [
+    {
+      "className": "cmdb_ci_server",
+      "values": {
+        "correlation_id": "hw-r760xa-cto-l40s#7XK2Q34",
+        "name": "inf-b02-01",
+        "serial_number": "7XK2Q34",
+        "manufacturer": "Dell",
+        "model_id": "R760XA-CTO-L40S",
+        "install_status": 1,
+        "operational_status": 1,
+        "location": "DAL1 receiving dock (sample)",
+        "cost_center": "CC-AI-INF",
+        "po_number": "4500018823",
+        "cost": 66900.0,
+        "short_description": "PowerEdge R760xa server, 2x Xeon Gold 6548Y+, 512GB DDR5, 4x NVIDIA L40S 48GB, 2x 3.84TB NVMe",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "hw-r760xa-cto-l40s#7XK2Q34"
+    },
+    {
+      "className": "cmdb_ci_server",
+      "values": {
+        "correlation_id": "hw-r760xa-cto-l40s#7XK2Q35",
+        "name": "inf-b02-02",
+        "serial_number": "7XK2Q35",
+        "manufacturer": "Dell",
+        "model_id": "R760XA-CTO-L40S",
+        "install_status": 1,
+        "operational_status": 1,
+        "location": "DAL1 receiving dock (sample)",
+        "cost_center": "CC-AI-INF",
+        "po_number": "4500018823",
+        "cost": 66900.0,
+        "short_description": "PowerEdge R760xa server, 2x Xeon Gold 6548Y+, 512GB DDR5, 4x NVIDIA L40S 48GB, 2x 3.84TB NVMe",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "hw-r760xa-cto-l40s#7XK2Q35"
+    },
+    {
+      "className": "cmdb_ci_ip_switch",
+      "values": {
+        "correlation_id": "hw-dcs-7050cx3-32s",
+        "name": "Arista 7050CX3-32S switch, 32x 100GbE QSFP100",
+        "serial_number": "JPE26210F1A",
+        "manufacturer": "Arista",
+        "model_id": "DCS-7050CX3-32S",
+        "install_status": 6,
+        "operational_status": 5,
+        "location": "DAL1 receiving dock (sample)",
+        "cost_center": "CC-AI-INF",
+        "po_number": "4500018823",
+        "cost": 21400.0,
+        "short_description": "Arista 7050CX3-32S switch, 32x 100GbE QSFP100",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "hw-dcs-7050cx3-32s"
+    },
+    {
+      "className": "cmdb_ci_pdu",
+      "values": {
+        "correlation_id": "hw-pdu-sw-0u-17k#PDU24A0193",
+        "name": "PDU-SW-0U-17K PDU24A0193",
+        "serial_number": "PDU24A0193",
+        "manufacturer": "Sample PDU Co",
+        "model_id": "PDU-SW-0U-17K",
+        "install_status": 6,
+        "operational_status": 5,
+        "location": "DAL1 receiving dock (sample)",
+        "cost_center": "CC-AI-INF",
+        "po_number": "4500018823",
+        "cost": 1790.0,
+        "short_description": "Switched rack PDU, zero-U, 17.3kW, 3-phase",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "hw-pdu-sw-0u-17k#PDU24A0193"
+    },
+    {
+      "className": "cmdb_ci_pdu",
+      "values": {
+        "correlation_id": "hw-pdu-sw-0u-17k#PDU24A0194",
+        "name": "PDU-SW-0U-17K PDU24A0194",
+        "serial_number": "PDU24A0194",
+        "manufacturer": "Sample PDU Co",
+        "model_id": "PDU-SW-0U-17K",
+        "install_status": 6,
+        "operational_status": 5,
+        "location": "DAL1 receiving dock (sample)",
+        "cost_center": "CC-AI-INF",
+        "po_number": "4500018823",
+        "cost": 1790.0,
+        "short_description": "Switched rack PDU, zero-U, 17.3kW, 3-phase",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "hw-pdu-sw-0u-17k#PDU24A0194"
+    },
+    {
+      "className": "cmdb_ci_cloud_object_storage",
+      "values": {
+        "correlation_id": "tf-aws_s3_bucket.models",
+        "name": "Model artifact bucket",
+        "object_id": "arn:aws:s3:::prj-inf-0107-models",
+        "install_status": 1,
+        "operational_status": 1,
+        "location": "AWS us-east-1",
+        "short_description": "Model artifact bucket",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "tf-aws_s3_bucket.models"
+    },
+    {
+      "className": "cmdb_ci_vm_instance",
+      "values": {
+        "correlation_id": "tf-module.inference.aws_instance.gateway-0",
+        "name": "inference-gateway-0",
+        "object_id": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60001",
+        "install_status": 1,
+        "operational_status": 1,
+        "location": "AWS us-east-1",
+        "short_description": "inference-gateway-0",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "tf-module.inference.aws_instance.gateway-0"
+    },
+    {
+      "className": "cmdb_ci_vm_instance",
+      "values": {
+        "correlation_id": "tf-module.inference.aws_instance.gateway-1",
+        "name": "inference-gateway-1",
+        "object_id": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60002",
+        "install_status": 1,
+        "operational_status": 1,
+        "location": "AWS us-east-1",
+        "short_description": "inference-gateway-1",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "tf-module.inference.aws_instance.gateway-1"
+    },
+    {
+      "className": "cmdb_ci_vm_instance",
+      "values": {
+        "correlation_id": "tf-module.inference.aws_instance.router",
+        "name": "inference-router",
+        "object_id": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60003",
+        "install_status": 1,
+        "operational_status": 1,
+        "location": "AWS us-east-1",
+        "short_description": "inference-router",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "tf-module.inference.aws_instance.router"
+    },
+    {
+      "className": "cmdb_ci_kubernetes_cluster",
+      "values": {
+        "correlation_id": "tf-module.inference.aws_eks_cluster.this",
+        "name": "inf-b02",
+        "object_id": "arn:aws:eks:us-east-1:111122223333:cluster/inf-b02",
+        "install_status": 1,
+        "operational_status": 1,
+        "location": "AWS us-east-1",
+        "short_description": "inf-b02",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "tf-module.inference.aws_eks_cluster.this"
+    },
+    {
+      "className": "cmdb_ci_server",
+      "values": {
+        "correlation_id": "shadow-mgmt-b02-01",
+        "name": "mgmt-b02-01",
+        "serial_number": "4HJ8K21",
+        "manufacturer": "Dell Inc.",
+        "model_id": "PowerEdge R650",
+        "install_status": 1,
+        "operational_status": 1,
+        "short_description": "Dell Inc. PowerEdge R650 (mgmt-b02-01, unmanaged)",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "shadow-mgmt-b02-01"
+    },
+    {
+      "className": "cmdb_ci_vm_instance",
+      "values": {
+        "correlation_id": "shadow-i-0fee1dead0c0ffee1",
+        "name": "llm-eval-notebook (unmanaged)",
+        "object_id": "arn:aws:ec2:us-east-1:111122223333:instance/i-0fee1dead0c0ffee1",
+        "install_status": 1,
+        "operational_status": 1,
+        "location": "AWS us-east-1",
+        "short_description": "llm-eval-notebook (unmanaged)",
+        "discovery_source": "I-BOM"
+      },
+      "internal_id": "shadow-i-0fee1dead0c0ffee1"
+    }
+  ],
+  "relations": []
+}

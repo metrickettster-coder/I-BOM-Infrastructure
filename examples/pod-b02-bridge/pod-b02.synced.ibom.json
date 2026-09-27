@@ -1,0 +1,2315 @@
+{
+  "bomFormat": "I-BOM",
+  "specVersion": "0.1.0",
+  "serialNumber": "urn:uuid:6f1c2a3b-4d5e-4f60-8a71-92b3c4d5e6f7",
+  "version": 2,
+  "metadata": {
+    "timestamp": "2026-09-30T12:00:00Z",
+    "tools": [
+      {
+        "name": "ibom-ingest",
+        "version": "0.1.0"
+      },
+      {
+        "name": "ibom-bridge",
+        "version": "0.1.0"
+      }
+    ],
+    "project": {
+      "id": "PRJ-INF-0107",
+      "name": "Inference pod B02 (sample data)",
+      "type": "hybrid",
+      "budget": {
+        "amount": 300000.0,
+        "currency": "USD"
+      }
+    },
+    "bomViews": [
+      "infrastructure",
+      "procurement",
+      "as-built",
+      "as-maintained"
+    ],
+    "structure": "multi-level",
+    "authors": [
+      {
+        "name": "ibom-ingest sample pipeline"
+      }
+    ]
+  },
+  "components": [
+    {
+      "bom-ref": "hw-r760xa-cto-l40s",
+      "class": "hardware",
+      "category": "server",
+      "partNumber": "IB-SRV-760XA",
+      "name": "PowerEdge R760xa server, 2x Xeon Gold 6548Y+, 512GB DDR5, 4x NVIDIA L40S 48GB, 2x 3.84TB NVMe",
+      "manufacturer": "org-dell",
+      "model": "R760XA-CTO-L40S",
+      "mpn": "R760XA-CTO-L40S",
+      "quantity": 2,
+      "unitOfMeasure": "EA",
+      "units": [
+        {
+          "serialNumber": "7XK2Q34",
+          "identifiers": {
+            "iacAddress": "ansible:inventory.ini#inf-b02-01",
+            "other": {
+              "hostname": "inf-b02-01"
+            },
+            "cmdb": {
+              "system": "ServiceNow",
+              "sysId": "5f1d0c2a1b7e4a10a0000000000b0201",
+              "ciClass": "cmdb_ci_linux_server",
+              "ciId": "inf-b02-01"
+            },
+            "erp": {
+              "assetNumber": "100045",
+              "system": "SAP S/4HANA (sample)"
+            }
+          },
+          "health": {
+            "observedAt": "2026-09-27T06:00:00Z",
+            "status": "healthy",
+            "source": "redfish",
+            "metrics": {
+              "inletTempC": 23,
+              "powerW": 1495
+            }
+          }
+        },
+        {
+          "serialNumber": "7XK2Q35",
+          "identifiers": {
+            "iacAddress": "ansible:inventory.ini#inf-b02-02",
+            "other": {
+              "hostname": "inf-b02-02"
+            },
+            "cmdb": {
+              "system": "ServiceNow",
+              "sysId": "5f1d0c2a1b7e4a10a0000000000b0202",
+              "ciClass": "cmdb_ci_linux_server",
+              "ciId": "inf-b02-02"
+            }
+          },
+          "health": {
+            "observedAt": "2026-09-27T06:00:00Z",
+            "status": "warning",
+            "source": "redfish",
+            "metrics": {
+              "inletTempC": 25,
+              "powerW": 1530,
+              "memoryHealth": "Warning"
+            }
+          }
+        }
+      ],
+      "placement": {
+        "location": "loc-dal1-receiving-dock-sample"
+      },
+      "financial": {
+        "unitCost": {
+          "amount": 66900.0,
+          "currency": "USD"
+        },
+        "costType": "actual",
+        "expenseType": "capex",
+        "costCenter": "CC-AI-INF",
+        "glAccount": "1520000",
+        "extendedCost": {
+          "amount": 133800.0,
+          "currency": "USD"
+        }
+      },
+      "supply": {
+        "sources": [
+          {
+            "supplier": "org-northwind-it-supply-sample",
+            "tier": 1,
+            "supplierPartNumber": "NW-DL-760XA-L40S",
+            "unitPrice": {
+              "amount": 66900.0,
+              "currency": "USD"
+            },
+            "leadTimeDays": {
+              "quoted": 56
+            },
+            "contractRef": "PO 4500018823"
+          }
+        ]
+      },
+      "identifiers": {
+        "other": {
+          "quote": "Q-24117"
+        },
+        "erp": {
+          "purchaseOrder": "4500018823",
+          "poLine": "10",
+          "materialNumber": "IB-SRV-760XA",
+          "invoice": "INV-88213",
+          "goodsReceipt": "GR-5000044120"
+        }
+      },
+      "lifecycle": {
+        "status": "in-service",
+        "events": [
+          {
+            "at": "2026-06-02T00:00:00Z",
+            "type": "status-change",
+            "to": "quoted"
+          },
+          {
+            "at": "2026-06-10T00:00:00Z",
+            "type": "status-change",
+            "to": "ordered",
+            "from": "quoted",
+            "note": "po 4500018823 line 10"
+          },
+          {
+            "at": "2026-08-07T00:00:00Z",
+            "type": "status-change",
+            "to": "in-transit",
+            "from": "ordered",
+            "note": "invoice INV-88213 line 1"
+          },
+          {
+            "at": "2026-08-12T00:00:00Z",
+            "type": "status-change",
+            "to": "received",
+            "from": "in-transit",
+            "note": "receipt GR-5000044120 line 1"
+          },
+          {
+            "at": "2026-09-01T09:00:00Z",
+            "type": "status-change",
+            "to": "deployed",
+            "from": "received",
+            "note": "reachable by Ansible as inf-b02-01"
+          },
+          {
+            "at": "2026-09-20T06:00:00Z",
+            "type": "status-change",
+            "to": "in-service",
+            "from": "deployed",
+            "note": "powered on and healthy per redfish"
+          },
+          {
+            "at": "2026-09-27T06:00:00Z",
+            "type": "firmware-update",
+            "from": "BIOS 1.8.2",
+            "to": "BIOS 1.9.1",
+            "note": "7XK2Q34 via redfish"
+          },
+          {
+            "at": "2026-09-27T06:00:00Z",
+            "type": "firmware-update",
+            "from": "BMC 7.10.50.00",
+            "to": "BMC 7.10.70.00",
+            "note": "7XK2Q34 via redfish"
+          }
+        ],
+        "dates": {
+          "ordered": "2026-06-10",
+          "promised": "2026-08-05",
+          "received": "2026-08-12"
+        },
+        "health": {
+          "observedAt": "2026-09-27T06:00:00Z",
+          "status": "warning",
+          "source": "redfish",
+          "metrics": {
+            "unitsHealthy": 1,
+            "unitsWarning": 1,
+            "unitsCritical": 0,
+            "unitsOffline": 0
+          }
+        },
+        "vendorLifecycle": {
+          "stage": "active",
+          "endOfSale": "2027-03-31",
+          "successor": "PowerEdge R770xa (assumed)",
+          "source": "SAMPLE: illustrative dates, verify on Dell's product lifecycle page",
+          "checkedAt": "2026-09-27T12:00:00Z"
+        }
+      },
+      "compute": {
+        "cpuModel": "Intel(R) Xeon(R) Gold 6548Y+",
+        "cpuSockets": 2,
+        "coresTotal": 64,
+        "memoryGiB": 503
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "part:NW-DL-760XA-L40S",
+            "part:R760XA-CTO-L40S",
+            "serial:7XK2Q34",
+            "serial:7XK2Q35"
+          ],
+          "ranks": {
+            "financial": 3,
+            "quantity": 2
+          },
+          "sources": [
+            {
+              "kind": "quote",
+              "id": "Q-24117",
+              "file": "quote-Q-24117.csv",
+              "line": "1"
+            },
+            {
+              "kind": "po",
+              "id": "4500018823",
+              "file": "po-4500018823.csv",
+              "line": "10"
+            },
+            {
+              "kind": "invoice",
+              "id": "INV-88213",
+              "file": "invoice-INV-88213.pdf",
+              "line": "1"
+            },
+            {
+              "kind": "receipt",
+              "id": "GR-5000044120",
+              "file": "receipt-GR-5000044120.xlsx",
+              "line": "1"
+            },
+            {
+              "kind": "ansible-facts",
+              "id": "inf-b02-01"
+            },
+            {
+              "kind": "ansible-facts",
+              "id": "inf-b02-02"
+            }
+          ]
+        },
+        "ibom.dev/lifecycle": {
+          "observedFirmware": {
+            "7XK2Q34": {
+              "bios": "1.9.1",
+              "at": "2026-09-27T06:00:00Z",
+              "source": "redfish",
+              "bmc": "7.10.70.00"
+            },
+            "7XK2Q35": {
+              "bios": "1.8.2",
+              "at": "2026-09-20T06:00:00Z",
+              "source": "redfish",
+              "bmc": "7.10.50.00"
+            }
+          }
+        }
+      }
+    },
+    {
+      "bom-ref": "hw-dcs-7050cx3-32s",
+      "class": "hardware",
+      "category": "switch",
+      "partNumber": "IB-SW-7050CX3",
+      "name": "Arista 7050CX3-32S switch, 32x 100GbE QSFP100",
+      "manufacturer": "org-arista",
+      "model": "DCS-7050CX3-32S",
+      "mpn": "DCS-7050CX3-32S",
+      "quantity": 1,
+      "unitOfMeasure": "EA",
+      "serialNumber": "JPE26210F1A",
+      "placement": {
+        "location": "loc-dal1-receiving-dock-sample"
+      },
+      "financial": {
+        "unitCost": {
+          "amount": 21400.0,
+          "currency": "USD"
+        },
+        "costType": "actual",
+        "expenseType": "capex",
+        "costCenter": "CC-AI-INF",
+        "glAccount": "1520000",
+        "extendedCost": {
+          "amount": 21400.0,
+          "currency": "USD"
+        }
+      },
+      "supply": {
+        "sources": [
+          {
+            "supplier": "org-northwind-it-supply-sample",
+            "tier": 1,
+            "supplierPartNumber": "NW-AR-7050CX3",
+            "unitPrice": {
+              "amount": 21400.0,
+              "currency": "USD"
+            },
+            "leadTimeDays": {
+              "quoted": 42
+            },
+            "contractRef": "PO 4500018823"
+          }
+        ]
+      },
+      "identifiers": {
+        "other": {
+          "quote": "Q-24117"
+        },
+        "erp": {
+          "purchaseOrder": "4500018823",
+          "poLine": "20",
+          "materialNumber": "IB-SW-7050CX3",
+          "invoice": "INV-88213",
+          "goodsReceipt": "GR-5000044120",
+          "assetNumber": "100047",
+          "system": "SAP S/4HANA (sample)"
+        },
+        "cmdb": {
+          "system": "ServiceNow",
+          "sysId": "5f1d0c2a1b7e4a10a0000000000b0210",
+          "ciClass": "cmdb_ci_ip_switch",
+          "ciId": "leaf-b02-01"
+        }
+      },
+      "lifecycle": {
+        "status": "received",
+        "events": [
+          {
+            "at": "2026-06-02T00:00:00Z",
+            "type": "status-change",
+            "to": "quoted"
+          },
+          {
+            "at": "2026-06-10T00:00:00Z",
+            "type": "status-change",
+            "to": "ordered",
+            "from": "quoted",
+            "note": "po 4500018823 line 20"
+          },
+          {
+            "at": "2026-08-07T00:00:00Z",
+            "type": "status-change",
+            "to": "in-transit",
+            "from": "ordered",
+            "note": "invoice INV-88213 line 2"
+          },
+          {
+            "at": "2026-08-12T00:00:00Z",
+            "type": "status-change",
+            "to": "received",
+            "from": "in-transit",
+            "note": "receipt GR-5000044120 line 2"
+          }
+        ],
+        "dates": {
+          "ordered": "2026-06-10",
+          "promised": "2026-07-22",
+          "received": "2026-08-12"
+        },
+        "vendorLifecycle": {
+          "stage": "active",
+          "lastTimeBuy": "2027-06-30",
+          "endOfSale": "2027-06-30",
+          "endOfSupport": "2032-06-30",
+          "successor": "DCS-7060X6 series (assumed)",
+          "source": "SAMPLE: illustrative dates, verify at arista.com end-of-life notices",
+          "checkedAt": "2026-09-27T12:00:00Z"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "part:DCS-7050CX3-32S",
+            "part:NW-AR-7050CX3",
+            "serial:JPE26210F1A"
+          ],
+          "ranks": {
+            "financial": 3,
+            "quantity": 2
+          },
+          "sources": [
+            {
+              "kind": "quote",
+              "id": "Q-24117",
+              "file": "quote-Q-24117.csv",
+              "line": "2"
+            },
+            {
+              "kind": "po",
+              "id": "4500018823",
+              "file": "po-4500018823.csv",
+              "line": "20"
+            },
+            {
+              "kind": "invoice",
+              "id": "INV-88213",
+              "file": "invoice-INV-88213.pdf",
+              "line": "2"
+            },
+            {
+              "kind": "receipt",
+              "id": "GR-5000044120",
+              "file": "receipt-GR-5000044120.xlsx",
+              "line": "2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "hw-qsfp-100g-sr4",
+      "class": "hardware",
+      "category": "optic",
+      "partNumber": "IB-OPT-Q100SR4",
+      "name": "100GBASE-SR4 QSFP100 transceiver",
+      "manufacturer": "org-arista",
+      "model": "QSFP-100G-SR4",
+      "mpn": "QSFP-100G-SR4",
+      "quantity": 10,
+      "unitOfMeasure": "EA",
+      "placement": {
+        "location": "loc-dal1-receiving-dock-sample"
+      },
+      "financial": {
+        "unitCost": {
+          "amount": 375.0,
+          "currency": "USD"
+        },
+        "costType": "actual",
+        "expenseType": "capex",
+        "costCenter": "CC-AI-INF",
+        "glAccount": "1520000",
+        "extendedCost": {
+          "amount": 3750.0,
+          "currency": "USD"
+        }
+      },
+      "supply": {
+        "sources": [
+          {
+            "supplier": "org-northwind-it-supply-sample",
+            "tier": 1,
+            "supplierPartNumber": "NW-AR-Q100SR4",
+            "unitPrice": {
+              "amount": 375.0,
+              "currency": "USD"
+            },
+            "leadTimeDays": {
+              "quoted": 21
+            },
+            "contractRef": "PO 4500018823"
+          }
+        ]
+      },
+      "identifiers": {
+        "other": {
+          "quote": "Q-24117"
+        },
+        "erp": {
+          "purchaseOrder": "4500018823",
+          "poLine": "30",
+          "materialNumber": "IB-OPT-Q100SR4",
+          "invoice": "INV-88213",
+          "goodsReceipt": "GR-5000044120"
+        }
+      },
+      "lifecycle": {
+        "status": "backordered",
+        "events": [
+          {
+            "at": "2026-06-02T00:00:00Z",
+            "type": "status-change",
+            "to": "quoted"
+          },
+          {
+            "at": "2026-06-10T00:00:00Z",
+            "type": "status-change",
+            "to": "ordered",
+            "from": "quoted",
+            "note": "po 4500018823 line 30"
+          },
+          {
+            "at": "2026-08-07T00:00:00Z",
+            "type": "status-change",
+            "to": "in-transit",
+            "from": "ordered",
+            "note": "invoice INV-88213 line 3"
+          },
+          {
+            "at": "2026-08-12T00:00:00Z",
+            "type": "status-change",
+            "to": "backordered",
+            "from": "in-transit",
+            "note": "received 8, 2 on backorder (receipt GR-5000044120)"
+          }
+        ],
+        "dates": {
+          "ordered": "2026-06-10",
+          "promised": "2026-07-01",
+          "received": "2026-08-12"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "part:NW-AR-Q100SR4",
+            "part:QSFP-100G-SR4"
+          ],
+          "ranks": {
+            "financial": 3,
+            "quantity": 2
+          },
+          "sources": [
+            {
+              "kind": "quote",
+              "id": "Q-24117",
+              "file": "quote-Q-24117.csv",
+              "line": "3"
+            },
+            {
+              "kind": "po",
+              "id": "4500018823",
+              "file": "po-4500018823.csv",
+              "line": "30"
+            },
+            {
+              "kind": "invoice",
+              "id": "INV-88213",
+              "file": "invoice-INV-88213.pdf",
+              "line": "3"
+            },
+            {
+              "kind": "receipt",
+              "id": "GR-5000044120",
+              "file": "receipt-GR-5000044120.xlsx",
+              "line": "3"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "hw-cab-q28-dac-3m",
+      "class": "hardware",
+      "category": "cable",
+      "name": "100G QSFP28 passive DAC cable 3m",
+      "manufacturer": "org-generic",
+      "model": "CAB-Q28-DAC-3M",
+      "mpn": "CAB-Q28-DAC-3M",
+      "quantity": 4,
+      "unitOfMeasure": "EA",
+      "placement": {
+        "location": "loc-dal1-receiving-dock-sample"
+      },
+      "financial": {
+        "unitCost": {
+          "amount": 95.0,
+          "currency": "USD"
+        },
+        "costType": "actual",
+        "expenseType": "capex",
+        "costCenter": "CC-AI-INF",
+        "glAccount": "1520000",
+        "extendedCost": {
+          "amount": 380.0,
+          "currency": "USD"
+        }
+      },
+      "supply": {
+        "sources": [
+          {
+            "supplier": "org-northwind-it-supply-sample",
+            "tier": 1,
+            "supplierPartNumber": "NW-CB-DAC3",
+            "unitPrice": {
+              "amount": 95.0,
+              "currency": "USD"
+            },
+            "leadTimeDays": {
+              "quoted": 7
+            },
+            "contractRef": "PO 4500018823"
+          }
+        ]
+      },
+      "identifiers": {
+        "other": {
+          "quote": "Q-24117"
+        },
+        "erp": {
+          "purchaseOrder": "4500018823",
+          "poLine": "40",
+          "invoice": "INV-88213",
+          "goodsReceipt": "GR-5000044120"
+        }
+      },
+      "lifecycle": {
+        "status": "received",
+        "events": [
+          {
+            "at": "2026-06-02T00:00:00Z",
+            "type": "status-change",
+            "to": "quoted"
+          },
+          {
+            "at": "2026-06-10T00:00:00Z",
+            "type": "status-change",
+            "to": "ordered",
+            "from": "quoted",
+            "note": "po 4500018823 line 40"
+          },
+          {
+            "at": "2026-08-07T00:00:00Z",
+            "type": "status-change",
+            "to": "in-transit",
+            "from": "ordered",
+            "note": "invoice INV-88213 line 4"
+          },
+          {
+            "at": "2026-08-12T00:00:00Z",
+            "type": "status-change",
+            "to": "received",
+            "from": "in-transit",
+            "note": "receipt GR-5000044120 line 4"
+          }
+        ],
+        "dates": {
+          "ordered": "2026-06-10",
+          "promised": "2026-06-20",
+          "received": "2026-08-12"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "part:CAB-Q28-DAC-3M",
+            "part:NW-CB-DAC3"
+          ],
+          "ranks": {
+            "financial": 3,
+            "quantity": 2
+          },
+          "sources": [
+            {
+              "kind": "quote",
+              "id": "Q-24117",
+              "file": "quote-Q-24117.csv",
+              "line": "4"
+            },
+            {
+              "kind": "po",
+              "id": "4500018823",
+              "file": "po-4500018823.csv",
+              "line": "40"
+            },
+            {
+              "kind": "invoice",
+              "id": "INV-88213",
+              "file": "invoice-INV-88213.pdf",
+              "line": "4"
+            },
+            {
+              "kind": "receipt",
+              "id": "GR-5000044120",
+              "file": "receipt-GR-5000044120.xlsx",
+              "line": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "hw-pdu-sw-0u-17k",
+      "class": "hardware",
+      "category": "pdu",
+      "partNumber": "IB-PDU-17K",
+      "name": "Switched rack PDU, zero-U, 17.3kW, 3-phase",
+      "manufacturer": "org-sample-pdu-co",
+      "model": "PDU-SW-0U-17K",
+      "mpn": "PDU-SW-0U-17K",
+      "quantity": 2,
+      "unitOfMeasure": "EA",
+      "units": [
+        {
+          "serialNumber": "PDU24A0193",
+          "identifiers": {
+            "erp": {
+              "assetNumber": "100048",
+              "system": "SAP S/4HANA (sample)"
+            }
+          }
+        },
+        {
+          "serialNumber": "PDU24A0194",
+          "identifiers": {
+            "erp": {
+              "assetNumber": "100048-1",
+              "system": "SAP S/4HANA (sample)"
+            }
+          }
+        }
+      ],
+      "placement": {
+        "location": "loc-dal1-receiving-dock-sample"
+      },
+      "financial": {
+        "unitCost": {
+          "amount": 1790.0,
+          "currency": "USD"
+        },
+        "costType": "actual",
+        "expenseType": "capex",
+        "costCenter": "CC-AI-INF",
+        "glAccount": "1520000",
+        "extendedCost": {
+          "amount": 3580.0,
+          "currency": "USD"
+        }
+      },
+      "supply": {
+        "sources": [
+          {
+            "supplier": "org-northwind-it-supply-sample",
+            "tier": 1,
+            "supplierPartNumber": "NW-PDU-17K",
+            "unitPrice": {
+              "amount": 1790.0,
+              "currency": "USD"
+            },
+            "leadTimeDays": {
+              "quoted": 28
+            },
+            "contractRef": "PO 4500018823"
+          }
+        ]
+      },
+      "identifiers": {
+        "other": {
+          "quote": "Q-24117"
+        },
+        "erp": {
+          "purchaseOrder": "4500018823",
+          "poLine": "50",
+          "materialNumber": "IB-PDU-17K",
+          "invoice": "INV-88213",
+          "goodsReceipt": "GR-5000044120"
+        }
+      },
+      "lifecycle": {
+        "status": "received",
+        "events": [
+          {
+            "at": "2026-06-02T00:00:00Z",
+            "type": "status-change",
+            "to": "quoted"
+          },
+          {
+            "at": "2026-06-10T00:00:00Z",
+            "type": "status-change",
+            "to": "ordered",
+            "from": "quoted",
+            "note": "po 4500018823 line 50"
+          },
+          {
+            "at": "2026-08-07T00:00:00Z",
+            "type": "status-change",
+            "to": "in-transit",
+            "from": "ordered",
+            "note": "invoice INV-88213 line 5"
+          },
+          {
+            "at": "2026-08-12T00:00:00Z",
+            "type": "status-change",
+            "to": "received",
+            "from": "in-transit",
+            "note": "receipt GR-5000044120 line 5"
+          }
+        ],
+        "dates": {
+          "ordered": "2026-06-10",
+          "promised": "2026-07-08",
+          "received": "2026-08-12"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "part:NW-PDU-17K",
+            "part:PDU-SW-0U-17K",
+            "serial:PDU24A0193",
+            "serial:PDU24A0194"
+          ],
+          "ranks": {
+            "financial": 3,
+            "quantity": 2
+          },
+          "sources": [
+            {
+              "kind": "quote",
+              "id": "Q-24117",
+              "file": "quote-Q-24117.csv",
+              "line": "5"
+            },
+            {
+              "kind": "po",
+              "id": "4500018823",
+              "file": "po-4500018823.csv",
+              "line": "50"
+            },
+            {
+              "kind": "invoice",
+              "id": "INV-88213",
+              "file": "invoice-INV-88213.pdf",
+              "line": "5"
+            },
+            {
+              "kind": "receipt",
+              "id": "GR-5000044120",
+              "file": "receipt-GR-5000044120.xlsx",
+              "line": "5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "svc-ps-plus-3y-nbd",
+      "class": "service",
+      "category": "support-contract",
+      "name": "ProSupport Plus 3 years next business day",
+      "manufacturer": "org-dell",
+      "mpn": "PS-PLUS-3Y-NBD",
+      "quantity": 2,
+      "unitOfMeasure": "EA",
+      "financial": {
+        "unitCost": {
+          "amount": 4200.0,
+          "currency": "USD"
+        },
+        "costType": "actual",
+        "expenseType": "opex",
+        "costCenter": "CC-AI-INF",
+        "glAccount": "6410000",
+        "extendedCost": {
+          "amount": 8400.0,
+          "currency": "USD"
+        }
+      },
+      "supply": {
+        "sources": [
+          {
+            "supplier": "org-northwind-it-supply-sample",
+            "tier": 1,
+            "supplierPartNumber": "NW-DL-PSP3",
+            "unitPrice": {
+              "amount": 4200.0,
+              "currency": "USD"
+            },
+            "leadTimeDays": {
+              "quoted": 0
+            },
+            "contractRef": "PO 4500018823"
+          }
+        ]
+      },
+      "identifiers": {
+        "other": {
+          "quote": "Q-24117"
+        },
+        "erp": {
+          "purchaseOrder": "4500018823",
+          "poLine": "60",
+          "invoice": "INV-88213"
+        }
+      },
+      "lifecycle": {
+        "status": "in-service",
+        "events": [
+          {
+            "at": "2026-06-02T00:00:00Z",
+            "type": "status-change",
+            "to": "quoted"
+          },
+          {
+            "at": "2026-06-10T00:00:00Z",
+            "type": "status-change",
+            "to": "ordered",
+            "from": "quoted",
+            "note": "po 4500018823 line 60"
+          },
+          {
+            "at": "2026-08-07T00:00:00Z",
+            "type": "status-change",
+            "to": "in-service",
+            "from": "ordered",
+            "note": "invoice INV-88213 line 6"
+          }
+        ],
+        "dates": {
+          "ordered": "2026-06-10",
+          "promised": "2026-08-05"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "part:NW-DL-PSP3",
+            "part:PS-PLUS-3Y-NBD"
+          ],
+          "ranks": {
+            "financial": 3,
+            "quantity": 2
+          },
+          "sources": [
+            {
+              "kind": "quote",
+              "id": "Q-24117",
+              "file": "quote-Q-24117.csv",
+              "line": "6"
+            },
+            {
+              "kind": "po",
+              "id": "4500018823",
+              "file": "po-4500018823.csv",
+              "line": "60"
+            },
+            {
+              "kind": "invoice",
+              "id": "INV-88213",
+              "file": "invoice-INV-88213.pdf",
+              "line": "6"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "lic-nvaie-sub-1y-gpu",
+      "class": "license",
+      "category": "software-license",
+      "name": "NVIDIA AI Enterprise subscription, per GPU, 1 year",
+      "manufacturer": "org-nvidia",
+      "mpn": "NVAIE-SUB-1Y-GPU",
+      "quantity": 8,
+      "unitOfMeasure": "EA",
+      "financial": {
+        "unitCost": {
+          "amount": 4500.0,
+          "currency": "USD"
+        },
+        "costType": "actual",
+        "expenseType": "opex",
+        "costCenter": "CC-AI-INF",
+        "glAccount": "6420000",
+        "extendedCost": {
+          "amount": 36000.0,
+          "currency": "USD"
+        }
+      },
+      "supply": {
+        "sources": [
+          {
+            "supplier": "org-northwind-it-supply-sample",
+            "tier": 1,
+            "supplierPartNumber": "NW-NV-AIE1Y",
+            "unitPrice": {
+              "amount": 4500.0,
+              "currency": "USD"
+            },
+            "leadTimeDays": {
+              "quoted": 0
+            },
+            "contractRef": "PO 4500018823"
+          }
+        ]
+      },
+      "identifiers": {
+        "other": {
+          "quote": "Q-24117"
+        },
+        "erp": {
+          "purchaseOrder": "4500018823",
+          "poLine": "70",
+          "invoice": "INV-88213"
+        }
+      },
+      "licensing": {
+        "licenseType": "subscription"
+      },
+      "lifecycle": {
+        "status": "in-service",
+        "events": [
+          {
+            "at": "2026-06-02T00:00:00Z",
+            "type": "status-change",
+            "to": "quoted"
+          },
+          {
+            "at": "2026-06-10T00:00:00Z",
+            "type": "status-change",
+            "to": "ordered",
+            "from": "quoted",
+            "note": "po 4500018823 line 70"
+          },
+          {
+            "at": "2026-08-07T00:00:00Z",
+            "type": "status-change",
+            "to": "in-service",
+            "from": "ordered",
+            "note": "invoice INV-88213 line 7"
+          }
+        ],
+        "dates": {
+          "ordered": "2026-06-10",
+          "promised": "2026-08-05"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "part:NVAIE-SUB-1Y-GPU",
+            "part:NW-NV-AIE1Y"
+          ],
+          "ranks": {
+            "financial": 3,
+            "quantity": 2
+          },
+          "sources": [
+            {
+              "kind": "quote",
+              "id": "Q-24117",
+              "file": "quote-Q-24117.csv",
+              "line": "7"
+            },
+            {
+              "kind": "po",
+              "id": "4500018823",
+              "file": "po-4500018823.csv",
+              "line": "70"
+            },
+            {
+              "kind": "invoice",
+              "id": "INV-88213",
+              "file": "invoice-INV-88213.pdf",
+              "line": "7"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "lab-nw-lab-rack",
+      "class": "labor",
+      "category": "installation",
+      "name": "Rack and stack installation labor",
+      "quantity": 16,
+      "unitOfMeasure": "HR",
+      "financial": {
+        "unitCost": {
+          "amount": 145.0,
+          "currency": "USD"
+        },
+        "costType": "quoted",
+        "costCenter": "CC-AI-INF",
+        "glAccount": "1520000",
+        "extendedCost": {
+          "amount": 2320.0,
+          "currency": "USD"
+        }
+      },
+      "supply": {
+        "sources": [
+          {
+            "supplier": "org-northwind-it-supply-sample",
+            "tier": 1,
+            "supplierPartNumber": "NW-LAB-RACK",
+            "unitPrice": {
+              "amount": 145.0,
+              "currency": "USD"
+            },
+            "leadTimeDays": {
+              "quoted": 0
+            },
+            "contractRef": "PO 4500018823"
+          }
+        ]
+      },
+      "identifiers": {
+        "other": {
+          "quote": "Q-24117"
+        },
+        "erp": {
+          "purchaseOrder": "4500018823",
+          "poLine": "80"
+        }
+      },
+      "labor": {
+        "role": "installation technician",
+        "hours": 16,
+        "activity": "installation",
+        "provider": "org-northwind-it-supply-sample"
+      },
+      "lifecycle": {
+        "status": "ordered",
+        "events": [
+          {
+            "at": "2026-06-02T00:00:00Z",
+            "type": "status-change",
+            "to": "quoted"
+          },
+          {
+            "at": "2026-06-10T00:00:00Z",
+            "type": "status-change",
+            "to": "ordered",
+            "from": "quoted",
+            "note": "po 4500018823 line 80"
+          }
+        ],
+        "dates": {
+          "ordered": "2026-06-10",
+          "promised": "2026-08-14"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "part:NW-LAB-RACK"
+          ],
+          "ranks": {
+            "financial": 2,
+            "quantity": 2
+          },
+          "sources": [
+            {
+              "kind": "quote",
+              "id": "Q-24117",
+              "file": "quote-Q-24117.csv",
+              "line": "8"
+            },
+            {
+              "kind": "po",
+              "id": "4500018823",
+              "file": "po-4500018823.csv",
+              "line": "80"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "soft-nw-frt",
+      "class": "soft-cost",
+      "category": "freight",
+      "name": "Freight and handling",
+      "quantity": 1,
+      "unitOfMeasure": "EA",
+      "financial": {
+        "unitCost": {
+          "amount": 912.4,
+          "currency": "USD"
+        },
+        "costType": "actual",
+        "costCenter": "CC-AI-INF",
+        "glAccount": "6400000",
+        "extendedCost": {
+          "amount": 912.4,
+          "currency": "USD"
+        }
+      },
+      "supply": {
+        "sources": [
+          {
+            "supplier": "org-northwind-it-supply-sample",
+            "tier": 1,
+            "supplierPartNumber": "NW-FRT",
+            "unitPrice": {
+              "amount": 850.0,
+              "currency": "USD"
+            },
+            "leadTimeDays": {
+              "quoted": 0
+            },
+            "contractRef": "PO 4500018823"
+          }
+        ]
+      },
+      "identifiers": {
+        "other": {
+          "quote": "Q-24117"
+        },
+        "erp": {
+          "purchaseOrder": "4500018823",
+          "poLine": "90",
+          "invoice": "INV-88213"
+        }
+      },
+      "lifecycle": {
+        "status": "received",
+        "events": [
+          {
+            "at": "2026-06-02T00:00:00Z",
+            "type": "status-change",
+            "to": "quoted"
+          },
+          {
+            "at": "2026-06-10T00:00:00Z",
+            "type": "status-change",
+            "to": "ordered",
+            "from": "quoted",
+            "note": "po 4500018823 line 90"
+          },
+          {
+            "at": "2026-08-07T00:00:00Z",
+            "type": "status-change",
+            "to": "received",
+            "from": "ordered",
+            "note": "invoice INV-88213 line 8"
+          }
+        ],
+        "dates": {
+          "ordered": "2026-06-10",
+          "promised": "2026-08-05"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "part:NW-FRT"
+          ],
+          "ranks": {
+            "financial": 3,
+            "quantity": 2
+          },
+          "sources": [
+            {
+              "kind": "quote",
+              "id": "Q-24117",
+              "file": "quote-Q-24117.csv",
+              "line": "9"
+            },
+            {
+              "kind": "po",
+              "id": "4500018823",
+              "file": "po-4500018823.csv",
+              "line": "90"
+            },
+            {
+              "kind": "invoice",
+              "id": "INV-88213",
+              "file": "invoice-INV-88213.pdf",
+              "line": "8"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "con-nw-con-cage",
+      "class": "consumable",
+      "category": "mounting-hardware",
+      "name": "Cage nuts and screws mounting kit",
+      "quantity": 2,
+      "unitOfMeasure": "KIT",
+      "placement": {
+        "location": "loc-dal1-receiving-dock-sample"
+      },
+      "financial": {
+        "unitCost": {
+          "amount": 35.0,
+          "currency": "USD"
+        },
+        "costType": "quoted",
+        "costCenter": "CC-AI-INF",
+        "glAccount": "6400000",
+        "extendedCost": {
+          "amount": 70.0,
+          "currency": "USD"
+        }
+      },
+      "supply": {
+        "sources": [
+          {
+            "supplier": "org-northwind-it-supply-sample",
+            "tier": 1,
+            "supplierPartNumber": "NW-CON-CAGE",
+            "unitPrice": {
+              "amount": 35.0,
+              "currency": "USD"
+            },
+            "leadTimeDays": {
+              "quoted": 0
+            },
+            "contractRef": "PO 4500018823"
+          }
+        ]
+      },
+      "identifiers": {
+        "other": {
+          "quote": "Q-24117"
+        },
+        "erp": {
+          "purchaseOrder": "4500018823",
+          "poLine": "100",
+          "goodsReceipt": "GR-5000044120"
+        }
+      },
+      "lifecycle": {
+        "status": "received",
+        "events": [
+          {
+            "at": "2026-06-02T00:00:00Z",
+            "type": "status-change",
+            "to": "quoted"
+          },
+          {
+            "at": "2026-06-10T00:00:00Z",
+            "type": "status-change",
+            "to": "ordered",
+            "from": "quoted",
+            "note": "po 4500018823 line 100"
+          },
+          {
+            "at": "2026-08-12T00:00:00Z",
+            "type": "status-change",
+            "to": "received",
+            "from": "ordered",
+            "note": "receipt GR-5000044120 line 6"
+          }
+        ],
+        "dates": {
+          "ordered": "2026-06-10",
+          "promised": "2026-06-20",
+          "received": "2026-08-12"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "part:NW-CON-CAGE"
+          ],
+          "ranks": {
+            "financial": 2,
+            "quantity": 2
+          },
+          "sources": [
+            {
+              "kind": "quote",
+              "id": "Q-24117",
+              "file": "quote-Q-24117.csv",
+              "line": "10"
+            },
+            {
+              "kind": "po",
+              "id": "4500018823",
+              "file": "po-4500018823.csv",
+              "line": "100"
+            },
+            {
+              "kind": "receipt",
+              "id": "GR-5000044120",
+              "file": "receipt-GR-5000044120.xlsx",
+              "line": "6"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "tf-aws_s3_bucket.models",
+      "class": "cloud-resource",
+      "category": "object-storage",
+      "name": "Model artifact bucket",
+      "quantity": 1,
+      "placement": {
+        "location": "loc-aws-us-east-1"
+      },
+      "virtual": {
+        "provider": "aws",
+        "resourceType": "aws_s3_bucket",
+        "iac": {
+          "tool": "terraform",
+          "address": "aws_s3_bucket.models",
+          "source": "git::https://example.com/infra/pod-b02.git//terraform",
+          "stateRef": "terraform-state.json"
+        },
+        "resourceId": "arn:aws:s3:::prj-inf-0107-models",
+        "region": "us-east-1",
+        "tags": {
+          "Name": "Model artifact bucket",
+          "project": "PRJ-INF-0107"
+        }
+      },
+      "identifiers": {
+        "iacAddress": "aws_s3_bucket.models",
+        "cloud": {
+          "provider": "aws",
+          "resourceId": "arn:aws:s3:::prj-inf-0107-models"
+        },
+        "cmdb": {
+          "system": "ServiceNow",
+          "sysId": "7c2b9e101b7e4a10a0000000000c0020",
+          "ciClass": "cmdb_ci_cloud_object_storage",
+          "ciId": "prj-inf-0107-models"
+        }
+      },
+      "lifecycle": {
+        "status": "deployed",
+        "events": [
+          {
+            "at": "2026-08-20T15:00:00Z",
+            "type": "status-change",
+            "to": "deployed",
+            "note": "present in terraform state"
+          }
+        ]
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "cloud:arn:aws:s3:::prj-inf-0107-models",
+            "cloud:prj-inf-0107-models",
+            "iac:terraform:aws_s3_bucket.models"
+          ],
+          "sources": [
+            {
+              "kind": "terraform-state",
+              "id": "aws_s3_bucket.models",
+              "file": "terraform-state.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "tf-module.inference.aws_instance.gateway-0",
+      "class": "cloud-resource",
+      "category": "vm",
+      "name": "inference-gateway-0",
+      "quantity": 1,
+      "placement": {
+        "location": "loc-aws-us-east-1"
+      },
+      "virtual": {
+        "provider": "aws",
+        "resourceType": "aws_instance",
+        "instanceType": "g5.xlarge",
+        "vcpus": 4,
+        "memoryGiB": 16,
+        "iac": {
+          "tool": "terraform",
+          "address": "module.inference.aws_instance.gateway[0]",
+          "source": "git::https://example.com/infra/pod-b02.git//terraform",
+          "stateRef": "terraform-state.json"
+        },
+        "resourceId": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60001",
+        "region": "us-east-1",
+        "tags": {
+          "Name": "inference-gateway-0",
+          "project": "PRJ-INF-0107"
+        }
+      },
+      "identifiers": {
+        "iacAddress": "module.inference.aws_instance.gateway[0]",
+        "cloud": {
+          "provider": "aws",
+          "resourceId": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60001"
+        },
+        "cmdb": {
+          "system": "ServiceNow",
+          "sysId": "7c2b9e101b7e4a10a0000000000c0001",
+          "ciClass": "cmdb_ci_vm_instance",
+          "ciId": "inference-gateway-0"
+        }
+      },
+      "configuration": {
+        "instanceType": "g5.xlarge",
+        "ami": "ami-0123456789abcdef0"
+      },
+      "compute": {
+        "acceleratorModel": "NVIDIA A10G",
+        "acceleratorCount": 1,
+        "acceleratorMemoryGiB": 24
+      },
+      "financial": {
+        "recurringCost": {
+          "amount": {
+            "amount": 734.38,
+            "currency": "USD"
+          },
+          "period": "monthly"
+        },
+        "costType": "list",
+        "expenseType": "opex"
+      },
+      "lifecycle": {
+        "status": "in-service",
+        "events": [
+          {
+            "at": "2026-08-20T15:00:00Z",
+            "type": "status-change",
+            "to": "deployed",
+            "note": "present in terraform state"
+          },
+          {
+            "at": "2026-09-27T06:30:00Z",
+            "type": "status-change",
+            "to": "in-service",
+            "from": "deployed",
+            "note": "seen running by cloud-api"
+          }
+        ],
+        "health": {
+          "status": "healthy",
+          "observedAt": "2026-09-27T06:30:00Z",
+          "source": "cloud-api"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "cloud:arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60001",
+            "cloud:i-0a1b2c3d4e5f60001",
+            "iac:terraform:module.inference.aws_instance.gateway[0]"
+          ],
+          "sources": [
+            {
+              "kind": "terraform-state",
+              "id": "module.inference.aws_instance.gateway[0]",
+              "file": "terraform-state.json"
+            },
+            {
+              "kind": "cloud-api",
+              "id": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60001"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "tf-module.inference.aws_instance.gateway-1",
+      "class": "cloud-resource",
+      "category": "vm",
+      "name": "inference-gateway-1",
+      "quantity": 1,
+      "placement": {
+        "location": "loc-aws-us-east-1"
+      },
+      "virtual": {
+        "provider": "aws",
+        "resourceType": "aws_instance",
+        "instanceType": "g5.xlarge",
+        "vcpus": 4,
+        "memoryGiB": 16,
+        "iac": {
+          "tool": "terraform",
+          "address": "module.inference.aws_instance.gateway[1]",
+          "source": "git::https://example.com/infra/pod-b02.git//terraform",
+          "stateRef": "terraform-state.json"
+        },
+        "resourceId": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60002",
+        "region": "us-east-1",
+        "tags": {
+          "Name": "inference-gateway-1",
+          "project": "PRJ-INF-0107"
+        }
+      },
+      "identifiers": {
+        "iacAddress": "module.inference.aws_instance.gateway[1]",
+        "cloud": {
+          "provider": "aws",
+          "resourceId": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60002"
+        },
+        "cmdb": {
+          "system": "ServiceNow",
+          "sysId": "7c2b9e101b7e4a10a0000000000c0002",
+          "ciClass": "cmdb_ci_vm_instance",
+          "ciId": "inference-gateway-1"
+        }
+      },
+      "configuration": {
+        "instanceType": "g5.xlarge",
+        "ami": "ami-0123456789abcdef0"
+      },
+      "compute": {
+        "acceleratorModel": "NVIDIA A10G",
+        "acceleratorCount": 1,
+        "acceleratorMemoryGiB": 24
+      },
+      "financial": {
+        "recurringCost": {
+          "amount": {
+            "amount": 734.38,
+            "currency": "USD"
+          },
+          "period": "monthly"
+        },
+        "costType": "list",
+        "expenseType": "opex"
+      },
+      "lifecycle": {
+        "status": "deployed",
+        "events": [
+          {
+            "at": "2026-08-20T15:00:00Z",
+            "type": "status-change",
+            "to": "deployed",
+            "note": "present in terraform state"
+          }
+        ],
+        "health": {
+          "status": "offline",
+          "observedAt": "2026-09-27T06:30:00Z",
+          "source": "cloud-api"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "cloud:arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60002",
+            "cloud:i-0a1b2c3d4e5f60002",
+            "iac:terraform:module.inference.aws_instance.gateway[1]"
+          ],
+          "sources": [
+            {
+              "kind": "terraform-state",
+              "id": "module.inference.aws_instance.gateway[1]",
+              "file": "terraform-state.json"
+            },
+            {
+              "kind": "cloud-api",
+              "id": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60002"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "tf-module.inference.aws_instance.router",
+      "class": "cloud-resource",
+      "category": "vm",
+      "name": "inference-router",
+      "quantity": 1,
+      "placement": {
+        "location": "loc-aws-us-east-1"
+      },
+      "virtual": {
+        "provider": "aws",
+        "resourceType": "aws_instance",
+        "instanceType": "m7i.xlarge",
+        "vcpus": 4,
+        "memoryGiB": 16,
+        "iac": {
+          "tool": "terraform",
+          "address": "module.inference.aws_instance.router",
+          "source": "git::https://example.com/infra/pod-b02.git//terraform",
+          "stateRef": "terraform-state.json"
+        },
+        "resourceId": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60003",
+        "region": "us-east-1",
+        "tags": {
+          "Name": "inference-router",
+          "project": "PRJ-INF-0107"
+        }
+      },
+      "identifiers": {
+        "iacAddress": "module.inference.aws_instance.router",
+        "cloud": {
+          "provider": "aws",
+          "resourceId": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60003"
+        }
+      },
+      "configuration": {
+        "instanceType": "m7i.xlarge",
+        "ami": "ami-0123456789abcdef0"
+      },
+      "financial": {
+        "recurringCost": {
+          "amount": {
+            "amount": 147.17,
+            "currency": "USD"
+          },
+          "period": "monthly"
+        },
+        "costType": "list",
+        "expenseType": "opex"
+      },
+      "lifecycle": {
+        "status": "deployed",
+        "events": [
+          {
+            "at": "2026-08-20T15:00:00Z",
+            "type": "status-change",
+            "to": "deployed",
+            "note": "present in terraform state"
+          }
+        ]
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "cloud:arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60003",
+            "cloud:i-0a1b2c3d4e5f60003",
+            "iac:terraform:module.inference.aws_instance.router"
+          ],
+          "sources": [
+            {
+              "kind": "terraform-state",
+              "id": "module.inference.aws_instance.router",
+              "file": "terraform-state.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "tf-module.inference.aws_eks_cluster.this",
+      "class": "cloud-resource",
+      "category": "container-cluster",
+      "name": "inf-b02",
+      "quantity": 1,
+      "placement": {
+        "location": "loc-aws-us-east-1"
+      },
+      "virtual": {
+        "provider": "aws",
+        "resourceType": "aws_eks_cluster",
+        "iac": {
+          "tool": "terraform",
+          "address": "module.inference.aws_eks_cluster.this",
+          "source": "git::https://example.com/infra/pod-b02.git//terraform",
+          "stateRef": "terraform-state.json"
+        },
+        "resourceId": "arn:aws:eks:us-east-1:111122223333:cluster/inf-b02",
+        "region": "us-east-1",
+        "tags": {
+          "project": "PRJ-INF-0107"
+        }
+      },
+      "identifiers": {
+        "iacAddress": "module.inference.aws_eks_cluster.this",
+        "cloud": {
+          "provider": "aws",
+          "resourceId": "arn:aws:eks:us-east-1:111122223333:cluster/inf-b02"
+        },
+        "cmdb": {
+          "system": "ServiceNow",
+          "sysId": "7c2b9e101b7e4a10a0000000000c0010",
+          "ciClass": "cmdb_ci_kubernetes_cluster",
+          "ciId": "inf-b02"
+        }
+      },
+      "configuration": {
+        "version": "1.30"
+      },
+      "lifecycle": {
+        "status": "deployed",
+        "events": [
+          {
+            "at": "2026-08-20T15:00:00Z",
+            "type": "status-change",
+            "to": "deployed",
+            "note": "present in terraform state"
+          },
+          {
+            "at": "2026-09-27T11:00:00Z",
+            "type": "config-change",
+            "note": "terraform plan updates module.inference.aws_eks_cluster.this in place"
+          }
+        ]
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "cloud:arn:aws:eks:us-east-1:111122223333:cluster/inf-b02",
+            "cloud:inf-b02",
+            "iac:terraform:module.inference.aws_eks_cluster.this"
+          ],
+          "sources": [
+            {
+              "kind": "terraform-state",
+              "id": "module.inference.aws_eks_cluster.this",
+              "file": "terraform-state.json"
+            },
+            {
+              "kind": "terraform-plan",
+              "id": "module.inference.aws_eks_cluster.this",
+              "file": "terraform-plan.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "tf-module.inference.aws_eks_node_group.gpu",
+      "class": "cloud-resource",
+      "category": "node-group",
+      "name": "module.inference.aws_eks_node_group.gpu",
+      "quantity": 1,
+      "placement": {
+        "location": "loc-aws-us-east-1"
+      },
+      "virtual": {
+        "provider": "aws",
+        "resourceType": "aws_eks_node_group",
+        "instanceType": "g6.xlarge",
+        "vcpus": 4,
+        "memoryGiB": 16,
+        "iac": {
+          "tool": "terraform",
+          "address": "module.inference.aws_eks_node_group.gpu",
+          "source": "git::https://example.com/infra/pod-b02.git//terraform",
+          "stateRef": "terraform-state.json"
+        },
+        "resourceId": "arn:aws:eks:us-east-1:111122223333:nodegroup/inf-b02/gpu/5ec9d2a1",
+        "region": "us-east-1",
+        "tags": {
+          "project": "PRJ-INF-0107"
+        }
+      },
+      "identifiers": {
+        "iacAddress": "module.inference.aws_eks_node_group.gpu",
+        "cloud": {
+          "provider": "aws",
+          "resourceId": "arn:aws:eks:us-east-1:111122223333:nodegroup/inf-b02/gpu/5ec9d2a1"
+        }
+      },
+      "configuration": {
+        "scalingConfig": [
+          {
+            "desired_size": 2,
+            "max_size": 4,
+            "min_size": 1
+          }
+        ]
+      },
+      "compute": {
+        "acceleratorModel": "NVIDIA L4",
+        "acceleratorCount": 1,
+        "acceleratorMemoryGiB": 24
+      },
+      "financial": {
+        "recurringCost": {
+          "amount": {
+            "amount": 587.65,
+            "currency": "USD"
+          },
+          "period": "monthly"
+        },
+        "costType": "list",
+        "expenseType": "opex"
+      },
+      "lifecycle": {
+        "status": "deployed",
+        "events": [
+          {
+            "at": "2026-08-20T15:00:00Z",
+            "type": "status-change",
+            "to": "deployed",
+            "note": "present in terraform state"
+          }
+        ]
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "cloud:arn:aws:eks:us-east-1:111122223333:nodegroup/inf-b02/gpu/5ec9d2a1",
+            "cloud:inf-b02:gpu",
+            "iac:terraform:module.inference.aws_eks_node_group.gpu",
+            "nodegroup:gpu"
+          ],
+          "sources": [
+            {
+              "kind": "terraform-state",
+              "id": "module.inference.aws_eks_node_group.gpu",
+              "file": "terraform-state.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "shadow-mgmt-b02-01",
+      "class": "hardware",
+      "category": "server",
+      "name": "Dell Inc. PowerEdge R650 (mgmt-b02-01, unmanaged)",
+      "manufacturer": "org-dell-inc",
+      "model": "PowerEdge R650",
+      "quantity": 1,
+      "serialNumber": "4HJ8K21",
+      "identifiers": {
+        "iacAddress": "ansible:inventory.ini#mgmt-b02-01",
+        "other": {
+          "hostname": "mgmt-b02-01"
+        },
+        "cmdb": {
+          "system": "ServiceNow",
+          "sysId": "5f1d0c2a1b7e4a10a0000000000b0230",
+          "ciClass": "cmdb_ci_linux_server",
+          "ciId": "mgmt-b02-01"
+        },
+        "erp": {
+          "assetNumber": "100019",
+          "system": "SAP S/4HANA (sample)"
+        }
+      },
+      "compute": {
+        "cpuModel": "Intel(R) Xeon(R) Silver 4314",
+        "cpuSockets": 2,
+        "coresTotal": 32,
+        "memoryGiB": 125
+      },
+      "notes": "Found by Ansible facts but not in purchasing records. Review and adopt or retire.",
+      "lifecycle": {
+        "status": "discovered-unmanaged",
+        "events": [
+          {
+            "at": "2026-09-01T09:00:00Z",
+            "type": "status-change",
+            "to": "discovered-unmanaged",
+            "note": "discovered by ansible facts"
+          }
+        ]
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "serial:4HJ8K21"
+          ],
+          "sources": [
+            {
+              "kind": "ansible-facts",
+              "id": "mgmt-b02-01"
+            }
+          ]
+        },
+        "ibom.dev/lifecycle": {
+          "observedFirmware": {
+            "4HJ8K21": {
+              "bios": "1.14.1",
+              "at": "2026-09-01T09:00:00Z",
+              "source": "ansible-facts"
+            }
+          }
+        }
+      }
+    },
+    {
+      "bom-ref": "sw-ubuntu-22.04",
+      "class": "software",
+      "category": "os",
+      "name": "Ubuntu 22.04",
+      "version": "22.04",
+      "purl": "pkg:generic/ubuntu@22.04",
+      "quantity": 2,
+      "software": {
+        "layer": "os"
+      },
+      "lifecycle": {
+        "status": "deployed",
+        "events": [
+          {
+            "at": "2026-09-01T09:00:00Z",
+            "type": "status-change",
+            "to": "deployed"
+          }
+        ],
+        "vendorLifecycle": {
+          "stage": "active",
+          "announced": "2022-04-21",
+          "endOfSupport": "2027-06-01",
+          "endOfLife": "2032-04-21",
+          "source": "SAMPLE snapshot; refresh from https://endoflife.date/ubuntu",
+          "checkedAt": "2026-09-27T12:00:00Z"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "sw:os:ubuntu:22.04"
+          ],
+          "ranks": {
+            "quantity": 1
+          },
+          "sources": [
+            {
+              "kind": "ansible-facts",
+              "id": "inventory.ini"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "shadow-i-0fee1dead0c0ffee1",
+      "class": "cloud-resource",
+      "category": "vm",
+      "name": "llm-eval-notebook (unmanaged)",
+      "quantity": 1,
+      "placement": {
+        "location": "loc-aws-us-east-1"
+      },
+      "virtual": {
+        "provider": "aws",
+        "resourceType": "aws_instance",
+        "resourceId": "arn:aws:ec2:us-east-1:111122223333:instance/i-0fee1dead0c0ffee1",
+        "region": "us-east-1",
+        "instanceType": "g6.4xlarge",
+        "vcpus": 16,
+        "memoryGiB": 64,
+        "tags": {
+          "Name": "llm-eval-notebook",
+          "owner": "data-science"
+        }
+      },
+      "identifiers": {
+        "cloud": {
+          "provider": "aws",
+          "resourceId": "arn:aws:ec2:us-east-1:111122223333:instance/i-0fee1dead0c0ffee1"
+        }
+      },
+      "notes": "Found by cloud-api but not declared in IaC or purchasing records. Review and adopt or remove.",
+      "compute": {
+        "acceleratorModel": "NVIDIA L4",
+        "acceleratorCount": 1,
+        "acceleratorMemoryGiB": 24
+      },
+      "financial": {
+        "recurringCost": {
+          "amount": {
+            "amount": 965.79,
+            "currency": "USD"
+          },
+          "period": "monthly"
+        },
+        "costType": "list",
+        "expenseType": "opex"
+      },
+      "lifecycle": {
+        "status": "discovered-unmanaged",
+        "events": [
+          {
+            "at": "2026-09-27T06:30:00Z",
+            "type": "status-change",
+            "to": "discovered-unmanaged",
+            "note": "discovered by cloud-api"
+          }
+        ],
+        "health": {
+          "status": "healthy",
+          "observedAt": "2026-09-27T06:30:00Z",
+          "source": "cloud-api"
+        }
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "cloud:arn:aws:ec2:us-east-1:111122223333:instance/i-0fee1dead0c0ffee1",
+            "cloud:i-0fee1dead0c0ffee1"
+          ],
+          "sources": [
+            {
+              "kind": "cloud-api",
+              "id": "arn:aws:ec2:us-east-1:111122223333:instance/i-0fee1dead0c0ffee1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "bom-ref": "tf-module.batch.aws_instance.embed-0",
+      "class": "cloud-resource",
+      "category": "vm",
+      "name": "batch-embed-0",
+      "quantity": 1,
+      "placement": {
+        "location": "loc-aws-us-east-1"
+      },
+      "virtual": {
+        "provider": "aws",
+        "resourceType": "aws_instance",
+        "instanceType": "g6e.12xlarge",
+        "vcpus": 48,
+        "memoryGiB": 384,
+        "iac": {
+          "tool": "terraform",
+          "address": "module.batch.aws_instance.embed[0]"
+        },
+        "region": "us-east-1",
+        "tags": {
+          "Name": "batch-embed-0",
+          "project": "PRJ-INF-0107"
+        }
+      },
+      "identifiers": {
+        "iacAddress": "module.batch.aws_instance.embed[0]"
+      },
+      "configuration": {
+        "instanceType": "g6e.12xlarge",
+        "ami": "ami-0123456789abcdef0"
+      },
+      "compute": {
+        "acceleratorModel": "NVIDIA L40S",
+        "acceleratorCount": 4,
+        "acceleratorMemoryGiB": 48
+      },
+      "lifecycle": {
+        "status": "planned",
+        "events": [
+          {
+            "at": "2026-09-27T11:00:00Z",
+            "type": "status-change",
+            "to": "planned",
+            "note": "terraform plan creates module.batch.aws_instance.embed[0]"
+          }
+        ]
+      },
+      "extensions": {
+        "ibom.dev/ingest": {
+          "keys": [
+            "iac:terraform:module.batch.aws_instance.embed[0]"
+          ],
+          "sources": [
+            {
+              "kind": "terraform-plan",
+              "id": "module.batch.aws_instance.embed[0]",
+              "file": "terraform-plan.json"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "organizations": [
+    {
+      "bom-ref": "org-northwind-it-supply-sample",
+      "name": "Northwind IT Supply (sample)",
+      "roles": [
+        "supplier"
+      ],
+      "identifiers": {
+        "erpVendorId": "V100482"
+      }
+    },
+    {
+      "bom-ref": "org-dell",
+      "name": "Dell",
+      "roles": [
+        "manufacturer"
+      ]
+    },
+    {
+      "bom-ref": "org-arista",
+      "name": "Arista",
+      "roles": [
+        "manufacturer"
+      ]
+    },
+    {
+      "bom-ref": "org-generic",
+      "name": "Generic",
+      "roles": [
+        "manufacturer"
+      ]
+    },
+    {
+      "bom-ref": "org-sample-pdu-co",
+      "name": "Sample PDU Co",
+      "roles": [
+        "manufacturer"
+      ]
+    },
+    {
+      "bom-ref": "org-nvidia",
+      "name": "NVIDIA",
+      "roles": [
+        "manufacturer"
+      ]
+    },
+    {
+      "bom-ref": "org-dell-inc",
+      "name": "Dell Inc.",
+      "roles": [
+        "manufacturer"
+      ]
+    }
+  ],
+  "locations": [
+    {
+      "bom-ref": "loc-dal1-receiving-dock-sample",
+      "type": "warehouse",
+      "name": "DAL1 receiving dock (sample)"
+    },
+    {
+      "bom-ref": "loc-aws-us-east-1",
+      "type": "cloud-region",
+      "name": "AWS us-east-1",
+      "cloud": {
+        "provider": "aws",
+        "region": "us-east-1"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "id": "OBS-UNMANAGED-mgmt-b02-01",
+      "observedAt": "2026-09-01T09:00:00Z",
+      "source": "ansible-facts",
+      "kind": "unmanaged",
+      "component": "shadow-mgmt-b02-01",
+      "severity": "medium",
+      "status": "open",
+      "discovered": {
+        "class": "hardware",
+        "name": "Dell Inc. PowerEdge R650",
+        "serialNumber": "4HJ8K21",
+        "hostname": "mgmt-b02-01"
+      }
+    },
+    {
+      "id": "OBS-UNMANAGED-i-0fee1dead0c0ffee1",
+      "observedAt": "2026-09-27T06:30:00Z",
+      "source": "cloud-api",
+      "kind": "unmanaged",
+      "component": "shadow-i-0fee1dead0c0ffee1",
+      "severity": "high",
+      "status": "open",
+      "discovered": {
+        "class": "cloud-resource",
+        "name": "llm-eval-notebook",
+        "virtual": {
+          "provider": "aws",
+          "resourceType": "aws_instance",
+          "resourceId": "arn:aws:ec2:us-east-1:111122223333:instance/i-0fee1dead0c0ffee1",
+          "instanceType": "g6.4xlarge",
+          "tags": {
+            "Name": "llm-eval-notebook",
+            "owner": "data-science"
+          }
+        },
+        "estimatedMonthlyCost": 965.79
+      }
+    },
+    {
+      "id": "OBS-MISSING-tf-module.inference.aws_instance.router",
+      "observedAt": "2026-09-27T06:30:00Z",
+      "source": "cloud-api",
+      "kind": "missing",
+      "component": "tf-module.inference.aws_instance.router",
+      "severity": "high",
+      "status": "open",
+      "attribute": "/virtual/resourceId",
+      "expected": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60003",
+      "actual": null
+    }
+  ],
+  "relationships": [
+    {
+      "from": "sw-ubuntu-22.04",
+      "type": "runs-on",
+      "to": "hw-r760xa-cto-l40s"
+    },
+    {
+      "from": "sw-ubuntu-22.04",
+      "type": "runs-on",
+      "to": "shadow-mgmt-b02-01"
+    }
+  ]
+}

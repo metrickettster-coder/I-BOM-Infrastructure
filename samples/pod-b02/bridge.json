@@ -1,0 +1,17 @@
+{
+  "_comment": "SAMPLE DATA bridge run for pod B02: export the I-BOM to ServiceNow and ERP formats, then reconcile it against the synthetic CMDB and ERP exports in cmdb/ and erp/ and write the matched keys back. Point these paths at real exports; no code changes needed.",
+  "bom": "../../examples/pod-b02.ibom.json",
+  "outputDir": "../../examples/pod-b02-bridge",
+  "asOf": "2026-09-30",
+  "at": "2026-09-30T12:00:00Z",
+  "erpProfiles": ["generic", "sap", "oracle"],
+  "reconcile": {
+    "cmdb": ["cmdb/servicenow-cmdb-export.json"],
+    "erpPo": ["erp/po-lines-me2m.csv"],
+    "erpGr": ["erp/goods-receipts-mb51.csv"],
+    "erpInvoices": ["erp/invoice-lines.csv"],
+    "erpAssets": ["erp/asset-register-ar01.csv"],
+    "erpSystem": "SAP S/4HANA (sample)",
+    "writeBack": "../../examples/pod-b02-bridge/pod-b02.synced.ibom.json"
+  }
+}

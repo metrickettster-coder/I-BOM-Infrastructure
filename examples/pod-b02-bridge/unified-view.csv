@@ -1,0 +1,26 @@
+bom_ref,serial,name,class,category,ibom_status,quantity,po,po_line,erp_po_qty,erp_unit_price,ibom_unit_cost,erp_asset,book_value,cmdb_sys_id,cmdb_class,cmdb_install_status,findings,worst_severity,notes
+hw-r760xa-cto-l40s,7XK2Q34,"PowerEdge R760xa server, 2x Xeon Gold 6548Y+, 512GB DDR5, 4x NVIDIA L40S 48GB, 2x 3.84TB NVMe",hardware,server,in-service,1,4500018823,10,2,66900.00,66900.0,100045,65785.0,5f1d0c2a1b7e4a10a0000000000b0201,cmdb_ci_linux_server,Installed,1,info,field-mismatch (location)
+hw-r760xa-cto-l40s,7XK2Q35,"PowerEdge R760xa server, 2x Xeon Gold 6548Y+, 512GB DDR5, 4x NVIDIA L40S 48GB, 2x 3.84TB NVMe",hardware,server,in-service,1,4500018823,10,2,66900.00,66900.0,,65785.0,5f1d0c2a1b7e4a10a0000000000b0202,cmdb_ci_linux_server,Installed,3,high,duplicate-ci; not-capitalized; field-mismatch (location)
+hw-dcs-7050cx3-32s,JPE26210F1A,"Arista 7050CX3-32S switch, 32x 100GbE QSFP100",hardware,switch,received,1,4500018823,20,1,21400.00,21400.0,100047,,5f1d0c2a1b7e4a10a0000000000b0210,cmdb_ci_ip_switch,Installed,5,medium,field-mismatch (cost_center); status-mismatch (install_status); field-mismatch (acquisition_value); field-mismatch (location); invoice-price-variance
+hw-qsfp-100g-sr4,,100GBASE-SR4 QSFP100 transceiver,hardware,optic,backordered,10,4500018823,30,12,375.00,375.0,,,,,,2,high,invoiced-not-received; quantity-mismatch (quantity)
+hw-cab-q28-dac-3m,,100G QSFP28 passive DAC cable 3m,hardware,cable,received,4,4500018823,40,4,95.00,95.0,,,,,,0,,
+hw-pdu-sw-0u-17k,PDU24A0193,"Switched rack PDU, zero-U, 17.3kW, 3-phase",hardware,pdu,received,1,4500018823,50,2,1790.00,1790.0,100048,,,,,4,high,missing-in-cmdb; invoiced-not-received; field-mismatch (cost_center); receipt-not-posted (gr_quantity)
+hw-pdu-sw-0u-17k,PDU24A0194,"Switched rack PDU, zero-U, 17.3kW, 3-phase",hardware,pdu,received,1,4500018823,50,2,1790.00,1790.0,100048,,,,,4,high,missing-in-cmdb; invoiced-not-received; field-mismatch (cost_center); receipt-not-posted (gr_quantity)
+svc-ps-plus-3y-nbd,,ProSupport Plus 3 years next business day,service,support-contract,in-service,2,4500018823,60,2,4200.00,4200.0,,,,,,0,,
+lic-nvaie-sub-1y-gpu,,"NVIDIA AI Enterprise subscription, per GPU, 1 year",license,software-license,in-service,8,4500018823,70,8,4500.00,4500.0,,,,,,0,,
+lab-nw-lab-rack,,Rack and stack installation labor,labor,installation,ordered,16,4500018823,80,16,145.00,145.0,,,,,,0,,
+soft-nw-frt,,Freight and handling,soft-cost,freight,received,1,4500018823,90,1,850.00,912.4,,,,,,2,medium,invoice-price-variance; price-mismatch (unit_price)
+con-nw-con-cage,,Cage nuts and screws mounting kit,consumable,mounting-hardware,received,2,4500018823,100,2,35.00,35.0,,,,,,0,,
+tf-aws_s3_bucket.models,,Model artifact bucket,cloud-resource,object-storage,deployed,1,,,,,,,,7c2b9e101b7e4a10a0000000000c0020,cmdb_ci_cloud_object_storage,Installed,0,,
+tf-module.inference.aws_instance.gateway-0,,inference-gateway-0,cloud-resource,vm,in-service,1,,,,,,,,7c2b9e101b7e4a10a0000000000c0001,cmdb_ci_vm_instance,Installed,1,low,unallocated-spend
+tf-module.inference.aws_instance.gateway-1,,inference-gateway-1,cloud-resource,vm,deployed,1,,,,,,,,7c2b9e101b7e4a10a0000000000c0002,cmdb_ci_vm_instance,Retired,2,high,status-mismatch (install_status); unallocated-spend
+tf-module.inference.aws_instance.router,,inference-router,cloud-resource,vm,deployed,1,,,,,,,,,,,2,high,missing-in-cmdb; unallocated-spend
+tf-module.inference.aws_eks_cluster.this,,inf-b02,cloud-resource,container-cluster,deployed,1,,,,,,,,7c2b9e101b7e4a10a0000000000c0010,cmdb_ci_kubernetes_cluster,Installed,1,low,weak-match
+tf-module.inference.aws_eks_node_group.gpu,,module.inference.aws_eks_node_group.gpu,cloud-resource,node-group,deployed,1,,,,,,,,,,,1,low,unallocated-spend
+shadow-mgmt-b02-01,4HJ8K21,"Dell Inc. PowerEdge R650 (mgmt-b02-01, unmanaged)",hardware,server,discovered-unmanaged,1,,,,,,100019,,5f1d0c2a1b7e4a10a0000000000b0230,cmdb_ci_linux_server,Installed,2,medium,shadow-known-to-cmdb; shadow-known-to-erp
+sw-ubuntu-22.04,,Ubuntu 22.04,software,os,deployed,2,,,,,,,,,,,0,,
+shadow-i-0fee1dead0c0ffee1,,llm-eval-notebook (unmanaged),cloud-resource,vm,discovered-unmanaged,1,,,,,,,,,,,2,high,missing-in-cmdb; unallocated-spend
+tf-module.batch.aws_instance.embed-0,,batch-embed-0,cloud-resource,vm,planned,1,,,,,,,,,,,0,,
+,,cmdb_ci_linux_server dal1-legacy-07 (serial 9QW3L11) is in the CMDB but not in the I-BOM; the ERP also carries it as asset 100012,cmdb only,,,,,,,,,,,3e8f11aa1b7e4a10a0000000000a0007,,,1,high,orphan-ci
+,,"Fixed asset 100012 (PowerEdge R740xd, serial 9QW3L11) has no matching I-BOM line; the CMDB also has it as CI 3e8f11aa1b7e4a10a0000000000a0007",erp only,,,,,,,,,asset 100012,,,,,1,high,asset-not-in-bom
+,,"PO 4500018823 line 110 (Spare PSU 2400W titanium, 2,440.00) is not in the I-BOM",erp only,,,,,,,,,,,,,,1,medium,procured-not-in-bom

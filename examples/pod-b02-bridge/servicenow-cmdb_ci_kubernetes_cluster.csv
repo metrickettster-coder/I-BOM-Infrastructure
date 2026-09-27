@@ -1,0 +1,2 @@
+correlation_id,name,serial_number,asset_tag,object_id,manufacturer,model_id,install_status,operational_status,location,cost_center,po_number,cost,short_description,discovery_source
+tf-module.inference.aws_eks_cluster.this,inf-b02,,,arn:aws:eks:us-east-1:111122223333:cluster/inf-b02,,,1,1,AWS us-east-1,,,,inf-b02,I-BOM
