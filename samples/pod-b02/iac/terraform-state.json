@@ -1,0 +1,117 @@
+{
+  "format_version": "1.0",
+  "terraform_version": "1.9.5",
+  "_sample": "SAMPLE DATA: synthetic `terraform show -json` output. Account 111122223333 is AWS's documentation example account.",
+  "values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "aws_s3_bucket.models",
+          "mode": "managed",
+          "type": "aws_s3_bucket",
+          "name": "models",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": {
+            "id": "prj-inf-0107-models",
+            "arn": "arn:aws:s3:::prj-inf-0107-models",
+            "bucket": "prj-inf-0107-models",
+            "region": "us-east-1",
+            "tags": {"Name": "Model artifact bucket", "project": "PRJ-INF-0107"}
+          }
+        },
+        {
+          "address": "aws_security_group.gateway",
+          "mode": "managed",
+          "type": "aws_security_group",
+          "name": "gateway",
+          "values": {"id": "sg-0a1b2c3d4e5f60718", "name": "inference-gateway"}
+        },
+        {
+          "address": "data.aws_ami.ubuntu",
+          "mode": "data",
+          "type": "aws_ami",
+          "name": "ubuntu",
+          "values": {"id": "ami-0123456789abcdef0"}
+        }
+      ],
+      "child_modules": [
+        {
+          "address": "module.inference",
+          "resources": [
+            {
+              "address": "module.inference.aws_instance.gateway[0]",
+              "mode": "managed",
+              "type": "aws_instance",
+              "name": "gateway",
+              "index": 0,
+              "values": {
+                "id": "i-0a1b2c3d4e5f60001",
+                "arn": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60001",
+                "instance_type": "g5.xlarge",
+                "ami": "ami-0123456789abcdef0",
+                "availability_zone": "us-east-1a",
+                "tags": {"Name": "inference-gateway-0", "project": "PRJ-INF-0107"}
+              }
+            },
+            {
+              "address": "module.inference.aws_instance.gateway[1]",
+              "mode": "managed",
+              "type": "aws_instance",
+              "name": "gateway",
+              "index": 1,
+              "values": {
+                "id": "i-0a1b2c3d4e5f60002",
+                "arn": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60002",
+                "instance_type": "g5.xlarge",
+                "ami": "ami-0123456789abcdef0",
+                "availability_zone": "us-east-1b",
+                "tags": {"Name": "inference-gateway-1", "project": "PRJ-INF-0107"}
+              }
+            },
+            {
+              "address": "module.inference.aws_instance.router",
+              "mode": "managed",
+              "type": "aws_instance",
+              "name": "router",
+              "values": {
+                "id": "i-0a1b2c3d4e5f60003",
+                "arn": "arn:aws:ec2:us-east-1:111122223333:instance/i-0a1b2c3d4e5f60003",
+                "instance_type": "m7i.xlarge",
+                "ami": "ami-0123456789abcdef0",
+                "availability_zone": "us-east-1a",
+                "tags": {"Name": "inference-router", "project": "PRJ-INF-0107"}
+              }
+            },
+            {
+              "address": "module.inference.aws_eks_cluster.this",
+              "mode": "managed",
+              "type": "aws_eks_cluster",
+              "name": "this",
+              "values": {
+                "arn": "arn:aws:eks:us-east-1:111122223333:cluster/inf-b02",
+                "id": "inf-b02",
+                "name": "inf-b02",
+                "version": "1.30",
+                "tags": {"project": "PRJ-INF-0107"}
+              }
+            },
+            {
+              "address": "module.inference.aws_eks_node_group.gpu",
+              "mode": "managed",
+              "type": "aws_eks_node_group",
+              "name": "gpu",
+              "values": {
+                "arn": "arn:aws:eks:us-east-1:111122223333:nodegroup/inf-b02/gpu/5ec9d2a1",
+                "id": "inf-b02:gpu",
+                "node_group_name": "gpu",
+                "instance_types": ["g6.xlarge"],
+                "scaling_config": [{"desired_size": 2, "max_size": 4, "min_size": 1}],
+                "tags": {"project": "PRJ-INF-0107"}
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

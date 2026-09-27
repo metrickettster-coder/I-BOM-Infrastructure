@@ -1,0 +1,17 @@
+SAMPLE DATA - synthetic quote for testing I-BOM ingestion. Not a real offer.
+Quote Number:,Q-24117
+Quote Date:,2026-06-02
+Vendor:,Northwind IT Supply (sample)
+Currency:,USD
+,
+Line,Mfr Part #,Manufacturer,Description,Qty,UOM,Unit Price,Ext. Price,Lead Time (days),Vendor SKU
+1,R760XA-CTO-L40S,Dell,"PowerEdge R760xa server, 2x Xeon Gold 6548Y+, 512GB DDR5, 4x NVIDIA L40S 48GB, 2x 3.84TB NVMe",2,EA,"$68,450.00","$136,900.00",56,NW-DL-760XA-L40S
+2,DCS-7050CX3-32S,Arista,"Arista 7050CX3-32S switch, 32x 100GbE QSFP100",1,EA,"$21,900.00","$21,900.00",42,NW-AR-7050CX3
+3,QSFP-100G-SR4,Arista,100GBASE-SR4 QSFP100 transceiver,8,EA,$390.00,"$3,120.00",21,NW-AR-Q100SR4
+4,CAB-Q28-DAC-3M,Generic,100G QSFP28 passive DAC cable 3m,4,EA,$95.00,$380.00,7,NW-CB-DAC3
+5,PDU-SW-0U-17K,Sample PDU Co,"Switched rack PDU, zero-U, 17.3kW, 3-phase",2,EA,"$1,840.00","$3,680.00",28,NW-PDU-17K
+6,PS-PLUS-3Y-NBD,Dell,ProSupport Plus 3 years next business day,2,EA,"$4,200.00","$8,400.00",0,NW-DL-PSP3
+7,NVAIE-SUB-1Y-GPU,NVIDIA,"NVIDIA AI Enterprise subscription, per GPU, 1 year",8,EA,"$4,500.00","$36,000.00",0,NW-NV-AIE1Y
+8,,,Rack and stack installation labor,16,HR,$145.00,"$2,320.00",0,NW-LAB-RACK
+9,,,Freight and handling,1,EA,$850.00,$850.00,0,NW-FRT
+10,,,Cage nuts and screws mounting kit,2,KIT,$35.00,$70.00,0,NW-CON-CAGE

@@ -1,0 +1,33 @@
+{
+  "_sample": "SAMPLE DATA: synthetic `ansible -m setup` facts, trimmed.",
+  "ansible_facts": {
+    "ansible_hostname": "inf-b02-01",
+    "ansible_system_vendor": "Dell Inc.",
+    "ansible_product_name": "PowerEdge R760xa",
+    "ansible_product_serial": "7XK2Q34",
+    "ansible_bios_version": "1.8.2",
+    "ansible_bios_date": "07/15/2026",
+    "ansible_processor": [
+      "0",
+      "GenuineIntel",
+      "Intel(R) Xeon(R) Gold 6548Y+",
+      "1",
+      "GenuineIntel",
+      "Intel(R) Xeon(R) Gold 6548Y+"
+    ],
+    "ansible_processor_count": 2,
+    "ansible_processor_cores": 32,
+    "ansible_processor_vcpus": 128,
+    "ansible_memtotal_mb": 515000,
+    "ansible_distribution": "Ubuntu",
+    "ansible_distribution_version": "22.04",
+    "ansible_distribution_release": "jammy",
+    "ansible_kernel": "5.15.0-119-generic",
+    "ansible_virtualization_role": "host",
+    "ansible_virtualization_type": "kvm",
+    "ansible_default_ipv4": {
+      "address": "10.40.0.11",
+      "macaddress": "b0:7b:25:00:00:01"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.5",
+  "_sample": "SAMPLE DATA: synthetic `terraform show -json plan.tfplan` output.",
+  "resource_changes": [
+    {
+      "address": "module.inference.aws_eks_cluster.this",
+      "mode": "managed",
+      "type": "aws_eks_cluster",
+      "name": "this",
+      "change": {
+        "actions": ["update"],
+        "before": {"name": "inf-b02", "version": "1.30"},
+        "after": {"arn": "arn:aws:eks:us-east-1:111122223333:cluster/inf-b02", "name": "inf-b02", "version": "1.31", "tags": {"project": "PRJ-INF-0107"}}
+      }
+    },
+    {
+      "address": "module.batch.aws_instance.embed[0]",
+      "mode": "managed",
+      "type": "aws_instance",
+      "name": "embed",
+      "index": 0,
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {"instance_type": "g6e.12xlarge", "ami": "ami-0123456789abcdef0", "availability_zone": "us-east-1a",
+                  "tags": {"Name": "batch-embed-0", "project": "PRJ-INF-0107"}},
+        "after_unknown": {"id": true, "arn": true}
+      }
+    },
+    {
+      "address": "module.inference.aws_instance.router",
+      "mode": "managed",
+      "type": "aws_instance",
+      "name": "router",
+      "change": {"actions": ["no-op"], "before": {}, "after": {}}
+    }
+  ]
+}
