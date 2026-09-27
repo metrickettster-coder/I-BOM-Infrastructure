@@ -125,3 +125,7 @@ Nothing is lost on export, so a later importer can round-trip.
 - Canonicalization rule for `baselines[].digest` (propose RFC 8785 JCS over the tracked attributes)
 - Whether to register `ibom:` as a CycloneDX property taxonomy namespace
 - A matching SPDX 3.0 export
+
+## License
+
+Apache License 2.0. See [LICENSE](LICENSE).
