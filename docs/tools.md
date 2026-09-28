@@ -49,4 +49,4 @@ python3 tools/build_site.py            # writes _site/, fails on any broken inte
 python3 -m http.server -d _site 8000   # preview at http://localhost:8000
 ```
 
-Pages come from `docs/*.md`, the repository and engine READMEs, and the schema. Static files, including the scorecard page, live under `site/`. The GitHub Actions workflow `.github/workflows/pages.yml` builds and publishes it on every push to `main`.
+Pages come from `docs/*.md`, the repository and engine READMEs, and the schema. Static files live under `site/`, and the scorecard page under `scorecard/` is published at `/scorecard/`. The GitHub Actions workflow `.github/workflows/pages.yml` builds and publishes it on every push to `main`.

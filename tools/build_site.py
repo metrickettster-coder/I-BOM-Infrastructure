@@ -9,7 +9,8 @@ Sources:
   README.md                      rendered as the specification page
   ibom_*/README.md               rendered as one page per engine under tools/
   ibom.schema.json               rendered as the schema reference
-  site/                          static files copied as-is (assets/, scorecard/, ...)
+  site/                          static files copied as-is (assets/, ...)
+  scorecard/                     the scorecard web page, published at /scorecard/
 
 The schema, examples, samples, tools and Python packages are also copied to the
 same relative paths, so pages (including /scorecard/) can fetch them.
@@ -31,7 +32,8 @@ except ImportError:  # pragma: no cover
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_REPO = "https://github.com/metrickettster-coder/I-BOM-Infrastructure"
-COPY_DIRS = ["examples", "samples", "tools", "ibom_ingest", "ibom_risk", "ibom_bridge"]
+# scorecard/ is the in-browser scorecard page (it may also live under site/scorecard/).
+COPY_DIRS = ["scorecard", "examples", "samples", "tools", "ibom_ingest", "ibom_risk", "ibom_bridge"]
 COPY_FILES = ["ibom.schema.json", "LICENSE"]
 
 # (output path, source, title, nav label or None)
