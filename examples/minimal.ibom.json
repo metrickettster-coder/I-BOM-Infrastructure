@@ -1,0 +1,58 @@
+{
+  "$schema": "https://ibom.dev/schema/0.1/ibom.schema.json",
+  "bomFormat": "I-BOM",
+  "specVersion": "0.1.0",
+  "serialNumber": "urn:uuid:3b0c7f7e-5d0a-4c1e-9d8a-2f6b1e4c9a10",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-09-27T12:00:00Z",
+    "project": { "id": "PRJ-EDGE-01", "name": "Edge closet refresh (example)", "type": "edge" }
+  },
+  "organizations": [
+    { "bom-ref": "org-acme", "name": "Acme Networks (example)", "roles": ["manufacturer"] }
+  ],
+  "components": [
+    {
+      "bom-ref": "sw-01",
+      "class": "hardware",
+      "category": "switch",
+      "name": "48-port 10G access switch",
+      "manufacturer": "org-acme",
+      "mpn": "ACME-4810",
+      "quantity": 1,
+      "serialNumber": "ACM2026X0001",
+      "lifecycle": { "status": "ordered" },
+      "financial": {
+        "unitCost": { "amount": 4200, "currency": "USD" },
+        "extendedCost": { "amount": 4200, "currency": "USD" },
+        "expenseType": "capex"
+      }
+    },
+    {
+      "bom-ref": "sw-01-nos",
+      "class": "firmware",
+      "category": "nos",
+      "name": "Acme NOS",
+      "version": "7.2.1",
+      "quantity": 1
+    },
+    {
+      "bom-ref": "install",
+      "class": "labor",
+      "name": "Rack, cable and configure",
+      "quantity": 6,
+      "unitOfMeasure": "HR",
+      "labor": { "role": "network engineer", "activity": "installation", "hours": 6,
+                 "rate": { "amount": 120, "currency": "USD" } },
+      "financial": {
+        "unitCost": { "amount": 120, "currency": "USD" },
+        "extendedCost": { "amount": 720, "currency": "USD" },
+        "expenseType": "opex"
+      }
+    }
+  ],
+  "relationships": [
+    { "from": "sw-01-nos", "type": "runs-on", "to": "sw-01" },
+    { "from": "sw-01", "type": "installed-by", "to": "install" }
+  ]
+}
