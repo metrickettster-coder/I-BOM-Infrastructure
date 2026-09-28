@@ -1,0 +1,38 @@
+{
+  "_sample": "SAMPLE DATA: synthetic `terraform plan -refresh-only` rendered with `terraform show -json`, 2026-10-12.",
+  "format_version": "1.2",
+  "terraform_version": "1.9.5",
+  "collectedAt": "2026-10-12T07:00:00Z",
+  "resource_drift": [
+    {
+      "address": "aws_s3_bucket.models",
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "models",
+      "change": {
+        "actions": [
+          "update"
+        ],
+        "before": {
+          "id": "prj-inf-0107-models",
+          "versioning": [
+            {
+              "enabled": true,
+              "mfa_delete": false
+            }
+          ]
+        },
+        "after": {
+          "id": "prj-inf-0107-models",
+          "versioning": [
+            {
+              "enabled": false,
+              "mfa_delete": false
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "resource_changes": []
+}

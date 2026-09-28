@@ -1,0 +1,27 @@
+{
+  "today": "2026-10-12",
+  "needBy": "2026-10-31",
+  "at": "2026-10-12T12:00:00Z",
+  "project": "Inference pod B02 (sample data)",
+  "files": [
+    "pod-b02/purchasing/quote-Q-24117.csv",
+    "pod-b02/purchasing/po-4500018823.csv",
+    "pod-b02/purchasing/invoice-INV-88213.pdf",
+    "pod-b02/purchasing/receipt-GR-5000044120.xlsx",
+    "pod-b02/iac/terraform-state.json",
+    "pod-b02/ansible/inventory.ini",
+    "pod-b02/ansible/facts/inf-b02-01",
+    "pod-b02/ansible/facts/inf-b02-02",
+    "pod-b02/ansible/facts/mgmt-b02-01",
+    "pod-b02/redfish/2026-09-27/7XK2Q34.json",
+    "pod-b02/discovery/aws-ec2-describe-instances.json",
+    "pod-b02-ops/desired/golden-config.json",
+    "pod-b02-ops/live/2026-10-05/network-facts.json",
+    "pod-b02-ops/live/2026-10-05/eks-cluster.json",
+    "pod-b02-ops/live/2026-10-05/eks-nodegroup.json",
+    "pod-b02-ops/live/2026-10-12/aws-ec2.json",
+    "pod-b02-ops/live/2026-10-12/terraform-refresh.json",
+    "pod-b02-ops/live/2026-10-12/redfish/7XK2Q35.json",
+    "pod-b02-ops/supply/market-signals.json"
+  ]
+}
