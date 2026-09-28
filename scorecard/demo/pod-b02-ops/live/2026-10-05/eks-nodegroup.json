@@ -1,0 +1,18 @@
+{
+  "_sample": "SAMPLE DATA: synthetic `aws eks describe-nodegroup --cluster-name inf-b02 --nodegroup-name gpu`. The autoscaler has moved desiredSize from 2 to 3.",
+  "collectedAt": "2026-10-05T06:35:00Z",
+  "nodegroup": {
+    "nodegroupName": "gpu",
+    "nodegroupArn": "arn:aws:eks:us-east-1:111122223333:nodegroup/inf-b02/gpu/5ec9d2a1",
+    "clusterName": "inf-b02",
+    "status": "ACTIVE",
+    "scalingConfig": {
+      "minSize": 1,
+      "maxSize": 4,
+      "desiredSize": 3
+    },
+    "instanceTypes": [
+      "g6.xlarge"
+    ]
+  }
+}

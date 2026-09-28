@@ -1,0 +1,14 @@
+{
+  "_sample": "SAMPLE DATA: synthetic market signals. The multipliers and notes are made up to exercise the risk engine; replace them with a real feed (distributor lead-time indices, allocation notices, supplier credit alerts).",
+  "asOf": "2026-10-10",
+  "signals": [
+    {"id": "SIG-OPTICS-LT", "match": {"category": "optic"}, "leadTimeFactor": 1.5, "drivers": ["demand-spike"],
+     "note": "AI cluster builds absorbing transceiver capacity; 100G SR4 lead times up about 50%"},
+    {"id": "SIG-GPU-ALLOC", "match": {"mpn": "L40S|H100|H200|B200"}, "leadTimeFactor": 1.3, "drivers": ["allocation"],
+     "note": "data-center GPUs shipping on allocation"},
+    {"id": "SIG-TW", "match": {"country": "TW"}, "drivers": ["geopolitical"], "points": 5,
+     "note": "concentration of critical silicon in one region"},
+    {"id": "SIG-NW-CREDIT", "match": {"supplier": "Northwind"}, "financialHealth": "watch", "drivers": ["supplier-financial"],
+     "note": "reseller placed on credit watch"}
+  ]
+}

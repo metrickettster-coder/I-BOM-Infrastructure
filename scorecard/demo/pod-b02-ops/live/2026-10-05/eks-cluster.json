@@ -1,0 +1,14 @@
+{
+  "_sample": "SAMPLE DATA: synthetic `aws eks describe-cluster --name inf-b02`.",
+  "collectedAt": "2026-10-05T06:35:00Z",
+  "cluster": {
+    "name": "inf-b02",
+    "arn": "arn:aws:eks:us-east-1:111122223333:cluster/inf-b02",
+    "version": "1.31",
+    "status": "ACTIVE",
+    "platformVersion": "eks.9",
+    "tags": {
+      "project": "PRJ-INF-0107"
+    }
+  }
+}

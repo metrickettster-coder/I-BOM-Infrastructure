@@ -29,6 +29,8 @@ It is a **JSON Schema (draft 2020-12)** built to **align with CycloneDX 1.6**. I
 | `samples/pod-b02/cmdb/`, `samples/pod-b02/erp/`, `samples/pod-b02/bridge.json` | Synthetic ServiceNow and ERP exports with planted discrepancies, and the bridge run that uses them |
 | `examples/pod-b02-bridge/` | Output of `python3 -m ibom_bridge run samples/pod-b02/bridge.json`: exports, reconciliation report, unified view, and the I-BOM with CMDB and ERP keys written back |
 | `tests/test_bridge.py` | 24 bridge tests |
+| `scorecard/` | In-browser audit scorecard: drop in purchasing files, Terraform and live exports, get an I-BOM and the health and drift risk scorecard. Runs the engines above in the browser with Pyodide, so files never leave it. Engine side: `ibom_risk/audit.py` (`python3 -m ibom_risk audit`). See [scorecard/README.md](scorecard/README.md). |
+| `tests/test_audit.py` | 9 audit and scorecard page tests |
 
 ```bash
 pip install jsonschema                       # cyclonedx-python-lib too, to check exports
@@ -45,6 +47,10 @@ python3 tests/test_ingest.py
 python3 -m ibom_risk build samples/pod-b02-ops/manifest.json
 python3 -m ibom_risk scorecard examples/pod-b02-assessed.ibom.json --today 2026-10-12
 python3 tests/test_risk.py
+
+# read-only audit: any pile of files -> I-BOM + scorecard (what the scorecard web page runs)
+python3 -m ibom_risk audit samples/pod-b02/purchasing samples/pod-b02/iac/terraform-state.json samples/pod-b02-ops/live/2026-10-12 --today 2026-10-12
+python3 tests/test_audit.py
 
 # ERP / CMDB bridge
 python3 -m ibom_bridge run samples/pod-b02/bridge.json

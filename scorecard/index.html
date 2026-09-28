@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I-BOM Audit Scorecard</title>
+<meta name="description" content="Drop in purchasing files, Terraform and live exports and get an infrastructure health, drift and supply chain risk scorecard. Runs entirely in your browser.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="../">Open I-BOM</a>
+    <nav>
+      <a href="../">Standard docs</a>
+      <a href="https://github.com/metrickettster-coder/I-BOM-Infrastructure">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <h1>Infrastructure audit scorecard</h1>
+    <p class="lede">Drop in the files you already have: quotes, purchase orders, invoices, receiving lists, Terraform state, cloud inventories, Redfish or Ansible exports. You get an Infrastructure Bill of Materials and a scorecard for configuration drift, shadow infrastructure, supply chain risk and lifecycle health.</p>
+    <p class="privacy"><span class="dot" aria-hidden="true"></span>Your files never leave this browser tab. The open-source I-BOM engines run here, in Python compiled to WebAssembly.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="files-h">
+    <div class="panel-head">
+      <h2 id="files-h">1. Add files</h2>
+      <button id="demo" class="btn ghost" type="button">Try the sample pod</button>
+    </div>
+    <label id="drop" class="drop" tabindex="0">
+      <input id="pick" type="file" multiple hidden>
+      <strong>Drop files or a folder here</strong>
+      <span>or click to choose files</span>
+    </label>
+    <div class="pick-row">
+      <label class="linkish"><input id="pick-dir" type="file" webkitdirectory multiple hidden>Choose a whole folder</label>
+      <button id="clear" class="linkish" type="button" hidden>Remove all files</button>
+    </div>
+    <ul id="files" class="files" aria-live="polite"></ul>
+    <details class="formats">
+      <summary>Which files work?</summary>
+      <table>
+        <tbody>
+          <tr><th>Purchasing</th><td>Quotes, POs, invoices and receiving lists as CSV, XLSX, PDF or text. Column names are matched loosely (Part Number, MPN, Qty, Unit Price, Serial, ...).</td></tr>
+          <tr><th>Declared state</th><td><code>terraform show -json</code> state or plan output; Ansible inventory (.ini) with <code>ansible -m setup</code> facts</td></tr>
+          <tr><th>Live state</th><td><code>aws ec2 describe-instances</code>, Azure Resource Graph, GCP asset list, EKS cluster and node group JSON, Redfish snapshots, a refresh-only Terraform plan, or gNMI/agent facts</td></tr>
+          <tr><th>Policy</th><td>A golden configuration file (desired firmware, versions and drift policy) and a market signals file for supply risk</td></tr>
+          <tr><th>Existing I-BOM</th><td>An <code>.ibom.json</code> file is used as the starting point and enriched by the rest</td></tr>
+        </tbody>
+      </table>
+      <p>File types are recognised from their content, not their names. See the <a href="https://github.com/metrickettster-coder/I-BOM-Infrastructure/tree/main/samples">sample files</a> for each format.</p>
+    </details>
+  </section>
+
+  <section class="panel" aria-labelledby="run-h">
+    <h2 id="run-h">2. Score</h2>
+    <div class="options">
+      <label>As of <input id="today" type="date"></label>
+      <label>Needed on site by <input id="needby" type="date"><small>optional; defaults to each line's promised date</small></label>
+      <label>Project name <input id="project" type="text" placeholder="Uploaded files (audit)"></label>
+    </div>
+    <div class="run-row">
+      <button id="run" class="btn primary" type="button" disabled>Build scorecard</button>
+      <span id="status" class="status" role="status">Loading the Python engine...</span>
+    </div>
+  </section>
+
+  <section id="results" class="results" hidden aria-labelledby="res-h">
+    <h2 id="res-h" class="visually-hidden">Scorecard</h2>
+    <div class="hero panel">
+      <div class="ring-box">
+        <svg viewBox="0 0 120 120" class="ring" aria-hidden="true">
+          <circle cx="60" cy="60" r="52" class="ring-bg"></circle>
+          <circle cx="60" cy="60" r="52" class="ring-fg" id="ring-fg"></circle>
+        </svg>
+        <div class="ring-label"><span id="overall-grade" class="grade-big"></span><span id="overall-score" class="score-small"></span></div>
+      </div>
+      <div class="hero-text">
+        <p class="eyebrow">Overall health</p>
+        <h3 id="project-name"></h3>
+        <p id="asof" class="muted"></p>
+        <p id="headline" class="headline"></p>
+        <div class="downloads">
+          <button class="btn small" data-dl="bom" type="button">Download I-BOM (JSON)</button>
+          <button class="btn small" data-dl="md" type="button">Scorecard (Markdown)</button>
+          <button class="btn small" data-dl="json" type="button">Scorecard (JSON)</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="areas" class="areas"></div>
+
+    <div class="panel">
+      <h3>Top actions</h3>
+      <ol id="actions" class="actions"></ol>
+    </div>
+
+    <div class="panel">
+      <h3>Configuration drift</h3>
+      <div class="table-scroll"><table id="drift" class="grid"></table></div>
+    </div>
+
+    <div class="panel">
+      <h3>Supply chain risk by line</h3>
+      <div class="table-scroll"><table id="supply" class="grid"></table></div>
+    </div>
+
+    <details class="panel log">
+      <summary>Engine log</summary>
+      <pre id="log"></pre>
+    </details>
+  </section>
+
+  <footer class="foot">
+    <p>Scores come from the open-source <code>ibom_ingest</code> and <code>ibom_risk</code> engines (the same code as <code>python3 -m ibom_risk audit</code>). The supply risk model is an explainable rule of thumb, and the built-in EOL and sub-tier catalogs are illustrative sample data, not vendor statements. The sample pod is synthetic.</p>
+  </footer>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

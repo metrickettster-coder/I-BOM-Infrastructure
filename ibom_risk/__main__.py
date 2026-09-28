@@ -6,6 +6,7 @@
   python3 -m ibom_risk supply    bom.json [--signals s.json] [--need-by 2026-10-31] [--today D]
   python3 -m ibom_risk scorecard bom.json [--json | --markdown] [--today D]
   python3 -m ibom_risk build     manifest.json                     # run steps (and ingest.* steps) on an I-BOM
+  python3 -m ibom_risk audit     files_or_dirs... [--today D]      # any pile of files -> I-BOM + scorecard, read-only
 
 Every command except scorecard updates the I-BOM in place (or writes -o),
 bumps its version and validates it against ibom.schema.json.
@@ -123,6 +124,10 @@ def save(b, path, no_validate, at):
 
 
 def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    if argv[:1] == ["audit"]:
+        from . import audit
+        return audit.main(argv[1:])
     ap = argparse.ArgumentParser(prog="ibom_risk", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--at", default=None, help="timestamp for observations/metadata (default: now, UTC)")
     ap.add_argument("--no-validate", action="store_true")
@@ -161,6 +166,8 @@ def main(argv=None):
     s.add_argument("--markdown", action="store_true")
     s.add_argument("--today")
     s.add_argument("--horizon", type=int, default=365)
+
+    sub.add_parser("audit", help="classify any pile of files, build an I-BOM and print the scorecard (read-only)")
 
     s = sub.add_parser("build", help="run a manifest of steps on an existing I-BOM")
     s.add_argument("manifest")
