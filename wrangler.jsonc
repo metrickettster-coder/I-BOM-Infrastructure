@@ -1,11 +1,13 @@
 // Cloudflare Workers static-assets config for the docs site and scorecard.
-// Workers Builds settings:
-//   Build command:  pip install markdown jsonschema && python3 tools/build_site.py -o _site
-//   Deploy command: npx wrangler deploy
+// The build step below runs before every `wrangler deploy` / `wrangler versions
+// upload`, so Workers Builds needs no build command set in the dashboard.
 // GitHub Pages (.github/workflows/pages.yml) builds the same _site folder.
 {
   "name": "i-bom-infrastructure",
   "compatibility_date": "2026-09-01",
+  "build": {
+    "command": "python3 -m pip install --quiet markdown jsonschema && python3 tools/build_site.py -o _site"
+  },
   "assets": {
     "directory": "./_site",
     "not_found_handling": "404-page"
